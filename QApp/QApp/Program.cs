@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 namespace QApp
 {
     public class Program
-    {
+    { // Hej
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
