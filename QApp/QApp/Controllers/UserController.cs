@@ -16,14 +16,16 @@ namespace QApp.Controllers
     {
         UserManager<IdentityUser> userManager;
         SignInManager<IdentityUser> signInManager;
-        IdentityDbContext identityContext;
+        //Behövs när vi genrerar tabellerna
+        //IdentityDbContext identityContext;
 
-        public UserController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager, 
-            IdentityDbContext identityContext)
+        public UserController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager 
+            /*IdentityDbContext identityContext*/)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.identityContext = identityContext;
+            //Behövs när vi genrerar tabellerna
+            //this.identityContext = identityContext;
 
         }
 
@@ -37,24 +39,25 @@ namespace QApp.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
-            // Create DB-schema
-            /*identityContext.Database.EnsureCreated(); *///TODO Var ska den här vara?
+            // Skapar tabeller för användarhantering med Identity
+           //var result= identityContext.Database.EnsureCreated(); 
 
             return View();
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Register(UserRegisterVM register)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(register);
-        //    }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(UserRegisterVM register)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(register);
+            }
 
-        //    var result = await userManager.CreateAsync(new IdentityUser());
+            var result = await userManager.CreateAsync(new IdentityUser(register.UserName), register.Password);
 
-        //}
+            return RedirectToAction(nameof(Index));
+        }
 
 
     }
