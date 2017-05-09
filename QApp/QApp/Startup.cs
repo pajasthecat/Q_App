@@ -26,7 +26,7 @@ namespace QApp
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 6;
-                options.Cookies.ApplicationCookie.LoginPath = "home/login";
+                options.Cookies.ApplicationCookie.LoginPath = "User/login";
             })
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();

@@ -38,7 +38,7 @@ namespace QApp.Controllers
         public IActionResult Register()
         {
             // Create DB-schema
-            /*identityContext.Database.EnsureCreated(); *///TODO Var ska den här vara?
+            identityContext.Database.EnsureCreated(); //TODO Var ska den här vara?
 
             return View();
         }
