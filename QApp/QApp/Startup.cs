@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using QApp.Models.Entities;
 
 namespace QApp
 {
@@ -20,8 +21,14 @@ namespace QApp
         {
             var connString = @"Server=tcp:qapp.database.windows.net,1433;Initial Catalog=Milljas;Persist Security Info=False;User ID=milljas;Password=KronanWhite90;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
+            services.AddDbContext<MilljasContext>(
+                options => options.UseSqlServer(connString));
+
+            // EF från VS till SQL -- Måste denna vara aktiv??
             services.AddDbContext<IdentityDbContext>(
                 options => options.UseSqlServer(connString));
+
+            
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
