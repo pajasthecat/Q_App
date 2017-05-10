@@ -21,13 +21,10 @@ namespace QApp.Models.Entities
             Queue.Add(queue);
             //SaveChanges();
 
-            var tellerToUpdate = Teller.Find(1);
-            tellerToUpdate.Qid = queue.Id;
+            var counterToUpdate = Counter.Find(1);
+            counterToUpdate.QueueId = queue.Id;
             SaveChanges();
 
         }
-
     }
-
-
 }

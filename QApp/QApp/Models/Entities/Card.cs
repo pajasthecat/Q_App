@@ -7,19 +7,20 @@ namespace QApp.Models.Entities
     {
         public Card()
         {
-            Teller = new HashSet<Teller>();
+            Counter = new HashSet<Counter>();
         }
 
         public int Id { get; set; }
         public int CardNumber { get; set; }
-        public int? Qid { get; set; }
-        public int? Tid { get; set; }
-        public DateTime CardCreateTime { get; set; }
-        public DateTime TellerStartTime { get; set; }
-        public DateTime TellerEndTime { get; set; }
+        public int QueueId { get; set; }
+        public int? CounterId { get; set; }
+        public DateTime CardCreated { get; set; }
+        public DateTime? ServiceStart { get; set; }
+        public DateTime? ServiceEnd { get; set; }
+        public int? TellerId { get; set; }
 
-        public virtual ICollection<Teller> Teller { get; set; }
-        public virtual Queue Q { get; set; }
-        public virtual Teller T { get; set; }
+        public virtual ICollection<Counter> Counter { get; set; }
+        public virtual Queue Queue { get; set; }
+        public virtual User Teller { get; set; }
     }
 }

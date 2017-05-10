@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace QApp.Models.Entities
 {
-    public partial class Queue
+    public partial class User
     {
-        public Queue()
+        public User()
         {
             Card = new HashSet<Card>();
-            Counter = new HashSet<Counter>();
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string AspNetUserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public virtual ICollection<Card> Card { get; set; }
-        public virtual ICollection<Counter> Counter { get; set; }
     }
 }
