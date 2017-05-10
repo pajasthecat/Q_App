@@ -14,16 +14,30 @@ namespace QApp.Models.Entities
 
         }
 
-        public void CreateQueue()
+        public void PopulateQueue()
         {
-            Queue queue = new Queue();
-            queue.Name = DateTime.Now.ToString();
-            Queue.Add(queue);
-            //SaveChanges();
+            
+            bool isFirstCounterFree = Counter.Find(1).QueueId == null;
 
-            var counterToUpdate = Counter.Find(1);
-            counterToUpdate.QueueId = queue.Id;
-            SaveChanges();
+            if (isFirstCounterFree)
+            {
+                Queue queue = new Queue();
+                queue.Name = DateTime.Now.ToString();
+                Queue.Add(queue);
+
+                //Tar kassa 1 och sätter queueid till den nya köns id
+                Counter.Find(1).QueueId = queue.Id;
+                SaveChanges();
+            }
+            else
+            {
+               // Sorterar kötabell på id och tar den senast skapade kön
+                int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
+                // Tar nästa lediga kassa och sätter queueid till den aktiva köns id
+                Counter.Where(q => q.QueueId == null).First().QueueId = activeQueue;
+                SaveChanges();
+            }
+
 
         }
     }

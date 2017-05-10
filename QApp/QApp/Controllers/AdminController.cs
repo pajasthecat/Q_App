@@ -27,7 +27,7 @@ namespace QApp.Controllers
         [HttpPost]
         public IActionResult Home(AdminHomeVM viewModel)
         {
-            context.CreateQueue();
+            context.PopulateQueue();
             return View();
         }
     }

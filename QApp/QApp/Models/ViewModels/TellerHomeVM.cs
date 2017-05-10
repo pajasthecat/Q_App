@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace QApp.Models.ViewModels
 {
-    public class UserHomeVM
+    public class TellerHomeVM
     {
 
     }

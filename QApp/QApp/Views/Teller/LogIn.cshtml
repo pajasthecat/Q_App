@@ -1,10 +1,10 @@
-﻿@model UserLogInVM
+﻿@model TellerLogInVM
 
 @{
     ViewBag.title = "Logga in";
 }
 
-<form asp-controller="User" asp-action="LogIn">
+<form asp-controller="Teller" asp-action="LogIn">
     <label asp-for="UserName"></label>
     <input asp-for="UserName" />
     <span asp-validation-for="UserName"></span>

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace QApp.Models.ViewModels
 {
-    public class UserLogInVM
+    public class TellerLogInVM
     {
         [Required]
-        [DataType(DataType.EmailAddress)]
         public string UserName { get; set; }
 
         [Required]
