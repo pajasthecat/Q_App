@@ -7,14 +7,14 @@ namespace QApp.Models.Entities
     {
         public Queue()
         {
-            QueueTeller = new HashSet<QueueTeller>();
-            QueueUser = new HashSet<QueueUser>();
+            Card = new HashSet<Card>();
+            Teller = new HashSet<Teller>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<QueueTeller> QueueTeller { get; set; }
-        public virtual ICollection<QueueUser> QueueUser { get; set; }
+        public virtual ICollection<Card> Card { get; set; }
+        public virtual ICollection<Teller> Teller { get; set; }
     }
 }

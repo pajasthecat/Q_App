@@ -1,31 +1,48 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace QApp.Models.Entities
 {
     public partial class MilljasContext : DbContext
     {
+        public virtual DbSet<Card> Card { get; set; }
         public virtual DbSet<Queue> Queue { get; set; }
-        public virtual DbSet<QueueTeller> QueueTeller { get; set; }
-        public virtual DbSet<QueueUser> QueueUser { get; set; }
+        public virtual DbSet<Teller> Teller { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-        //    optionsBuilder.UseSqlServer(@"Server=tcp:qapp.database.windows.net,1433;Initial Catalog=Milljas;Persist Security Info=False;User ID=milljas;Password=KronanWhite90;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-        //}
-
-        public MilljasContext(DbContextOptions<MilljasContext> options):base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+            #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+            optionsBuilder.UseSqlServer(@"Server=tcp:qapp.database.windows.net,1433;Initial Catalog=Milljas;Persist Security Info=False;User ID=milljas;Password=KronanWhite90;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Card>(entity =>
+            {
+                entity.ToTable("Card", "q");
+
+                entity.Property(e => e.CardCreateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Qid).HasColumnName("QId");
+
+                entity.Property(e => e.TellerEndTime).HasColumnType("datetime");
+
+                entity.Property(e => e.TellerStartTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Tid).HasColumnName("TId");
+
+                entity.HasOne(d => d.Q)
+                    .WithMany(p => p.Card)
+                    .HasForeignKey(d => d.Qid)
+                    .HasConstraintName("FK__Card__QId__5AEE82B9");
+
+                entity.HasOne(d => d.T)
+                    .WithMany(p => p.Card)
+                    .HasForeignKey(d => d.Tid)
+                    .HasConstraintName("FK__Card__TId__5EBF139D");
+            });
+
             modelBuilder.Entity<Queue>(entity =>
             {
                 entity.ToTable("Queue", "q");
@@ -35,30 +52,27 @@ namespace QApp.Models.Entities
                     .HasColumnType("varchar(max)");
             });
 
-            modelBuilder.Entity<QueueTeller>(entity =>
+            modelBuilder.Entity<Teller>(entity =>
             {
-                entity.ToTable("QueueTeller", "q");
+                entity.ToTable("Teller", "q");
+
+                entity.Property(e => e.Cid).HasColumnName("CId");
 
                 entity.Property(e => e.Qid).HasColumnName("QId");
 
-                entity.HasOne(d => d.Q)
-                    .WithMany(p => p.QueueTeller)
-                    .HasForeignKey(d => d.Qid)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK__QueueTeller__QId__4D94879B");
-            });
+                entity.Property(e => e.TellerNumber)
+                    .IsRequired()
+                    .HasColumnType("varchar(max)");
 
-            modelBuilder.Entity<QueueUser>(entity =>
-            {
-                entity.ToTable("QueueUser", "q");
-
-                entity.Property(e => e.Qid).HasColumnName("QId");
+                entity.HasOne(d => d.C)
+                    .WithMany(p => p.Teller)
+                    .HasForeignKey(d => d.Cid)
+                    .HasConstraintName("FK__Teller__CId__5FB337D6");
 
                 entity.HasOne(d => d.Q)
-                    .WithMany(p => p.QueueUser)
+                    .WithMany(p => p.Teller)
                     .HasForeignKey(d => d.Qid)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK__QueueUser__QId__4AB81AF0");
+                    .HasConstraintName("FK__Teller__QId__60A75C0F");
             });
         }
     }

@@ -8,7 +8,10 @@ namespace QApp.Models
 {
     public partial class MilljasContext : DbContext
     {
+        public MilljasContext(DbContextOptions<MilljasContext> options) : base(options)
+        {
 
+        }
 
     }
 
