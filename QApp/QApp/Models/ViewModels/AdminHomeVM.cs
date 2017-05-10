@@ -7,6 +7,5 @@ namespace QApp.Models.ViewModels
 {
     public class AdminHomeVM
     {
-
     }
 }
