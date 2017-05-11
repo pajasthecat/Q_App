@@ -14,10 +14,26 @@ namespace QApp.Models.Entities
 
         }
 
-        public void PopulateQueue()
+
+        public void RemoveTellerFromQueue(string aspUserId)
         {
-            
+            User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
+
+            //Sätter queueid till null på den counter som trycker på knappen
+            Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
+
+            counter.QueueId = null;
+            counter.TellerId = null;
+
+            SaveChanges();
+        }
+
+        //Vi stoppar in aspnetUserId här
+        public void PopulateQueue(string aspUserId)
+        {
+
             bool isFirstCounterFree = Counter.Find(1).QueueId == null;
+            User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
 
             if (isFirstCounterFree)
             {
@@ -25,17 +41,30 @@ namespace QApp.Models.Entities
                 queue.Name = DateTime.Now.ToString();
                 Queue.Add(queue);
 
+                Counter.Find(1).TellerId = user.Id;
                 //Tar kassa 1 och sätter queueid till den nya köns id
                 Counter.Find(1).QueueId = queue.Id;
                 SaveChanges();
             }
             else
             {
-               // Sorterar kötabell på id och tar den senast skapade kön
-                int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
-                // Tar nästa lediga kassa och sätter queueid till den aktiva köns id
-                Counter.Where(q => q.QueueId == null).First().QueueId = activeQueue;
-                SaveChanges();
+                bool tellerAlreadyActive = Counter.FirstOrDefault().TellerId == user.Id;
+
+                if (!tellerAlreadyActive)
+                {
+                    // Sorterar kötabell på id och tar den senast skapade kön
+                    int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
+
+                    // Tar nästa lediga kassa och sätter teller id till user id samt queueid till den aktiva köns id
+                    Counter.Where(q => q.QueueId == null).First().QueueId = activeQueue;
+                    Counter.Where(q => q.TellerId == null).First().TellerId = user.Id;
+                    SaveChanges();
+                }
+                else
+                {
+                    //TODO Skicka tillbaka att tellern redan bemannar en kassa
+                }
+                
             }
 
 

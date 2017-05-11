@@ -8,6 +8,7 @@ namespace QApp.Models.Entities
         public User()
         {
             Card = new HashSet<Card>();
+            Counter = new HashSet<Counter>();
         }
 
         public int Id { get; set; }
@@ -16,5 +17,6 @@ namespace QApp.Models.Entities
         public string LastName { get; set; }
 
         public virtual ICollection<Card> Card { get; set; }
+        public virtual ICollection<Counter> Counter { get; set; }
     }
 }

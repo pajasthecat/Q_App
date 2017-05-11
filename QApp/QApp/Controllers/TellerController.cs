@@ -20,18 +20,31 @@ namespace QApp.Controllers
         SignInManager<IdentityUser> signInManager;
         RoleManager<IdentityRole> roleManager;
         //Behövs när vi genrerar tabellerna
-        //IdentityDbContext identityContext;
+        IdentityDbContext identityContext;
         MilljasContext context;
 
         public TellerController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager,
-            /*IdentityDbContext identityContext*/ MilljasContext context)
+            IdentityDbContext identityContext, MilljasContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
             //Behövs när vi genrerar tabellerna
-            //this.identityContext = identityContext;
+            this.identityContext = identityContext;
             this.context = context;
+        }
+
+        public IActionResult Queue()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Queue(TellerQueueVM viewModel)
+        {
+            string aspUserId = userManager.GetUserId(HttpContext.User);
+            context.RemoveTellerFromQueue(aspUserId);
+            return RedirectToAction(nameof(Home));
         }
 
         // GET: /<controller>/
@@ -42,8 +55,9 @@ namespace QApp.Controllers
         [HttpPost]
         public IActionResult Home(AdminHomeVM viewModel)
         {
-            context.PopulateQueue();
-            return View();
+            string aspUserId = userManager.GetUserId(HttpContext.User); 
+            context.PopulateQueue(aspUserId);
+            return RedirectToAction(nameof(Queue));
         }
 
         //Flytta till Admincontroller för att regga nya tellers
