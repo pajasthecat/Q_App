@@ -1,18 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QApp.Models.Entities;
+using QApp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace QApp.Models.Entities
 {
     public partial class MilljasContext : DbContext
     {
+        CustomerIndexVM customerIndexVM = new CustomerIndexVM();
         public MilljasContext(DbContextOptions<MilljasContext> options) : base(options)
         {
 
         }
+
+        //public CustomerIndexVM GetCardNumber()
+        //{
+
+        //    //return Card
+                
+        //}
 
         public void AddCustomerToQueue()
         {
@@ -30,6 +40,7 @@ namespace QApp.Models.Entities
                 card.QueueId = activeQueue;
                 Card.Add(card);
                 SaveChanges();
+                
             }
             else
             {
