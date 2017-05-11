@@ -14,6 +14,28 @@ namespace QApp.Models.Entities
 
         }
 
+        public void AddCustomerToQueue()
+        {
+            int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
+
+            bool queueIsActive = Counter.FirstOrDefault().QueueId != null;
+
+            if(queueIsActive)
+            {
+                int numberOfCards = Card.Where(c => c.QueueId == activeQueue).Count();
+                Card card = new Card();
+
+                card.CardNumber = numberOfCards + 1;
+                card.CardCreated = DateTime.Now;
+                card.QueueId = activeQueue;
+                Card.Add(card);
+                SaveChanges();
+            }
+            else
+            {
+                //Skicka felmeddelande
+            }
+        }
 
         public void RemoveTellerFromQueue(string aspUserId)
         {
@@ -40,6 +62,7 @@ namespace QApp.Models.Entities
                 Queue queue = new Queue();
                 queue.Name = DateTime.Now.ToString();
                 Queue.Add(queue);
+                
 
                 Counter.Find(1).TellerId = user.Id;
                 //Tar kassa 1 och sätter queueid till den nya köns id

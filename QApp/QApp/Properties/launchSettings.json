@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:58744/teller/login",
+      "applicationUrl": "http://localhost:58744/customer/index",
       "sslPort": 0
     }
   },
