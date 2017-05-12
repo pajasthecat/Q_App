@@ -31,7 +31,7 @@ namespace QApp
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(3600);
+                options.IdleTimeout = TimeSpan.FromSeconds(240);
                 options.CookieHttpOnly = true;
             });
 

@@ -91,8 +91,15 @@ namespace QApp.Models.Entities
             //Sätter queueid till null på den counter som trycker på knappen
             Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
 
+            //När vi stänger sista kassan 
+            //Selecta alla cards som har session id och saknar teller id
+            //Skapa lista av cards och loopa igenom
+            //List<Card> cardsToRemove = Card.Select(c => c.CounterId == null).
+
             counter.QueueId = null;
             counter.TellerId = null;
+            counter.CardId = null;
+            
 
             SaveChanges();
         }
