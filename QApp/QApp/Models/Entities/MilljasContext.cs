@@ -11,6 +11,8 @@ namespace QApp.Models.Entities
         public virtual DbSet<Queue> Queue { get; set; }
         public virtual DbSet<User> User { get; set; }
 
+      
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Card>(entity =>

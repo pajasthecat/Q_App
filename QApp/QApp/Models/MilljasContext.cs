@@ -53,7 +53,7 @@ namespace QApp.Models.Entities
             }
             catch (Exception)
             {
-                
+
             }
 
             return customerIndexVM;
@@ -65,7 +65,7 @@ namespace QApp.Models.Entities
 
             bool queueIsActive = Counter.FirstOrDefault().QueueId != null;
 
-            if(queueIsActive)
+            if (queueIsActive)
             {
                 int numberOfCards = Card.Where(c => c.QueueId == activeQueue).Count();
                 Card card = new Card();
@@ -76,7 +76,7 @@ namespace QApp.Models.Entities
                 card.SessionId = sessionId;
                 Card.Add(card);
                 SaveChanges();
-                
+
             }
             else
             {
@@ -94,12 +94,23 @@ namespace QApp.Models.Entities
             //När vi stänger sista kassan 
             //Selecta alla cards som har session id och saknar teller id
             //Skapa lista av cards och loopa igenom
-            //List<Card> cardsToRemove = Card.Select(c => c.CounterId == null).
+            bool isLastCounter = Counter.Where(c => c.TellerId != null).Count() == 1;
+            if (isLastCounter)
+            {
+                var test = Card.Where(c => c.CounterId == null).ToList();
+
+                foreach (var item in test)
+                {
+                    item.SessionId = null;
+                    
+                }
+
+            }
 
             counter.QueueId = null;
             counter.TellerId = null;
             counter.CardId = null;
-            
+
 
             SaveChanges();
         }
@@ -116,7 +127,7 @@ namespace QApp.Models.Entities
                 Queue queue = new Queue();
                 queue.Name = DateTime.Now.ToString();
                 Queue.Add(queue);
-                
+
 
                 Counter.Find(1).TellerId = user.Id;
                 //Tar kassa 1 och sätter queueid till den nya köns id
@@ -141,7 +152,7 @@ namespace QApp.Models.Entities
                 {
                     //TODO Skicka tillbaka att tellern redan bemannar en kassa
                 }
-                
+
             }
 
 

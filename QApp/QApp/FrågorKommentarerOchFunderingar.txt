@@ -1,11 +1,9 @@
 ﻿EF sträng
 Scaffold-DbContext "Server=tcp:qapp.database.windows.net,1433;Initial Catalog=Milljas;Persist Security Info=False;User ID=milljas;Password=KronanWhite90;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Models/Entities" -Context "MilljasContext" -Force -Schema "q"
-
+Lösnerod till publish: ESlwpwYAo1bpeLzoiBY66k17tr4Gnb7rkzWHmWbchjJjbq8YTbFdfuy2twKm
 Via Javascript göra databasanrop var xx sekund "Long polling"
 eller signalR
 Ändra session default till x timmar.
 När jag går in som customer o ställer i kö. Får ett kö-nummer och får alternativet att gå ur kö men när jag laddar om sidan kommer ställ dig i kö upp igen men inte lämna kö
 Vi dtilldelar könummret till fel teller och kö, tror vi.
-När vi stänger kassan nollar vi inte cardid
-När vi stänger sista kassan så nollas sessionid
 Vi sätter inte service start och service end på cardet 
