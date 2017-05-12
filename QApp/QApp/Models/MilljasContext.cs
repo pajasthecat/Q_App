@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using QApp.Models.Entities;
 using QApp.Models.ViewModels;
 using System;
@@ -11,7 +12,7 @@ namespace QApp.Models.Entities
 {
     public partial class MilljasContext : DbContext
     {
-        CustomerIndexVM customerIndexVM = new CustomerIndexVM();
+        //CustomerIndexVM customerIndexVM = new CustomerIndexVM(); -- Vara kvar?
         public MilljasContext(DbContextOptions<MilljasContext> options) : base(options)
         {
 
@@ -19,12 +20,12 @@ namespace QApp.Models.Entities
 
         //public CustomerIndexVM GetCardNumber()
         //{
-
+        //    int cardNumber = Card.
         //    //return Card
-                
+
         //}
 
-        public void AddCustomerToQueue()
+        public void AddCustomerToQueue(string sessionId)
         {
             int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
 
@@ -38,6 +39,7 @@ namespace QApp.Models.Entities
                 card.CardNumber = numberOfCards + 1;
                 card.CardCreated = DateTime.Now;
                 card.QueueId = activeQueue;
+                card.SessionId = sessionId;
                 Card.Add(card);
                 SaveChanges();
                 

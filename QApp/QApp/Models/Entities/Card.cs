@@ -18,6 +18,7 @@ namespace QApp.Models.Entities
         public DateTime? ServiceStart { get; set; }
         public DateTime? ServiceEnd { get; set; }
         public int? TellerId { get; set; }
+        public string SessionId { get; set; }
 
         public virtual ICollection<Counter> Counter { get; set; }
         public virtual Queue Queue { get; set; }
