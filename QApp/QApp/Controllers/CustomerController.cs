@@ -32,7 +32,9 @@ namespace QApp.Controllers
 
             context.AddCustomerToQueue();
             HttpContext.Session.SetString("CardNumber", viewModel.CardNumber.ToString());
+         
             return View();
+            
         }
     }
 }
