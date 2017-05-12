@@ -7,6 +7,6 @@ namespace QApp.Models.ViewModels
 {
     public class TellerQueueVM
     {
-        
+        public int CardNumber { get; set; }
     }
 }

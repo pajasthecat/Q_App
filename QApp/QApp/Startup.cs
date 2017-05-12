@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using QApp.Models.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace QApp
 {
@@ -28,6 +29,12 @@ namespace QApp
             services.AddDbContext<IdentityDbContext>(
                 options => options.UseSqlServer(connString));
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(3600);
+                options.CookieHttpOnly = true;
+            });
+
             
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
@@ -39,8 +46,8 @@ namespace QApp
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-            services.AddSession();
             services.AddMemoryCache();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +60,8 @@ namespace QApp
             app.UseIdentity();
 
             app.UseMvcWithDefaultRoute();
+
+            
         }
     }
 }

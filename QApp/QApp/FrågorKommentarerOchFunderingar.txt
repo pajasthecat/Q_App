@@ -2,4 +2,5 @@
 Scaffold-DbContext "Server=tcp:qapp.database.windows.net,1433;Initial Catalog=Milljas;Persist Security Info=False;User ID=milljas;Password=KronanWhite90;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Models/Entities" -Context "MilljasContext" -Force -Schema "q"
 
 Via Javascript göra databasanrop var xx sekund "Long polling"
+eller signalR
 Ändra session default till x timmar.

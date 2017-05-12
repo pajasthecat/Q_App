@@ -47,6 +47,15 @@ namespace QApp.Controllers
             return RedirectToAction(nameof(Home));
         }
 
+        public TellerQueueVM HelpNextCustomer()
+        {
+            TellerQueueVM tellerQueueVM = new TellerQueueVM();
+
+            string aspUserId = userManager.GetUserId(HttpContext.User);
+            
+            return context.HelpNextCustomer(aspUserId);
+        }
+
         // GET: /<controller>/
         public IActionResult Home()
         {

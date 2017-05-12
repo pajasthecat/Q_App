@@ -22,14 +22,14 @@ namespace QApp.Controllers
 
         public IActionResult Index()
         {
-            
+            HttpContext.Session.SetString("Kalle", "Anka");
             return View(context.GetCardNumber(HttpContext.Session.Id));
         }
 
         
         public CustomerIndexVM GetCustomerCardNumber() 
         {
-
+            HttpContext.Session.SetString("Kalle", "Anka");
             context.AddCustomerToQueue(HttpContext.Session.Id);
             //HttpContext.Session.SetString("CardNumber", viewModel.CardNumber.ToString());
             return context.GetCardNumber(HttpContext.Session.Id);

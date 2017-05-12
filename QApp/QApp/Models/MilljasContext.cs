@@ -17,6 +17,32 @@ namespace QApp.Models.Entities
 
         }
 
+        public TellerQueueVM HelpNextCustomer(string aspUserId)
+        {
+            TellerQueueVM tellerQueueVM = new TellerQueueVM();
+
+            //Card card = Card.Where(c => c.Id == nextCard).Single();
+
+            //Hitta nästa card som inte är kopplad till en counter
+            Card card = Card.OrderBy(c => c.Id).Where(i => i.CounterId == null).First();
+            // Ta ut cardets id och nummer och tilldela variablerna
+            int nextCardID = card.Id;
+            int nextCardNumber = card.CardNumber;
+            // ??
+            User user = User.Single(i => i.AspNetUserId == aspUserId);
+            int counterId = Counter.Where(c => c.TellerId == user.Id).Select(ci => ci.Id).First();
+
+            //
+            Card.Find(nextCardID).CounterId = counterId;
+            Card.Find(nextCardID).TellerId = user.Id;
+            Counter.Find(counterId).CardId = nextCardID;
+            SaveChanges();
+
+            tellerQueueVM.CardNumber = nextCardNumber;
+
+            return tellerQueueVM;
+        }
+
         public CustomerIndexVM GetCardNumber(string sessionId)
         {
             CustomerIndexVM customerIndexVM = new CustomerIndexVM();

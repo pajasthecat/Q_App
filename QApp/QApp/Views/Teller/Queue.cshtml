@@ -1,5 +1,27 @@
 ﻿@model TellerQueueVM
 <h1>Välkommen till QApp</h1>
+
 <form asp-controller="Teller" asp-action="Queue">
     <input type="submit" value="Stäng kassa" />
 </form>
+
+<div id="nextCustomer">
+    <button id="helpnextcustomer" onclick="helpnextcustomer()"> Hjälp nästa i kö</button>
+</div>
+
+<div id="showCardNumberToTeller">
+   
+</div> 
+
+<script>
+    function helpnextcustomer() {
+        $.ajax({
+            url: "helpnextcustomer",
+            success: function (result) {
+                $("#showCardNumberToTeller").html(result.cardNumber);
+            }
+        });
+
+    }
+
+</script>
