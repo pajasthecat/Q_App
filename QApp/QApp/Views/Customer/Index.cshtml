@@ -1,11 +1,38 @@
 ﻿@model CustomerIndexVM
 
 <h1>Välkommen till QApp</h1>
-<form asp-controller="Customer" asp-action="Index">
-    <input type="submit" value="Ställ dig i kö" />
-</form>
+
+<div >
+    <button id="joinQueue" onclick="buttonClick()" > Ställ dig i kö</button>
+</div>
+
+<br />
 
 <div>
-    @Model.CardNumber
-</div>   
+    <button  id="leaveQueue" onclick="buttonClick()" style="display:none"> Gå ur kö</button>
+</div>
 
+@*<form asp-controller="Customer" asp-action="Index">
+    <input type="submit" value="Ställ dig i kö" />
+</form>*@
+
+  
+
+<div id="showCardNumber">
+    @Model.CardNumber
+</div> 
+
+<script>
+    function buttonClick() {
+        $.ajax({
+            url: "GetCustomerCardNumber",
+             success: function (result) {
+                 $("#showCardNumber").html(result.cardNumber);
+                 $("#joinQueue").hide();
+                 $("#leaveQueue").show();   
+
+            }
+        });
+
+    }
+</script>

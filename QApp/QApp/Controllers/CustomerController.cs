@@ -23,16 +23,16 @@ namespace QApp.Controllers
         public IActionResult Index()
         {
             
-            return View(/*HttpContext.Session.GetString("")*/);
+            return View(context.GetCardNumber(HttpContext.Session.Id));
         }
 
-        [HttpPost]
-        public IActionResult Index(CustomerIndexVM viewModel)
+        
+        public CustomerIndexVM GetCustomerCardNumber() 
         {
-            
+
             context.AddCustomerToQueue(HttpContext.Session.Id);
             //HttpContext.Session.SetString("CardNumber", viewModel.CardNumber.ToString());
-            return View();
+            return context.GetCardNumber(HttpContext.Session.Id);
         }
     }
 }

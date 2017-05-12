@@ -12,18 +12,26 @@ namespace QApp.Models.Entities
 {
     public partial class MilljasContext : DbContext
     {
-        //CustomerIndexVM customerIndexVM = new CustomerIndexVM(); -- Vara kvar?
         public MilljasContext(DbContextOptions<MilljasContext> options) : base(options)
         {
 
         }
 
-        //public CustomerIndexVM GetCardNumber()
-        //{
-        //    int cardNumber = Card.
-        //    //return Card
+        public CustomerIndexVM GetCardNumber(string sessionId)
+        {
+            CustomerIndexVM customerIndexVM = new CustomerIndexVM();
+            try
+            {
+                int cardNumber = Card.Where(s => s.SessionId == sessionId).Select(si => si.CardNumber).Single();
+                customerIndexVM.CardNumber = cardNumber;
+            }
+            catch (Exception)
+            {
+                
+            }
 
-        //}
+            return customerIndexVM;
+        }
 
         public void AddCustomerToQueue(string sessionId)
         {
