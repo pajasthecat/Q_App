@@ -28,15 +28,30 @@ namespace QApp.Models.Entities
             // Ta ut cardets id och nummer och tilldela variablerna
             int nextCardID = card.Id;
             int nextCardNumber = card.CardNumber;
-            // ??
+            
+            //Hämtar den teller som matchar med den som klickar på knappens id
             User user = User.Single(i => i.AspNetUserId == aspUserId);
+            //Kollar vilken counter den tellern är på
             int counterId = Counter.Where(c => c.TellerId == user.Id).Select(ci => ci.Id).First();
 
-            //
+            //När jag trycker på nästa kund måste serviceEnd sättas på min förra kund
+            //Kanske genom att det första som händer är att hitta senaste card med mitt tellerid/counterid? och sätta dess
+            //serviceEnd till DateTime.Now
+            //CounterID ska stämma överens OCH serviceEnd ska vara tom
+            Card cardToClose = Card.OrderBy(ci => ci.Id).Where(c => c.CounterId == counterId).Last();
+            
+            if(cardToClose.ServiceEnd == null)
+            {
+                cardToClose.ServiceEnd = DateTime.Now;
+            }
+
             Card.Find(nextCardID).CounterId = counterId;
             Card.Find(nextCardID).TellerId = user.Id;
+            Card.Find(nextCardID).ServiceStart = DateTime.Now; //La till Servicestart på cardet när man tar en ny kund
             Counter.Find(counterId).CardId = nextCardID;
             SaveChanges();
+
+            
 
             tellerQueueVM.CardNumber = nextCardNumber;
 
