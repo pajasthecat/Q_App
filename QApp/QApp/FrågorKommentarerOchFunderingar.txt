@@ -7,3 +7,8 @@ eller signalR
 När jag går in som customer o ställer i kö. Får ett kö-nummer och får alternativet att gå ur kö men när jag laddar om sidan kommer ställ dig i kö upp igen men inte lämna kö
 Vi dtilldelar könummret till fel teller och kö, tror vi.
 Vi sätter inte service start och service end på cardet 
+
+
+Nollar vi cardet från countern? Den finns där tills vi tar nästa person va?
+
+Sätt serviceEnd på den kund som var i kassan när kassan stängdes

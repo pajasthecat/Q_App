@@ -133,11 +133,28 @@ namespace QApp.Models.Entities
         //Vi stoppar in aspnetUserId här
         public void PopulateQueue(string aspUserId)
         {
+            //VI kollar om kassa 1 är ledig. Måste kolla om NÅGON kassa är öppen och om personen redan står i en kassa
+            //När personal2 loggar in ska den inte starta en ny kö och heller inte ställa si 
 
-            bool isFirstCounterFree = Counter.Find(1).QueueId == null;
+            // Hämtar alla kassors qId till en lista 
+            List<Counter> counters = Counter.Select(c => new Counter {
+                QueueId = c.QueueId
+            }).ToList();
+
+            int activeCounters = 0;
+
+            foreach (var counter in counters)
+            {
+                
+                if (counter.QueueId != null)
+                {
+                    activeCounters++;
+                }
+            }
+            
             User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
 
-            if (isFirstCounterFree)
+            if (activeCounters == 0)
             {
                 Queue queue = new Queue();
                 queue.Name = DateTime.Now.ToString();
@@ -151,9 +168,11 @@ namespace QApp.Models.Entities
             }
             else
             {
-                bool tellerAlreadyActive = Counter.FirstOrDefault().TellerId == user.Id;
+                //Kollar om första kassans tellerid stämmer med det userid som öppnar kassan
+                //bool tellerAlreadyActive = Counter.FirstOrDefault().TellerId == user.Id;
+                Counter counter = Counter.FirstOrDefault(tid => tid.TellerId == user.Id);
 
-                if (!tellerAlreadyActive)
+                if (counter == null)
                 {
                     // Sorterar kötabell på id och tar den senast skapade kön
                     int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
