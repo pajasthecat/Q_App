@@ -3,13 +3,13 @@
 <h1>Välkommen till QApp</h1>
 
 <div >
-    <button id="joinQueue" onclick="buttonClick()" > Ställ dig i kö</button>
+    <button id="joinQueue" onclick="joinqueue()" > Ställ dig i kö</button>
 </div>
 
 <br />
 
 <div>
-    <button  id="leaveQueue" onclick="buttonClick()" style="display:none"> Gå ur kö</button>
+    <button  id="leaveQueue" onclick="leavequeue()" style="display:none"> Gå ur kö</button>
 </div>
 
 @*<form asp-controller="Customer" asp-action="Index">
@@ -23,13 +23,25 @@
 </div> 
 
 <script>
-    function buttonClick() {
+    function joinqueue() {
         $.ajax({
             url: "GetCustomerCardNumber",
              success: function (result) {
                  $("#showCardNumber").html(result.cardNumber);
                  $("#joinQueue").hide();
                  $("#leaveQueue").show();   
+
+            }
+        });
+
+    }
+
+    function leavequeue() {
+        $.ajax({
+            url: "LeaveCustomerQueue",
+            success: function () {
+                $("#joinQueue").show();
+                $("#leaveQueue").hide();
 
             }
         });

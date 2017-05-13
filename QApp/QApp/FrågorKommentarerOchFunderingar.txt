@@ -12,3 +12,8 @@ Vi sätter inte service start och service end på cardet
 Nollar vi cardet från countern? Den finns där tills vi tar nästa person va?
 
 Sätt serviceEnd på den kund som var i kassan när kassan stängdes
+
+Om man går ur kön får man istället en nya kölapp i samma kö
+
+
+

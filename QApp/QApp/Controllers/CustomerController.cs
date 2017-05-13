@@ -34,5 +34,12 @@ namespace QApp.Controllers
             //HttpContext.Session.SetString("CardNumber", viewModel.CardNumber.ToString());
             return context.GetCardNumber(HttpContext.Session.Id);
         }
+
+        public CustomerIndexVM LeaveCustomerQueue()
+        {
+            context.LeaveCustomerQueue(HttpContext.Session.Id);
+            return context.GetCardNumber(HttpContext.Session.Id);
+
+        }
     }
 }

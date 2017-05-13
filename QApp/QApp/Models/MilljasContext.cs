@@ -191,5 +191,13 @@ namespace QApp.Models.Entities
 
 
         }
+
+        public void LeaveCustomerQueue(string sessionId)
+        {
+            Card card = Card.Where(sid => sid.SessionId == sessionId).First();
+            card.CounterId = 999999;
+            card.TellerId = 999999;
+            SaveChanges();
+        }
     }
 }
