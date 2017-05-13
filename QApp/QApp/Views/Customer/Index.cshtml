@@ -25,7 +25,7 @@
 <script>
     function buttonClick() {
         $.ajax({
-            url: "customer/GetCustomerCardNumber",
+            url: "GetCustomerCardNumber",
              success: function (result) {
                  $("#showCardNumber").html(result.cardNumber);
                  $("#joinQueue").hide();
