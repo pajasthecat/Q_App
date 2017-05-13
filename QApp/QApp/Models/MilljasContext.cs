@@ -192,16 +192,17 @@ namespace QApp.Models.Entities
 
         }
 
-        public CustomerIndexVM LeaveCustomerQueue(string sessionId)
-        {
-            Card card = Card.Where(sid => sid.SessionId == sessionId).First();
-            card.CounterId = 999999;
+        //Metod för att lämna kö
+        //public CustomerIndexVM LeaveCustomerQueue(string sessionId)
+        //{
+        //    Card card = Card.Where(sid => sid.SessionId == sessionId).First();
+        //    card.CounterId = 999999;
           
-            SaveChanges();
+        //    SaveChanges();
 
-            CustomerIndexVM viewModel = new CustomerIndexVM();
-            viewModel.CardNumber = 0;
-            return viewModel;
-        }
+        //    CustomerIndexVM viewModel = new CustomerIndexVM();
+        //    viewModel.CardNumber = 0;
+        //    return viewModel;
+        //}
     }
 }

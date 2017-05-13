@@ -8,9 +8,10 @@
 
 <br />
 
-<div>
+@*Knapp för att lämna kö*@
+@*<div>
     <button  id="leaveQueue" onclick="leavequeue()" style="display:none"> Gå ur kö</button>
-</div>
+</div>*@
 
 @*<form asp-controller="Customer" asp-action="Index">
     <input type="submit" value="Ställ dig i kö" />
@@ -35,18 +36,18 @@
         });
 
     }
+    //Funktion för att lämna kö
+    //function leavequeue() {
+    //    $.ajax({
+    //        url: "LeaveCustomerQueue",
+    //        success: function () {
+    //            $("#joinQueue").show();
+    //            $("#leaveQueue").hide();
 
-    function leavequeue() {
-        $.ajax({
-            url: "LeaveCustomerQueue",
-            success: function () {
-                $("#joinQueue").show();
-                $("#leaveQueue").hide();
+    //        }
+    //    });
 
-            }
-        });
-
-    }
+    //}
 
     //Anrop till databas för att hålla kön uppdaterad 
 </script>
