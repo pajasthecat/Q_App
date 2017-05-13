@@ -38,9 +38,9 @@ namespace QApp.Models.Entities
             //Kanske genom att det första som händer är att hitta senaste card med mitt tellerid/counterid? och sätta dess
             //serviceEnd till DateTime.Now
             //CounterID ska stämma överens OCH serviceEnd ska vara tom
-            Card cardToClose = Card.OrderBy(ci => ci.Id).Where(c => c.CounterId == counterId).Last();
+            Card cardToClose = Card.OrderBy(ci => ci.Id).Where(c => c.CounterId == counterId).LastOrDefault();
             
-            if(cardToClose.ServiceEnd == null)
+            if(cardToClose != null)
             {
                 cardToClose.ServiceEnd = DateTime.Now;
             }
