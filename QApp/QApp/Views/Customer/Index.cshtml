@@ -7,7 +7,7 @@
 
 
 <div>
-    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue()"> Ställ dig i kö</button>
+    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue(); showposition()" > Ställ dig i kö</button>
 </div>
 
 <br />
@@ -31,7 +31,7 @@
 @* Lagt till ett fält för att visa antal platser före i kön.
     Vi vill alltså kolla efter uppdateringar i cards-tabellen för att göra en ny check och
     uppdatera kunden*@
-<div id="showNumbersLeftInQueue">
+<div id="showNumbersBeforeYou">
     @Model.NumbersLeftInQueue
 </div>
 
@@ -46,6 +46,18 @@
             }
         });
     }
+
+    function showposition() {
+        $.ajax({
+            url: "customer/ShowPositionInQueue",
+            success: function (result) {
+                $("#showNumbersBeforeYou").html(result.NumbersLeftInQueue);
+            }
+        });
+    }
+
+
+
     //Funktion för att lämna kö
     //function leavequeue() {
     //    $.ajax({
