@@ -5,13 +5,17 @@
 }
 
 <form asp-controller="Teller" asp-action="LogIn">
-    <label asp-for="UserName"></label>
-    <input asp-for="UserName" />
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
     <span asp-validation-for="UserName"></span>
     <br />
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password"></span>
-    <br />
-    <input type="submit" value="Ok" />
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+    </div>
+        <span asp-validation-for="Password"></span>
+        <br />
+        <input class="btn btn-default" type="submit" value="Ok" />
 </form>

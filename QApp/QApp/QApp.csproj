@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\CSS\MyStyleSheet.css" />
+    <Content Include="wwwroot\MyStyleSheet.css" />
+    <Content Include="wwwroot\style\MyStyleSheet.css" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="3.3.7" />

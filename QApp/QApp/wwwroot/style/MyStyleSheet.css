@@ -1,0 +1,22 @@
+﻿.jumbotron {
+    background-color: pink;
+    height:150px;
+}
+
+#test h1 {
+    font-size: 50px;
+    font-family: Georgia;
+}
+
+#test form {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 150px;
+    background-color: pink;
+}
