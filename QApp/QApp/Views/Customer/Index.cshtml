@@ -1,9 +1,13 @@
 ﻿@model CustomerIndexVM
+@{ 
+    ViewBag.h3 = "Vänligen ta ett nummer";
+}
 
-<h1>Välkommen till QApp</h1>
+
+
 
 <div >
-    <button id="joinQueue" onclick="joinqueue()" > Ställ dig i kö</button>
+    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue()" > Ställ dig i kö</button>
 </div>
 
 <br />
