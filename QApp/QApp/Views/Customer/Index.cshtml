@@ -1,40 +1,52 @@
 ﻿@model CustomerIndexVM
-@{ 
+@{
     ViewBag.h3 = "Vänligen ta ett nummer";
 }
 
 
 
 
-<div >
-    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue()" > Ställ dig i kö</button>
+<div>
+    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue()"> Ställ dig i kö</button>
 </div>
 
 <br />
 
 @*Knapp för att lämna kö*@
 @*<div>
-    <button  id="leaveQueue" onclick="leavequeue()" style="display:none"> Gå ur kö</button>
-</div>*@
+        <button  id="leaveQueue" onclick="leavequeue()" style="display:none"> Gå ur kö</button>
+    </div>*@
 
 @*<form asp-controller="Customer" asp-action="Index">
-    <input type="submit" value="Ställ dig i kö" />
-</form>*@
+        <input type="submit" value="Ställ dig i kö" />
+    </form>*@
 
-  
+
 
 <div id="showCardNumber">
     @Model.CardNumber
-</div> 
+</div>
+
+
+@* Lagt till ett fält för att visa antal platser före i kön.
+    Antal nummer före i kön måste tas genom att kolla hur många cards med tidigare
+    nummer än en själv det finns som saknar counterid.
+    Alternativt loopa över counters och se vilket senaste numret är och jämföra det med
+    mitt egna,
+    Vi vill alltså kolla efter uppdateringar i cards-tabellen för att göra en ny check och
+    uppdatera kunden*@
+<div id="showNumbersLeftInQueue">
+    @Model.NumbersLeftInQueue
+</div>
 
 <script>
     function joinqueue() {
         $.ajax({
             url: "GetCustomerCardNumber",
-             success: function (result) {
-                 $("#showCardNumber").html(result.cardNumber);
-                 $("#joinQueue").hide();
-                 $("#leaveQueue").show();   
+            success: function (result) {
+                $("#showCardNumber").html(result.cardNumber);
+                $("#joinQueue").hide();
+                $("#leaveQueue").show();
 
             }
         });
@@ -53,5 +65,5 @@
 
     //}
 
-    //Anrop till databas för att hålla kön uppdaterad 
+    //Anrop till databas för att hålla kön uppdaterad
 </script>
