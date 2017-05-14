@@ -29,10 +29,6 @@
 
 
 @* Lagt till ett fält för att visa antal platser före i kön.
-    Antal nummer före i kön måste tas genom att kolla hur många cards med tidigare
-    nummer än en själv det finns som saknar counterid.
-    Alternativt loopa över counters och se vilket senaste numret är och jämföra det med
-    mitt egna,
     Vi vill alltså kolla efter uppdateringar i cards-tabellen för att göra en ny check och
     uppdatera kunden*@
 <div id="showNumbersLeftInQueue">
@@ -42,15 +38,13 @@
 <script>
     function joinqueue() {
         $.ajax({
-            url: "GetCustomerCardNumber",
+            url: "customer/GetCustomerCardNumber",
             success: function (result) {
                 $("#showCardNumber").html(result.cardNumber);
                 $("#joinQueue").hide();
                 $("#leaveQueue").show();
-
             }
         });
-
     }
     //Funktion för att lämna kö
     //function leavequeue() {

@@ -197,12 +197,28 @@ namespace QApp.Models.Entities
         //{
         //    Card card = Card.Where(sid => sid.SessionId == sessionId).First();
         //    card.CounterId = 999999;
-          
+
         //    SaveChanges();
 
         //    CustomerIndexVM viewModel = new CustomerIndexVM();
         //    viewModel.CardNumber = 0;
         //    return viewModel;
         //}
+
+        //Antal nummer före i kön måste tas genom att kolla hur många cards med tidigare
+        //nummer än en själv det finns som saknar counterid.
+        //Alternativt loopa över counters och se vilket senaste numret är och jämföra det med mitt egna,
+        public CustomerIndexVM GetPositionInQueue(string sessionId)
+        {
+
+            int cardsBeforeYou = 0;
+            Card card = Card.Single(c => c.SessionId == sessionId);
+
+            cardsBeforeYou = Card.Where(cn => cn.Id < card.Id && cn.CounterId == null).Count();     
+
+            CustomerIndexVM viewModel = new CustomerIndexVM();
+            viewModel.NumbersLeftInQueue = cardsBeforeYou;
+            return viewModel;
+        }
     }
 }
