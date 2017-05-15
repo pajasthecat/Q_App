@@ -9,6 +9,7 @@ namespace QApp.Models.ViewModels
     {
         public int CardNumber { get; set; }
         public int NumbersLeftInQueue { get; set; }
+        //public bool HaveIBeenHelped { get; set; }
 
     }
 }

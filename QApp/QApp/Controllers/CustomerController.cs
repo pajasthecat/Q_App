@@ -35,19 +35,20 @@ namespace QApp.Controllers
             return context.GetCardNumber(HttpContext.Session.Id);
         }
 
-        //Metod för att lämna kö
-        //public CustomerIndexVM LeaveCustomerQueue()
-        //{
-            
-        //    return context.LeaveCustomerQueue(HttpContext.Session.Id);
-
-        //}
-
         public CustomerIndexVM ShowPositionInQueue()
         {
             HttpContext.Session.SetString("Kalle", "Anka");
             return context.GetPositionInQueue(HttpContext.Session.Id);
              
         }
+
+
+        //Metod för att lämna kö
+        //public CustomerIndexVM LeaveCustomerQueue()
+        //{
+
+        //    return context.LeaveCustomerQueue(HttpContext.Session.Id);
+
+        //}
     }
 }
