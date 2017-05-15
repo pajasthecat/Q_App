@@ -3,21 +3,17 @@
     ViewBag.h3 = "Välkommen till QApp!";
 }
 
-<div id="showNumbersBeforeYou">
-    @Model.NumbersLeftInQueue
+<div id="showCardNumber">
+    @Model.CardNumber
 </div>
-
-
-
 
 <div>
-    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue();" > Ställ dig i kö</button>
+    <button type="button" class="btn btn-success btn-lg" id="joinQueue" onclick="joinqueue();" > Ställ dig i kö</button>
 
 </div>
 
-<br />
-<div id="showCardNumber">
-        @Model.CardNumber
+<div id="showNumbersBeforeYou">
+    Personer före dig i kön: @Model.NumbersLeftInQueue
 </div>
 
 @*Knapp för att lämna kö*@
@@ -45,13 +41,12 @@
 
 <script>
     function joinqueue() {
-        $("#joinQueue").addClass("button");
         $.ajax({
-            url: "customer/GetCustomerCardNumber",
+            url: "GetCustomerCardNumber",
             success: function (result) {
                 $("#showCardNumber").html(result.cardNumber);
                 $("#joinQueue").addClass("button");
-                //$("#joinQueue").hide();
+                $("#joinQueue").hide();
                 //$("#leaveQueue").show();
                 console.log(result.cardNumber);
                 showposition();
@@ -62,7 +57,7 @@
 
     function showposition() {
         $.ajax({
-            url: "customer/ShowPositionInQueue",
+            url: "ShowPositionInQueue",
             success: function (result) {
                 $("#showNumbersBeforeYou").html(result.numbersLeftInQueue);
                 console.log(result.numbersLeftInQueue);

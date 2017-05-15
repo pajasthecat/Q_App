@@ -58,6 +58,7 @@ table {
 
 .jumbotron {
     background-color: #561D62;
+    margin-bottom: 50px;
 }
 
 #test h1 {
@@ -70,8 +71,8 @@ table {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#nextCustomer {
-    padding: 1em,1em, 1em, 1em;
+#showCardNumberToTeller, #nextCustomer, #closeCounter {
+    margin-top: 50px;
 }
 
 .footer {
@@ -88,8 +89,8 @@ table {
     font-size: 18px;
     line-height: 1.3333333;
     border-radius: 6px;
-    background-color: white;
-    color: #561D62;
+    background-color: #561D62;
+    color: white;
 }
 
 .btn {
@@ -115,13 +116,13 @@ table {
 }
 
 
-.showCardNumber {
+/*.showCardNumber {
     background-color: pink;
     margin-left: 275px;
     width: 150px;
     height: 150px;
     font-size: 100px;
-}
+}*/
 
 .form-group {
     font-family: arial;
@@ -149,28 +150,47 @@ table {
     background-color: #EF6BA3;
 }
 
-.btn-success:after:hover {
-    background-color: #EF6BA3;
-}
+    .btn-success:after:hover {
+        background-color: #EF6BA3;
+    }
 
-/*#joinQueue {
+#joinQueue, #helpnextcustomer, #OpenCounter {
     background-color: #EF6BA3;
     border-color: #7C0A8A;
-}*/
+    width: 500px;
+    height: 150px;
+    border-radius: 25px;
+}
+
+#closeCounterButton {
+    background-color: #F2A1C3;
+    border-color: #7C0A8A;
+    width: 500px;
+    height: 150px;
+    border-radius: 25px;
+}
 
 h3 {
     color: white;
-    font-size: x-large;
+    font-size: 50px;
+    margin-bottom: 50px;
 }
 
 .btn-danger, btn-danger:hover, btn-danger:active:hover {
     background-color: #DD65EC;
 }
 
-#showCardNumber {
+#showCardNumber, #showCardNumberToTeller {
     color: white;
-    font-size: 70px;
+    font-size: 150px;
     background-color: #F2A1C3;
-    max-width: 120px;
+    max-width: 200px;
     margin: auto;
+    margin-bottom: 120px;
+    border-radius: 25px;
+}
+
+#showNumbersBeforeYou, #queuealert {
+    color: white;
+    font-size: xx-large;
 }
