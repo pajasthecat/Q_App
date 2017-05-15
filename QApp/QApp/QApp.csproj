@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\MyStyleSheet.css" />
+    <Content Include="wwwroot\Pictures\QApp-logga.png" />
     <Content Include="wwwroot\style\MyStyleSheet.css" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,10 @@
     ViewBag.h3 = "Vänligen ta ett nummer";
 }
 
+<div id="showNumbersBeforeYou">
+    @Model.NumbersLeftInQueue
+</div>
+
 
 
 
@@ -11,6 +15,10 @@
 </div>
 
 <br />
+
+<div class="showCardNumber" id="showCardNumber">
+    @Model.CardNumber
+</div>
 
 @*Knapp för att lämna kö*@
 @*<div>
@@ -22,18 +30,10 @@
     </form>*@
 
 
-
-<div id="showCardNumber">
-    @Model.CardNumber
-</div>
-
-
 @* Lagt till ett fält för att visa antal platser före i kön.
     Vi vill alltså kolla efter uppdateringar i cards-tabellen för att göra en ny check och
     uppdatera kunden*@
-<div id="showNumbersBeforeYou">
-    @Model.NumbersLeftInQueue
-</div>
+
 
 
 <div id="queuealert" style="display:none">

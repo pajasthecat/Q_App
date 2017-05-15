@@ -9,10 +9,10 @@ namespace QApp.Models.ViewModels
     public class TellerLogInVM
     {
         [Required]
-        public string Användarnamn { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        public string Lösenord { get; set; }
+        public string Password { get; set; }
     }
 }

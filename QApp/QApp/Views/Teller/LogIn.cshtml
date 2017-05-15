@@ -6,16 +6,18 @@
 
 <form asp-controller="Teller" asp-action="LogIn">
     <div class="form-group">
-        <label asp-for="Användarnamn"></label>
-        <input asp-for="Användarnamn" class="form-control" />
-    </div>
-    <span asp-validation-for="Användarnamn"></span>
+        <h2 class="form-signin-heading">Vänligen logga in</h2>
     <br />
-    <div class="form-group">
-        <label asp-for="Lösenord"></label>
-        <input asp-for="Lösenord" class="form-control" />
+        <label asp-for="UserName">Användarnamn</label>
+        <input asp-for="UserName" class="form-control" />
+    @*</div>*@
+    <span asp-validation-for="UserName"></span>
+    <br />
+    @*<div class="form-group">*@
+        <label asp-for="Password">Lösenord</label>
+        <input asp-for="Password" class="form-control" />
     </div>
-    <span asp-validation-for="Lösenord"></span>
+    <span asp-validation-for="Password"></span>
     <br />
     <input type="submit" class="btn btn-success btn-lg" value="Logga in">
     @*<input class="btn btn-default" type="submit" value="Ok" />*@
