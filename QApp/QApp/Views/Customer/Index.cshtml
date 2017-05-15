@@ -1,46 +1,63 @@
 ﻿@model CustomerIndexVM
-@{ 
+@{
     ViewBag.h3 = "Vänligen ta ett nummer";
 }
 
 
 
 
-<div >
-    <button type="button" class="btn btn-success @*btn-lg btn-block*@" id="joinQueue" onclick="joinqueue()" > Ställ dig i kö</button>
+<div>
+    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue(); showposition()" > Ställ dig i kö</button>
 </div>
 
 <br />
 
 @*Knapp för att lämna kö*@
 @*<div>
-    <button  id="leaveQueue" onclick="leavequeue()" style="display:none"> Gå ur kö</button>
-</div>*@
+        <button  id="leaveQueue" onclick="leavequeue()" style="display:none"> Gå ur kö</button>
+    </div>*@
 
 @*<form asp-controller="Customer" asp-action="Index">
-    <input type="submit" value="Ställ dig i kö" />
-</form>*@
+        <input type="submit" value="Ställ dig i kö" />
+    </form>*@
 
-  
 
-    <div class="showCardNumber" id="showCardNumber">
-        @Model.CardNumber
-    </div>
 
+<div id="showCardNumber">
+    @Model.CardNumber
+</div>
+
+
+@* Lagt till ett fält för att visa antal platser före i kön.
+    Vi vill alltså kolla efter uppdateringar i cards-tabellen för att göra en ny check och
+    uppdatera kunden*@
+<div id="showNumbersBeforeYou">
+    @Model.NumbersLeftInQueue
+</div>
 
 <script>
     function joinqueue() {
         $.ajax({
-            url: "GetCustomerCardNumber",
-             success: function (result) {
-                 $("#showCardNumber").html(result.cardNumber);
-                 $("#joinQueue").hide();
-                 $("#leaveQueue").show();   
-
+            url: "customer/GetCustomerCardNumber",
+            success: function (result) {
+                $("#showCardNumber").html(result.cardNumber);
+                $("#joinQueue").hide();
+                $("#leaveQueue").show();
             }
         });
-
     }
+
+    function showposition() {
+        $.ajax({
+            url: "customer/ShowPositionInQueue",
+            success: function (result) {
+                $("#showNumbersBeforeYou").html(result.NumbersLeftInQueue);
+            }
+        });
+    }
+
+
+
     //Funktion för att lämna kö
     //function leavequeue() {
     //    $.ajax({
@@ -54,5 +71,5 @@
 
     //}
 
-    //Anrop till databas för att hålla kön uppdaterad 
+    //Anrop till databas för att hålla kön uppdaterad
 </script>

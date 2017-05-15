@@ -8,6 +8,7 @@ namespace QApp.Models.ViewModels
     public class CustomerIndexVM
     {
         public int CardNumber { get; set; }
+        public int NumbersLeftInQueue { get; set; }
 
     }
 }
