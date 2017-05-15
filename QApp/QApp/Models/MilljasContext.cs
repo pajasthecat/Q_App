@@ -80,7 +80,13 @@ namespace QApp.Models.Entities
 
             bool queueIsActive = Counter.FirstOrDefault().QueueId != null;
 
-            if (queueIsActive)
+            //Ska kolla om personen (med samma session) redan står i kö.
+            bool alreadyInQueue = Card.Where(c => c.SessionId == sessionId).Count()> 0;
+
+            //Card card = Card.Single(c => c.SessionId == sessionId);
+
+            //Kollar att det finns en kö och att personen inte redan har ett card
+            if (queueIsActive && !alreadyInQueue)
             {
                 int numberOfCards = Card.Where(c => c.QueueId == activeQueue).Count();
                 Card card = new Card();
@@ -95,7 +101,7 @@ namespace QApp.Models.Entities
             }
             else
             {
-                //Skicka felmeddelande
+                //Skicka felmeddelande ---- behövs ej?? Kunden har ju redan ett könummer
             }
         }
 
@@ -212,9 +218,13 @@ namespace QApp.Models.Entities
         {
 
             int cardsBeforeYou = 0;
+
+           
             Card card = Card.Single(c => c.SessionId == sessionId);
 
-            cardsBeforeYou = Card.Where(cn => cn.Id < card.Id && cn.CounterId == null).Count();     
+            cardsBeforeYou = Card.Where(cn => cn.Id < card.Id && cn.CounterId == null).Count();  
+            
+            //plussa på att 1
 
             CustomerIndexVM viewModel = new CustomerIndexVM();
             viewModel.NumbersLeftInQueue = cardsBeforeYou;
