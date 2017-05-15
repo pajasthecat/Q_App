@@ -7,7 +7,7 @@
 
 
 <div >
-    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue()" > Ställ dig i kö</button>
+    <button type="button" class="btn btn-success @*btn-lg btn-block*@" id="joinQueue" onclick="joinqueue()" > Ställ dig i kö</button>
 </div>
 
 <br />
@@ -23,9 +23,10 @@
 
   
 
-<div id="showCardNumber">
-    @Model.CardNumber
-</div> 
+    <div class="showCardNumber" id="showCardNumber">
+        @Model.CardNumber
+    </div>
+
 
 <script>
     function joinqueue() {
