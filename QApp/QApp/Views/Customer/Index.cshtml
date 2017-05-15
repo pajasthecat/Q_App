@@ -3,21 +3,17 @@
     ViewBag.h3 = "Välkommen till QApp!";
 }
 
-<div id="showNumbersBeforeYou">
-    @Model.NumbersLeftInQueue
-</div>
-
-
-
-
-<div>
-    <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue();"> Ställ dig i kö</button>
-
-</div>
-
-<br />
 <div id="showCardNumber">
     @Model.CardNumber
+</div>
+
+<div>
+    <button type="button" class="btn btn-success btn-lg" id="joinQueue" onclick="joinqueue();" > Ställ dig i kö</button>
+
+</div>
+
+<div id="showNumbersBeforeYou">
+    Personer före dig i kön: @Model.NumbersLeftInQueue
 </div>
 
 @*Knapp för att lämna kö*@
@@ -44,59 +40,44 @@
 
 
 <script>
-    var interval = 0;
-
     function joinqueue() {
-        $("#joinQueue").addClass("button");
         $.ajax({
-            url: "customer/GetCustomerCardNumber",
+            url: "GetCustomerCardNumber",
             success: function (result) {
                 $("#showCardNumber").html(result.cardNumber);
                 $("#joinQueue").addClass("button");
-                //$("#joinQueue").hide();
+                $("#joinQueue").hide();
                 //$("#leaveQueue").show();
                 console.log(result.cardNumber);
                 showposition();
-                interval = setInterval(showposition, 3000)
+                var interval = setInterval(showposition, 3000)
             }
         });
     }
 
     function showposition() {
         $.ajax({
-            url: "customer/ShowPositionInQueue",
+            url: "ShowPositionInQueue",
             success: function (result) {
                 $("#showNumbersBeforeYou").html(result.numbersLeftInQueue);
                 console.log(result.numbersLeftInQueue);
 
-                if (result.numbersLeftInQueue == 1) {
-                    $("#queuealert").html("Nu är det" + result.numbersLeftInQueue + "personer före dig i kön.");
+                if (result.numbersLeftInQueue == 1)
+                {
+                    $("#queuealert").html("Nu är det 1 person före dig i kön.");
                     $("#queuealert").show();
                 }
-                else if (result.numbersLeftInQueue == 0) {
-                    $("#queuealert").html("Nästa gång är det din tur!");
+                else if (result.numbersLeftInQueue == 0)
+                {
+                    $("#queuealert").html("Nu är det din tur!");
                     $("#queuealert").show();
-
-                    //if (result.haveIBeenHelped == true) {
-                    //    $("#queuealert").html("");
-                    //    $("#queuealert").hide();
-                    //    $("#showCardNumber").html("0");
-                    //    clearInterval(interval);
-                    //}
-                    //else {
-                    //    $("#queuealert").html("Nu är det din tur!");
-                    //    $("#queuealert").show();
-                    //}
-
                 }
             }
         });
-
-        //GÖr en funktion som när jag fått hjälp redirectar till att ställa mig i kön
     }
 
-
-
+   
+   
 
 
 
