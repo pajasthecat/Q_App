@@ -135,7 +135,7 @@ namespace QApp.Controllers
                 return View(viewModel);
             }
 
-            var result = await signInManager.PasswordSignInAsync(viewModel.UserName, viewModel.Password, false, false);
+            var result = await signInManager.PasswordSignInAsync(viewModel.Användarnamn, viewModel.Lösenord, false, false);
 
             if (!result.Succeeded)
             {

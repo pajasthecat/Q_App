@@ -1,6 +1,6 @@
 ﻿.jumbotron {
     background-color: pink;
-    height:150px;
+    height: 150px;
 }
 
 #test h1 {
@@ -33,5 +33,6 @@
 
 #UserName, #Password {
     padding: 8px;
-    border:double;
+    border: double;
+    border:medium
 }

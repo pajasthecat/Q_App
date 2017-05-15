@@ -45,6 +45,7 @@ namespace QApp
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
 
+            
             services.AddMvc();
             services.AddMemoryCache();
             
@@ -61,6 +62,9 @@ namespace QApp
             //{
             //    app.UseExceptionHandler("/Home/error");
             //}
+
+            app.UseStaticFiles();
+
             app.UseSession();
       
             app.UseDeveloperExceptionPage();
@@ -68,6 +72,8 @@ namespace QApp
             app.UseIdentity();
 
             app.UseMvcWithDefaultRoute();
+
+            
 
             
         }

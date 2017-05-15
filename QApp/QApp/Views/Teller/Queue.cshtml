@@ -1,19 +1,17 @@
 ﻿@model TellerQueueVM
 <h1>Välkommen till QApp</h1>
 
-<form asp-controller="Teller" asp-action="Queue">
-    <input class="btn btn-danger"  type="submit" value="Stäng kassa" />
-</form>
+<div id="showCardNumberToTeller">
 
-<br />
+</div> 
 
 <div id="nextCustomer">
     <button class="btn btn-success" id="helpnextcustomer" onclick="helpnextcustomer()"> Hjälp nästa i kö</button>
 </div>
 
-<div id="showCardNumberToTeller">
-   
-</div> 
+<form asp-controller="Teller" asp-action="Queue">
+    <input class="btn btn-danger"  type="submit" value="Stäng kassa" />
+</form>
 
 <script>
     function helpnextcustomer() {
