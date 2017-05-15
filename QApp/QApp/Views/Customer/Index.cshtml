@@ -1,6 +1,6 @@
 ﻿@model CustomerIndexVM
 @{
-    ViewBag.h3 = "Vänligen ta ett nummer";
+    ViewBag.h3 = "Välkommen till QApp!";
 }
 
 <div id="showNumbersBeforeYou">
@@ -12,12 +12,12 @@
 
 <div>
     <button type="button" class="btn btn-success" id="joinQueue" onclick="joinqueue();" > Ställ dig i kö</button>
+
 </div>
 
 <br />
-
-<div class="showCardNumber" id="showCardNumber">
-    @Model.CardNumber
+<div id="showCardNumber">
+        @Model.CardNumber
 </div>
 
 @*Knapp för att lämna kö*@
@@ -38,12 +38,14 @@
 
 <script>
     function joinqueue() {
+        $("#joinQueue").addClass("button");
         $.ajax({
             url: "customer/GetCustomerCardNumber",
             success: function (result) {
                 $("#showCardNumber").html(result.cardNumber);
-                $("#joinQueue").hide();
-                $("#leaveQueue").show();
+                $("#joinQueue").addClass("button");
+                //$("#joinQueue").hide();
+                //$("#leaveQueue").show();
                 console.log(result.cardNumber);
                 showposition();
             }

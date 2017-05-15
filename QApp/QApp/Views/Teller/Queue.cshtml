@@ -1,5 +1,4 @@
 ﻿@model TellerQueueVM
-<h1>Välkommen till QApp</h1>
 
 <div id="showCardNumberToTeller">
 
@@ -8,7 +7,7 @@
 <div id="nextCustomer">
     <button class="btn btn-success" id="helpnextcustomer" onclick="helpnextcustomer()"> Hjälp nästa i kö</button>
 </div>
-
+@*Ändra till javascript function??*@
 <form asp-controller="Teller" asp-action="Queue">
     <input class="btn btn-danger"  type="submit" value="Stäng kassa" />
 </form>
