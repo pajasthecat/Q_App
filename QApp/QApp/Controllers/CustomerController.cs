@@ -42,5 +42,12 @@ namespace QApp.Controllers
         //    return context.LeaveCustomerQueue(HttpContext.Session.Id);
 
         //}
+
+        public CustomerIndexVM ShowPositionInQueue()
+        {
+            HttpContext.Session.SetString("Kalle", "Anka");
+            return context.GetPositionInQueue(HttpContext.Session.Id);
+             
+        }
     }
 }
