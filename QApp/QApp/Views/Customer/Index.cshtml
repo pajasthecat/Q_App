@@ -36,6 +36,13 @@
 
 
 
+<div id="queuealert" style="display:none">
+
+
+</div>
+
+
+
 <script>
     function joinqueue() {
         $("#joinQueue").addClass("button");
@@ -48,12 +55,10 @@
                 //$("#leaveQueue").show();
                 console.log(result.cardNumber);
                 showposition();
+                var interval = setInterval(showposition, 3000)
             }
         });
     }
-
-    
-    var interval = setInterval(showposition, 3000)
 
     function showposition() {
         $.ajax({
@@ -61,6 +66,17 @@
             success: function (result) {
                 $("#showNumbersBeforeYou").html(result.numbersLeftInQueue);
                 console.log(result.numbersLeftInQueue);
+
+                if (result.numbersLeftInQueue == 1)
+                {
+                    $("#queuealert").html("Nu är det 1 person före dig i kön.");
+                    $("#queuealert").show();
+                }
+                else if (result.numbersLeftInQueue == 0)
+                {
+                    $("#queuealert").html("Nu är det din tur!");
+                    $("#queuealert").show();
+                }
             }
         });
     }
