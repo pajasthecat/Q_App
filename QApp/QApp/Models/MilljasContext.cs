@@ -21,18 +21,28 @@ namespace QApp.Models.Entities
         {
             TellerQueueVM tellerQueueVM = new TellerQueueVM();
 
-            //Card card = Card.Where(c => c.Id == nextCard).Single();
-
             //Hitta nästa card som inte är kopplad till en counter
-            Card card = Card.OrderBy(c => c.Id).Where(i => i.CounterId == null).First();
-            // Ta ut cardets id och nummer och tilldela variablerna
-            int nextCardID = card.Id;
-            int nextCardNumber = card.CardNumber;
+            Card card = Card.OrderBy(c => c.Id).Where(i => i.CounterId == null).FirstOrDefault();
 
             //Hämtar den teller som matchar med den som klickar på knappens id
             User user = User.Single(i => i.AspNetUserId == aspUserId);
             //Kollar vilken counter den tellern är på
             int counterId = Counter.Where(c => c.TellerId == user.Id).Select(ci => ci.Id).First();
+
+            if (card != null)
+            {
+
+                // Ta ut cardets id och nummer och tilldela variablerna
+                int nextCardID = card.Id;
+                int nextCardNumber = card.CardNumber;
+
+                Card.Find(nextCardID).CounterId = counterId;
+                Card.Find(nextCardID).TellerId = user.Id;
+                Card.Find(nextCardID).ServiceStart = DateTime.Now;
+                Counter.Find(counterId).CardId = nextCardID;
+
+                tellerQueueVM.CardNumber = nextCardNumber;
+            }
 
             //Hittar kortet som ska "stängas"
             Card cardToClose = Card.OrderBy(ci => ci.Id).Where(c => c.CounterId == counterId).LastOrDefault();
@@ -41,17 +51,9 @@ namespace QApp.Models.Entities
             if (cardToClose != null)
             {
                 cardToClose.ServiceEnd = DateTime.Now;
-                //cardToClose.SessionId += "-done";
             }
 
-            Card.Find(nextCardID).CounterId = counterId;
-            Card.Find(nextCardID).TellerId = user.Id;
-            Card.Find(nextCardID).ServiceStart = DateTime.Now;
-            Counter.Find(counterId).CardId = nextCardID;
-            //cardToClose.SessionId += "-done";
             SaveChanges();
-
-            tellerQueueVM.CardNumber = nextCardNumber;
 
             return tellerQueueVM;
         }
@@ -79,12 +81,12 @@ namespace QApp.Models.Entities
             bool queueIsActive = Counter.FirstOrDefault().QueueId != null;
 
             //Ska kolla om personen (med samma session) redan står i kö.
-            //bool alreadyInQueue = Card.Where(c => c.SessionId == sessionId).Count()> 0;
+            bool alreadyInQueue = Card.Where(c => c.SessionId == sessionId).Count()> 0;
 
             //Card card = Card.Single(c => c.SessionId == sessionId);
 
             //Kollar att det finns en kö och att personen inte redan har ett card
-            if (queueIsActive /*&& !alreadyInQueue*/)
+            if (queueIsActive && !alreadyInQueue)
             {
                 int numberOfCards = Card.Where(c => c.QueueId == activeQueue).Count();
                 Card card = new Card();
@@ -190,19 +192,56 @@ namespace QApp.Models.Entities
         public CustomerIndexVM GetPositionInQueue(string sessionId)
         {
             int cardsBeforeYou = 0;
-
+            string message = null;
+            CustomerIndexVM viewModel = new CustomerIndexVM();
+            bool myTurn = false;
             Card card = null;
 
-            //Hämtar mitt card och kollar sedan hur många cards med id lägre än mitt som inte fått ngt counterId, alltså hjälp
-            card = Card.Single(c => c.SessionId == sessionId/* || c.SessionId == sessionId + "-done"*/);
-            cardsBeforeYou = Card.Where(cn => cn.Id < card.Id && cn.CounterId == null).Count();
+            try
+            {
+                //Hämtar mitt card och kollar sedan hur många cards med id lägre än mitt som inte fått ngt counterId, alltså hjälp
+                card = Card.Single(c => c.SessionId == sessionId);
+                cardsBeforeYou = Card.Count(cn => cn.Id < card.Id && cn.CounterId == null);
 
-            //En bool myTurn som blir true ifall mitt cardid är lika med card-id för senaste kortet med counter-id?
-            Card lastAssistedCard = Card.OrderBy(c => c.Id).Where(cntr => cntr.CounterId != null).Last();
-            bool myTurn = card.CounterId != null;
-            
-            CustomerIndexVM viewModel = new CustomerIndexVM();
-            viewModel.NumbersLeftInQueue = cardsBeforeYou;
+            }
+            catch (Exception)
+            {
+
+            }
+
+            if (card != null)
+            {
+                //En bool myTurn som blir true ifall mitt cardid är lika med card-id för senaste kortet med counter-id?
+                myTurn = card.CounterId != null;
+                viewModel.CardNumber = card.CardNumber;
+
+                message = $"Det är {cardsBeforeYou+1} personer före dig i kön.";
+
+                if (myTurn)
+                {
+
+                    Counter counter = Counter.Find(card.CounterId);
+                    message = $"Nu är det din tur! Gå till {counter.CounterName}";
+
+                    if (card.ServiceEnd != null)
+                    {
+                        card.SessionId = null;
+                        SaveChangesAsync();
+                        viewModel.CardNumber = 0;
+
+                        message = "Välkommen åter!";
+                    }
+                }
+            }
+            else
+            {
+                viewModel.CardNumber = 0;
+                message = null;
+            }
+
+            //viewModel.NumbersLeftInQueue = cardsBeforeYou;
+
+            viewModel.Message = message;
             viewModel.MyTurn = myTurn;
             return viewModel;
         }
