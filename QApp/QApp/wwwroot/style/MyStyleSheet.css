@@ -67,6 +67,7 @@ table {
     margin-bottom: 50px;
     text-align: center;
     width: auto;
+    height: 500px;
 }
 
 #nextCustomer, #closeCounter {
@@ -102,6 +103,7 @@ table {
     background-image: none;
     border: 1px solid transparent;
     border-radius: 18px;
+    outline:none;
 }
 
 .btn-success:hover {
@@ -126,6 +128,7 @@ table {
     width: 500px;
     height: 150px;
     border-radius: 18px;
+    outline:none;
 }
 
 #closeCounterButton {
@@ -134,6 +137,7 @@ table {
     width: 500px;
     height: 150px;
     border-radius: 18px;
+    outline: none;
 }
 
 h3 {
@@ -180,6 +184,7 @@ h4 {
     text-align: center;
     width: auto;
     margin-bottom: 480px;
+    height: 500px;
 }
 
 .form-group {
@@ -212,7 +217,7 @@ h4 {
     color: black;
     margin-top: 1px;
     margin-bottom: 10px;
-    font-size: larger;
+    font-size: 40px;
     font-weight: bold;
     padding: 4px;
     height: 65px;
@@ -234,7 +239,7 @@ h4 {
     bottom: 0px;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 150px;
+    height: 200px;
     text-align: center;
     background-color: #561D62;
 }

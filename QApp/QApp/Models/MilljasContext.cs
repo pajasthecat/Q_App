@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using QApp.Models.Entities;
 using QApp.Models.ViewModels;
@@ -12,9 +14,9 @@ namespace QApp.Models.Entities
 {
     public partial class MilljasContext : DbContext
     {
-        public MilljasContext(DbContextOptions<MilljasContext> options) : base(options)
+        public MilljasContext(DbContextOptions<MilljasContext> options, UserManager<IdentityUser> userManager) : base(options)
         {
-
+            
         }
 
         public TellerQueueVM HelpNextCustomer(string aspUserId)
