@@ -95,7 +95,6 @@ namespace QApp.Models.Entities
                 card.SessionId = sessionId;
                 Card.Add(card);
                 SaveChanges();
-
             }
             else
             {
@@ -126,16 +125,12 @@ namespace QApp.Models.Entities
             counter.QueueId = null;
             counter.TellerId = null;
             counter.CardId = null;
-
             SaveChanges();
         }
 
         //Vi stoppar in aspnetUserId här
         public void PopulateQueue(string aspUserId)
         {
-            //VI kollar om kassa 1 är ledig. Måste kolla om NÅGON kassa är öppen och om personen redan står i en kassa
-            //När personal2 loggar in ska den inte starta en ny kö och heller inte ställa si 
-
             // Hämtar alla kassors qId till en lista 
             List<Counter> counters = Counter.Select(c => new Counter
             {
@@ -172,6 +167,7 @@ namespace QApp.Models.Entities
             {
                 //Kollar om första kassans tellerid stämmer med det userid som öppnar kassan
                 //bool tellerAlreadyActive = Counter.FirstOrDefault().TellerId == user.Id;
+                //Ska vi verkligen titta på den första bara?
                 Counter counter = Counter.FirstOrDefault(tid => tid.TellerId == user.Id);
 
                 if (counter == null)
@@ -191,27 +187,23 @@ namespace QApp.Models.Entities
             }
         }
 
-        //Antal nummer före i kön måste tas genom att kolla hur många cards med tidigare
-        //nummer än en själv det finns som saknar counterid.
-        //Alternativt loopa över counters och se vilket senaste numret är och jämföra det med mitt egna,
         public CustomerIndexVM GetPositionInQueue(string sessionId)
         {
             int cardsBeforeYou = 0;
-            //bool haveIBeenHelped = false;
 
             Card card = null;
 
+            //Hämtar mitt card och kollar sedan hur många cards med id lägre än mitt som inte fått ngt counterId, alltså hjälp
             card = Card.Single(c => c.SessionId == sessionId/* || c.SessionId == sessionId + "-done"*/);
             cardsBeforeYou = Card.Where(cn => cn.Id < card.Id && cn.CounterId == null).Count();
 
-            //if (card.CounterId != null)
-            //{
-            //    haveIBeenHelped = true;
-            //}
-
+            //En bool myTurn som blir true ifall mitt cardid är lika med card-id för senaste kortet med counter-id?
+            Card lastAssistedCard = Card.OrderBy(c => c.Id).Where(cntr => cntr.CounterId != null).Last();
+            bool myTurn = card.CounterId != null;
+            
             CustomerIndexVM viewModel = new CustomerIndexVM();
             viewModel.NumbersLeftInQueue = cardsBeforeYou;
-            //viewModel.HaveIBeenHelped = haveIBeenHelped;
+            viewModel.MyTurn = myTurn;
             return viewModel;
         }
 

@@ -25,7 +25,6 @@ namespace QApp.Controllers
             HttpContext.Session.SetString("Kalle", "Anka");
             return View(context.GetCardNumber(HttpContext.Session.Id));
         }
-
         
         public CustomerIndexVM GetCustomerCardNumber() 
         {
@@ -41,7 +40,6 @@ namespace QApp.Controllers
             return context.GetPositionInQueue(HttpContext.Session.Id);
              
         }
-
 
         //Metod för att lämna kö
         //public CustomerIndexVM LeaveCustomerQueue()

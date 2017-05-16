@@ -8,7 +8,7 @@
 </div>
 
 <div>
-    <button type="button" class="btn btn-success btn-lg" id="joinQueue" onclick="joinqueue();" > Ställ dig i kö</button>
+    <button type="button" class="btn btn-success btn-lg" id="joinQueue" onclick="joinqueue();"> Ställ dig i kö</button>
 
 </div>
 
@@ -26,23 +26,14 @@
     </form>*@
 
 
-@* Lagt till ett fält för att visa antal platser före i kön.
-    Vi vill alltså kolla efter uppdateringar i cards-tabellen för att göra en ny check och
-    uppdatera kunden*@
 
-
-
-<div id="queuealert" style="display:none">
-
-
-</div>
-
+<div id="queuealert" style="display:none"></div>
 
 
 <script>
     function joinqueue() {
         $.ajax({
-            url: "GetCustomerCardNumber",
+            url: "customer/GetCustomerCardNumber",
             success: function (result) {
                 $("#showCardNumber").html(result.cardNumber);
                 $("#joinQueue").addClass("button");
@@ -50,36 +41,33 @@
                 //$("#leaveQueue").show();
                 console.log(result.cardNumber);
                 showposition();
-                var interval = setInterval(showposition, 3000)
+                var interval = setInterval(showposition, 15000) //´Ändra tillbaka
             }
         });
     }
 
     function showposition() {
         $.ajax({
-            url: "ShowPositionInQueue",
+            url: "customer/ShowPositionInQueue",
             success: function (result) {
                 $("#showNumbersBeforeYou").html(result.numbersLeftInQueue);
                 console.log(result.numbersLeftInQueue);
 
-                if (result.numbersLeftInQueue == 1)
-                {
-                    $("#queuealert").html("Nu är det 1 person före dig i kön.");
+                if (result.numbersLeftInQueue > 0) {
+                    $("#queuealert").html("Nu är det " + result.numbersLeftInQueue + " personer före dig i kön");
                     $("#queuealert").show();
                 }
-                else if (result.numbersLeftInQueue == 0)
-                {
-                    $("#queuealert").html("Nu är det din tur!");
+                else if (result.numbersLeftInQueue == 0) {
+                    $("#queuealert").html("Du är näst på tur!");
                     $("#queuealert").show();
+
                 }
+
+
+                //Lägg till att stänga av timern
             }
         });
     }
-
-   
-   
-
-
 
     //Funktion för att lämna kö
     //function leavequeue() {
