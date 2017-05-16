@@ -7,6 +7,16 @@
     });
 }
 
+function closecounter() {
+    $.ajax({
+        url: "/teller/closecounter",
+        success: function (result) {
+            window.location.href = "/teller/home";
+        }
+    });
+
+}
+
 
 var interval = 0;
 

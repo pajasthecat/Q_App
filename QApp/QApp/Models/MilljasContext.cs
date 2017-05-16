@@ -276,10 +276,8 @@ namespace QApp.Models.Entities
 
 
         //när vi ska få cardnumber--- hitta maxvärde och lägg på ett.. funkar ej?
-        //fixa javascript för close counter.. döpa till close counter?
 
-        //om vi stänger kassan så hamnar kunden på indexsidan igen och får möjlighet att ta ett kort...
 
-        //Fixa så det på något sätt syns om det inte finns några personer i kön i stället för att numret blir 0 för tellern
+        //Fixa så det på något sätt syns om det inte finns några personer i kön i stället för att numret blir 0 för tellern. 
     }
 }
