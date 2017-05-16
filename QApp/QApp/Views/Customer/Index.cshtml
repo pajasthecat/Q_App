@@ -1,14 +1,18 @@
 ﻿@model CustomerIndexVM
+
 @{
-    ViewBag.h3 = "Välkommen till QApp!";
+    ViewBag.title = "Välkommen till QApp";
 }
+
+<h3>Välkommen till QApp!</h3><br />
+<h4>Vänligen ta en kölapp</h4>
 
 <div id="showCardNumber">
     @Model.CardNumber
 </div>
 
 <div>
-    <button type="button" class="btn btn-success btn-lg" id="joinQueue" onclick="joinqueue();"> Ställ dig i kö</button>
+    <button type="button" class="btn btn-success btn-lg" id="joinQueueButton" onclick="joinqueue();"> Ställ dig i kö</button>
 
 </div>
 
@@ -41,7 +45,7 @@
                 //$("#leaveQueue").show();
                 console.log(result.cardNumber);
                 showposition();
-                var interval = setInterval(showposition, 15000) //´Ändra tillbaka
+                var interval = setInterval(showposition, 15000) //Ändra tillbaka
             }
         });
     }

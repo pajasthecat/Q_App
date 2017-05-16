@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\Font\CaslonCP.otf" />
+    <Content Include="wwwroot\Pictures\Caslon.png" />
+    <Content Include="wwwroot\Pictures\Caslon1.png" />
+    <Content Include="wwwroot\Pictures\Caslon1Qapp.png" />
     <Content Include="wwwroot\Pictures\QApp-logga.png" />
     <Content Include="wwwroot\style\MyStyleSheet.css" />
   </ItemGroup>

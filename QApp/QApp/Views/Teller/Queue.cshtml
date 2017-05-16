@@ -3,29 +3,29 @@
 <h3>Nummer att betjäna:</h3>
 
 <div id="showCardNumberToTeller">
-    0 
-</div> 
+    0
+</div>
 
 <div id="nextCustomer">
-    <button class="btn btn-success btn-lg" id="helpnextcustomer" onclick="helpnextcustomer()">Hjälp nästa i kö</button>
+    <button class="btn btn-success btn-lg" id="helpNextCustomerButton" onclick="helpnextcustomer()">Hjälp nästa i kö</button>
 </div>
 @*Ändra till javascript function!!*@
 <div id="closeCounter">
     <form asp-controller="Teller" asp-action="Queue">
         <input id="closeCounterButton" class="btn btn-danger btn-lg" type="submit" value="Stäng kassa" />
     </form>
-        @*<button id="CloseCounter" class="btn btn-danger btn-lg" onclick="Queue()">Stäng kassa</button>*@
-    </div>
+    @*<button id="CloseCounter" class="btn btn-danger btn-lg" onclick="Queue()">Stäng kassa</button>*@
+</div>
 
-    <script>
-        function helpnextcustomer() {
-            $.ajax({
-                url: "helpnextcustomer",
-                success: function (result) {
-                    $("#showCardNumberToTeller").html(result.cardNumber);
-                }
-            });
-        }
+<script>
+    function helpnextcustomer() {
+        $.ajax({
+            url: "helpnextcustomer",
+            success: function (result) {
+                $("#showCardNumberToTeller").html(result.cardNumber);
+            }
+        });
+    }
 
     //Byta asp till javascript
     //function Queue() {
@@ -38,4 +38,4 @@
 
     //}
 
-    </script>
+</script>
