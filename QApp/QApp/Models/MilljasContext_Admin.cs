@@ -11,16 +11,23 @@ namespace QApp.Models.Entities
 {
     public partial class MilljasContext :DbContext
     {
+        
 
-        public void AddTeller(AdminEditVM viewModel)
+        public async Task AddTeller(AdminEditVM viewModel)
         {
-            
+
+         var  aspNetUser = await userManager.FindByNameAsync(viewModel.UserName);
+         var teller = await userManager.AddToRoleAsync(aspNetUser, "Teller");
 
             User user = new User
             {
-
+                AspNetUserId = aspNetUser.Id,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName
             };
-             
+
+            User.Add(user);
+           await SaveChangesAsync();
 
         }
     }

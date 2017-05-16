@@ -14,8 +14,12 @@ namespace QApp.Models.Entities
 {
     public partial class MilljasContext : DbContext
     {
-        public MilljasContext(DbContextOptions<MilljasContext> options, UserManager<IdentityUser> userManager) : base(options)
+        UserManager<IdentityUser> userManager;
+        RoleManager<IdentityRole> roleManager;
+        public MilljasContext(DbContextOptions<MilljasContext> options, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) : base(options)
         {
+            this.userManager = userManager;
+            this.roleManager = roleManager;
             
         }
 

@@ -75,7 +75,7 @@ namespace QApp.Controllers
             }
 
             
-            context.AddTeller(viewModel);
+           await context.AddTeller(viewModel);
 
             return RedirectToAction(nameof(Home));
         }

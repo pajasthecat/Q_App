@@ -19,7 +19,8 @@ namespace QApp.Controllers
         {
             this.context = context;
         }
-
+        //Detta gör
+        [Route("")]
         public IActionResult Index()
         {
             HttpContext.Session.SetString("Kalle", "Anka");
