@@ -5,8 +5,10 @@ function joinqueue() {
         url: "/customer/GetCustomerCardNumber",
         success: function (result) {
             $("#showCardNumber").html(result.cardNumber);
-            $("#joinQueue").addClass("button");
-            $("#joinQueue").hide();
+            $("#showCardNumber").show();
+
+            $("#joinQueueButton").addClass("button");
+            $("#joinQueueButton").hide();
             $("#queuealert").show();
             //$("#leaveQueue").show();
             console.log(result.cardNumber);
@@ -27,8 +29,10 @@ function showposition() {
             if (result.cardNumber == 0) {
                 clearInterval(interval);
                 $("#showCardNumber").html(result.cardNumber);
+                $("#showCardNumber").hide();
+
                 $("#queuealert").hide();
-                $("#joinQueue").show();
+                $("#joinQueueButton").show();
 
             }
 

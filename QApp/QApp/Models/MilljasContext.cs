@@ -232,6 +232,9 @@ namespace QApp.Models.Entities
                         viewModel.CardNumber = 0;
 
                         message = "Välkommen åter!";
+
+                        //Välkommen åter syns inte då vi hidar diven och "nollställer" sidan.. ska det ändå synas fast man kan välja
+                        //att ställa sig i kö igen?
                     }
                 }
             }
@@ -260,5 +263,15 @@ namespace QApp.Models.Entities
         //    viewModel.CardNumber = 0;
         //    return viewModel;
         //}
+
+
+
+
+
+        //när vi ska få cardnumber--- hitta maxvärde och lägg på ett
+        //dölj diven när vi går in, displaya när vi får nummer, dölj när vi blivit hjälpta
+        //fixa javascript för close counter.. döpa till close counter?
+
+        //om vi stänger kassan så hamnar kunden på indexsidan igen och får möjlighet att ta ett kort...
     }
 }
