@@ -89,8 +89,12 @@ namespace QApp.Models.Entities
             if (queueIsActive && !alreadyInQueue)
             {
                 int numberOfCards = Card.Where(c => c.QueueId == activeQueue).Count();
+
+                //Card lastCardNumber = Card.OrderBy(ci => ci.Id).Where(c => c.QueueId == activeQueue).LastOrDefault();
+
                 Card card = new Card();
 
+                //card.CardNumber = lastCardNumber.CardNumber +=1;
                 card.CardNumber = numberOfCards + 1;
                 card.CardCreated = DateTime.Now;
                 card.QueueId = activeQueue;
@@ -106,6 +110,9 @@ namespace QApp.Models.Entities
 
         public void RemoveTellerFromQueue(string aspUserId)
         {
+            //Hämta användarens aspuserid här i stället för att skicka med i metoden
+            //string aspUserId = userManager.GetUserId(HttpContext.User);
+
             User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
 
             //Sätter queueid till null på den counter som trycker på knappen
@@ -229,10 +236,6 @@ namespace QApp.Models.Entities
                         SaveChangesAsync();
                         viewModel.CardNumber = 0;
 
-                        message = "Välkommen åter!";
-
-                        //Välkommen åter syns inte då vi hidar diven och "nollställer" sidan.. ska det ändå synas fast man kan välja
-                        //att ställa sig i kö igen?
                     }
                 }
             }
@@ -266,10 +269,11 @@ namespace QApp.Models.Entities
 
 
 
-        //när vi ska få cardnumber--- hitta maxvärde och lägg på ett
-        //dölj diven när vi går in, displaya när vi får nummer, dölj när vi blivit hjälpta
+        //när vi ska få cardnumber--- hitta maxvärde och lägg på ett.. funkar ej?
         //fixa javascript för close counter.. döpa till close counter?
 
         //om vi stänger kassan så hamnar kunden på indexsidan igen och får möjlighet att ta ett kort...
+
+        //Fixa så det på något sätt syns om det inte finns några personer i kön i stället för att numret blir 0 för tellern
     }
 }

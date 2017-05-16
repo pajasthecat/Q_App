@@ -39,12 +39,15 @@ namespace QApp.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Queue(TellerQueueVM viewModel)
+        //[HttpPost]
+        public string CloseCounter(/*TellerQueueVM viewModel*/)
         {
+            //Flytta detta till metoden i stället
             string aspUserId = userManager.GetUserId(HttpContext.User);
             context.RemoveTellerFromQueue(aspUserId);
-            return RedirectToAction(nameof(Home));
+            //return RedirectToAction(nameof(Home));
+
+            return "ok";
         }
 
         public TellerQueueVM HelpNextCustomer()
