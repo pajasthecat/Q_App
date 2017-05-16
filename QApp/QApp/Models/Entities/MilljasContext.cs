@@ -11,17 +11,13 @@ namespace QApp.Models.Entities
         public virtual DbSet<Queue> Queue { get; set; }
         public virtual DbSet<User> User { get; set; }
 
-      
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Card>(entity =>
             {
                 entity.ToTable("Card", "q");
 
-                entity.Property(e => e.SessionId)
-                    .IsRequired()
-                    .HasColumnType("varchar(max)");
+                entity.Property(e => e.SessionId).HasColumnType("varchar(max)");
 
                 entity.HasOne(d => d.Queue)
                     .WithMany(p => p.Card)
