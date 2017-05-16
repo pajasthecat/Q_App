@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Content Include="wwwroot\Font\CaslonCP.otf" />
+    <Content Include="wwwroot\js\QAppScript.js" />
     <Content Include="wwwroot\Pictures\Caslon.png" />
     <Content Include="wwwroot\Pictures\Caslon1.png" />
     <Content Include="wwwroot\Pictures\Caslon1Qapp.png" />
