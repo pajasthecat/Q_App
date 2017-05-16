@@ -215,7 +215,7 @@ namespace QApp.Models.Entities
                 myTurn = card.CounterId != null;
                 viewModel.CardNumber = card.CardNumber;
 
-                message = $"Det är {cardsBeforeYou} personer före dig i kön.";
+                message = $"Det är {cardsBeforeYou+1} personer före dig i kön.";
 
                 if (myTurn)
                 {
