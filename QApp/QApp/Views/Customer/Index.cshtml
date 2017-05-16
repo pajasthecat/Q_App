@@ -12,9 +12,9 @@
 
 </div>
 
-<div id="showNumbersBeforeYou">
+@*<div id="showNumbersBeforeYou">
     Personer före dig i kön: @Model.NumbersLeftInQueue
-</div>
+</div>*@
 
 @*Knapp för att lämna kö*@
 @*<div>
@@ -27,10 +27,12 @@
 
 
 
-<div id="queuealert" style="display:none"></div>
+<div id="queuealert" @*style="display:none"*@></div>
 
 
 <script>
+    var interval = 0;
+
     function joinqueue() {
         $.ajax({
             url: "customer/GetCustomerCardNumber",
@@ -38,10 +40,11 @@
                 $("#showCardNumber").html(result.cardNumber);
                 $("#joinQueue").addClass("button");
                 $("#joinQueue").hide();
+                $("#queuealert").show();
                 //$("#leaveQueue").show();
                 console.log(result.cardNumber);
                 showposition();
-                var interval = setInterval(showposition, 15000) //Ändra tillbaka
+                interval = setInterval(showposition, 3000) //Ändra tillbaka
             }
         });
     }
@@ -50,24 +53,38 @@
         $.ajax({
             url: "customer/ShowPositionInQueue",
             success: function (result) {
-                $("#showNumbersBeforeYou").html(result.numbersLeftInQueue);
-                console.log(result.numbersLeftInQueue);
+                //$("#showNumbersBeforeYou").html(result.numbersLeftInQueue);
+                //console.log(result.numbersLeftInQueue);
+                $("#queuealert").html(result.message);
 
-                if (result.numbersLeftInQueue > 0) {
-                    $("#queuealert").html("Nu är det " + result.numbersLeftInQueue + " personer före dig i kön");
-                    $("#queuealert").show();
-                }
-                else if (result.numbersLeftInQueue == 0) {
-                    $("#queuealert").html("Du är näst på tur!");
-                    $("#queuealert").show();
+                if (result.cardNumber == 0)
+                {
+                    clearInterval(interval);
+                    $("#showCardNumber").html(result.cardNumber);
+                    $("#queuealert").hide();
+                    $("#joinQueue").show();
 
                 }
+
+
+                //if (result.numbersLeftInQueue > 0) {
+                //    $("#queuealert").html("Nu är det " + result.numbersLeftInQueue + " personer före dig i kön");
+                //    $("#queuealert").show();
+                //}
+                //else if (result.numbersLeftInQueue == 0) {
+                //    $("#queuealert").html("Du är näst på tur!");
+                //    $("#queuealert").show();
+                //}
 
 
                 //Lägg till att stänga av timern
+
             }
         });
     }
+
+    //Gör en funktion som tar emot signal om när personen får hjälp via en bool
+    //Sätt då session id till null, nollställ sidan och redirecta till index
 
     //Funktion för att lämna kö
     //function leavequeue() {
