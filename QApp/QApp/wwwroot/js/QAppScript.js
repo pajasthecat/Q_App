@@ -1,4 +1,14 @@
-﻿var interval = 0;
+﻿function helpnextcustomer() {
+    $.ajax({
+        url: "helpnextcustomer",
+        success: function (result) {
+            $("#showCardNumberToTeller").html(result.cardNumber);
+        }
+    });
+}
+
+
+var interval = 0;
 
 function joinqueue() {
     $.ajax({
@@ -27,13 +37,11 @@ function showposition() {
             $("#queuealert").html(result.message);
 
             if (result.cardNumber == 0) {
-                clearInterval(interval);
+                
                 $("#showCardNumber").html(result.cardNumber);
                 $("#showCardNumber").hide();
-
-                $("#queuealert").hide();
                 $("#joinQueueButton").show();
-
+                clearInterval(interval);
             }
 
 

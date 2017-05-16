@@ -12,13 +12,30 @@
 
 @*Ändra till javascript function!!*@
 <div id="closeCounter">
-    <form asp-controller="Teller" asp-action="Queue">
-        <input id="closeCounterButton" class="btn btn-danger btn-lg" type="submit" value="Stäng kassa" />
-    </form>
-    @*<button id="closeCounterButton" class="btn btn-danger btn-lg" onclick="Queue()">Stäng kassa</button>*@
+B
+    <button id="closeCounterButton" class="btn btn-danger btn-lg" onclick="closecounter()">Stäng kassa</button>
 </div>
 
+
+
 <script>
+    function closecounter() {
+        $.ajax({
+            url: "/teller/closecounter",
+            success: function (result) {
+                window.location.href = "/teller/home";    
+            }
+        });
+
+    }
+
+
+</script>
+
+
+
+
+@*<script>
     function helpnextcustomer() {
         $.ajax({
             url: "helpnextcustomer",
@@ -26,9 +43,9 @@
                 $("#showCardNumberToTeller").html(result.cardNumber);
             }
         });
-    }
+    }*@
 
-    //Byta asp till javascript
+    @*//Byta asp till javascript
     //function Queue() {
     //    $.ajax({
     //        url: "Queue",
@@ -37,6 +54,6 @@
     //        }
     //    });
 
-    //}
+    //}*@
 
-</script>
+@*</script>*@
