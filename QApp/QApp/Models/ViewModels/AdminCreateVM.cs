@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QApp.Models.ViewModels
 {
-    public class AdminEditVM
+    public class AdminCreateVM
     {
         [Required]
         public string UserName { get; set; }

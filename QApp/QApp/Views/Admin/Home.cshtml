@@ -1,0 +1,44 @@
+﻿@model List<AdminHomeVM>
+
+<div class="tableContainer">
+    <h3>Kassapersonal</h3>
+
+    <table class="table table-striped">
+        <thead id="tableHead">
+            <tr>
+                <th>Användarnamn</th>
+                <th>Förnamn</th>
+                <th>Efternamn</th>
+                <th>Uppdatera</th>
+                <th>Ta bort</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserName</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    @*Lägg tillbaka item.AspNetUserID om det inte funakr att ta in hela objektet*@
+                    <td><a asp-controller="Admin" asp-action="Update" asp-route-id="@item">Uppdatera</a></td>
+                    <td><button id="removeButton" onclick="removeTeller('@item.AspNetUserId')" >Ta bort</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function removeTeller(id) {
+        if (confirm("Är du säker på att du vill radera användaren?")) {
+
+
+            $.ajax({
+                url: "/Admin/remove/" + id,
+                success: function (result) {
+                    window.location.href = "/Admin/home";
+                }
+            });
+        }
+    }
+</script>

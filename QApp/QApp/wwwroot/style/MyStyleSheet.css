@@ -122,13 +122,13 @@ table {
         background-color: #F2A1C3;
     }
 
-#joinQueueButton, #helpNextCustomerButton, #openCounterButton, #loginButton {
+#joinQueueButton, #helpNextCustomerButton, #openCounterButton, #loginButton, #createTellerButton {
     background-color: #EF6BA3;
     border-color: #7C0A8A;
     width: 500px;
     height: 150px;
     border-radius: 18px;
-    outline:none;
+    outline: none;
 }
 
 #closeCounterButton {
@@ -141,11 +141,11 @@ table {
 }
 
 h3 {
-    color: white;
-    font-size: 50px;
-    margin: 8px 0px 8px 0px;
-    font-family: 'Times New Roman';
-}
+        color: white;
+        font-size: 50px;
+        margin: 8px 0px 8px 0px;
+        font-family: 'Times New Roman';
+    }
 
 h4 {
     color: white;
@@ -184,7 +184,25 @@ h4 {
     text-align: center;
     width: auto;
     margin-bottom: 480px;
-    height: 500px;
+    height: 650px;
+}
+
+.tableContainer {
+    width: 500px;
+    margin: auto;
+}
+
+.table-striped {
+    color: black;
+    background-color: #EF6BA3;
+    margin:auto;
+
+}
+
+#tableHead {
+    color:white;
+    font-size:25px;
+    font-weight:bold;
 }
 
 .form-group {

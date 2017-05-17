@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace QApp.Models.ViewModels
 {
-    public class AdminHomeVM
+    public class AdminUpdateVM
     {
-        
+
         public string UserName { get; set; }
 
-       
+        public string Password { get; set; }
+
+        public string PasswordConfirm { get; set; }
+
         public string FirstName { get; set; }
 
-        
         public string LastName { get; set; }
-
-        public string AspNetUserId { get; set; }
     }
 }
