@@ -255,6 +255,9 @@ th, td {
     color: white;
 }
 
+#updateLink {
+    color: black;
+}
 
 .footer {
     position: absolute;

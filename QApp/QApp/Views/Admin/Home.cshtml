@@ -20,7 +20,7 @@
                     <td>@item.UserName</td>
                     <td>@item.FirstName</td>
                     <td>@item.LastName</td>
-                    <td><a asp-controller="Admin" asp-action="Update" asp-route-id="@item.AspNetUserId">Uppdatera</a></td>
+                    <td><a id="updateLink" asp-controller="Admin" asp-action="Update" asp-route-id="@item.AspNetUserId">Uppdatera</a></td>
                     <td><button id="removeButton" onclick="removeTeller('@item.AspNetUserId')" >Ta bort</button></td>
                 </tr>
             }
