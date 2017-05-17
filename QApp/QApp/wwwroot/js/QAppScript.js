@@ -111,6 +111,7 @@ function showposition() {
             if (result.cardNumber == 0) {
                 $("#showCardNumber").hide();
                 $("#joinQueueButton").show();
+                $("#leaveQueueButton").hide();
                 //clearInterval(interval);
             }
             else {
