@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace QApp.Models.Entities
 {
-    public partial class MilljasContext :DbContext
+    public partial class MilljasContext : DbContext
     {
-        
+
 
         public async Task AddTeller(AdminCreateVM viewModel)
         {
 
-         var  aspNetUser = await userManager.FindByNameAsync(viewModel.UserName);
-         await userManager.AddToRoleAsync(aspNetUser, "Teller");
+            var aspNetUser = await userManager.FindByNameAsync(viewModel.UserName);
+            await userManager.AddToRoleAsync(aspNetUser, "Teller");
 
             User user = new User
             {
@@ -27,48 +27,90 @@ namespace QApp.Models.Entities
             };
 
             User.Add(user);
-           await SaveChangesAsync();
+            await SaveChangesAsync();
 
         }
 
         public async Task<List<AdminHomeVM>> ShowTellers()
         {
 
-         var temp =  User.Select(s => new AdminHomeVM
-         {
-             UserName = "",
-             FirstName = s.FirstName,
-             LastName = s.LastName,
-             AspNetUserId = s.AspNetUserId
+            var temp = User.Select(s => new AdminHomeVM
+            {
+                UserName = "",
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                AspNetUserId = s.AspNetUserId
 
 
-         }).ToList();
+            }).ToList();
 
             foreach (var item in temp)
             {
                 var user = await userManager.FindByIdAsync(item.AspNetUserId);
                 item.UserName = user.UserName;
-               
+
             }
             return temp;
         }
 
-        public AdminUpdateVM ShowTellerToUpdate(AdminHomeVM viewModel)
+        public async Task<AdminUpdateVM> ShowTellerToUpdate(string aspNetUserId)
         {
+            var aspNetUser = await userManager.FindByIdAsync(aspNetUserId);
+
+            var user = User.Where(u => u.AspNetUserId == aspNetUserId).SingleOrDefault();
+
             AdminUpdateVM tellerToUpdate = new AdminUpdateVM
             {
-                UserName = viewModel.UserName,
-                FirstName = viewModel.FirstName,
-                LastName = viewModel.LastName
+                UserName = aspNetUser.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+
             };
 
             return tellerToUpdate;
         }
 
-        //public async Task UpdateTeller(AdminEditVM viewModel)
-        //{
+        public async Task UpdateTeller(AdminUpdateVM viewModel, string aspNetUserId)
+        {
 
-        //}
+            //Måste ändra hitta lösning för att byta lösenord och username
+            var aspNetUser = await userManager.FindByIdAsync(aspNetUserId);
+
+            var user = User.Where(u => u.AspNetUserId == aspNetUserId).SingleOrDefault();
+
+            if (viewModel.UserName != null && viewModel.UserName != aspNetUser.UserName)
+            {
+
+                aspNetUser.UserName = viewModel.UserName;
+
+            }
+
+            if (viewModel.Password != null)
+            {
+              
+                await userManager.RemovePasswordAsync(aspNetUser);
+                await userManager.AddPasswordAsync(aspNetUser, viewModel.Password);
+                //await userManager.ChangePasswordAsync(aspNetUser, aspNetUser.PasswordHash, viewModel.Password);
+                
+
+            }
+
+            if (viewModel.FirstName != null)
+            {
+                user.FirstName = viewModel.FirstName;
+            }
+
+            if (viewModel.LastName != null)
+            {
+                user.LastName = viewModel.LastName;
+            }
+
+            var y = await userManager.UpdateAsync(aspNetUser);
+
+            User.Update(user);
+            SaveChanges();
+
+        }
 
     }
 }
