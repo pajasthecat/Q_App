@@ -1,9 +1,7 @@
 ﻿var interval = 0;
 var queueinterval = 0;
 
-
-
-
+//TELLER
 function helpnextcustomer() {
     $.ajax({
         url: "helpnextcustomer",
@@ -37,7 +35,6 @@ function showcustomersinqueue() {
     });
 };
 
-
 function checkcounter() {
     $.ajax({
         url: "/teller/CheckCounter",
@@ -63,7 +60,6 @@ function checkcounter() {
     });
 };
 
-
 function closecounter() {
     $.ajax({
         url: "/teller/closecounter",
@@ -75,10 +71,7 @@ function closecounter() {
     });
 }
 
-
-
-
-//Lägg till meddelande om ingen kö finns aktiv.. nu syns 0 snabbt och sen döljs den igen
+//CUSTOMER
 function joinqueue() {
     $.ajax({
         url: "/customer/GetCustomerCardNumber",
