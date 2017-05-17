@@ -184,6 +184,7 @@ namespace QApp.Models.Entities
                     int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
 
                     // Tar nästa lediga kassa och sätter teller id till user id samt queueid till den aktiva köns id
+                    //DENNA VERKAR FEL?? DEN SÄTTER PERSON 2 I FÖRSTA KASSAN ALLTID
                     Counter.Where(q => q.QueueId == null).First().QueueId = activeQueue;
                     Counter.Where(q => q.TellerId == null).First().TellerId = user.Id;
                     SaveChanges();
