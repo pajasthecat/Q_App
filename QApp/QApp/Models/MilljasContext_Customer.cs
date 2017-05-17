@@ -27,8 +27,11 @@ namespace QApp.Models.Entities
         }
 
 
+        //public CustomerIndexVM AddCustomerToQueue(string sessionId)
         public void AddCustomerToQueue(string sessionId)
         {
+            CustomerIndexVM viewModel = new CustomerIndexVM();
+
             int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
 
             bool queueIsActive = Counter.FirstOrDefault().QueueId != null;
@@ -55,12 +58,15 @@ namespace QApp.Models.Entities
                 Card.Add(card);
                 SaveChanges();
             }
-            else //if (!queuisActive)
+            else if (!queueIsActive)
             {
                 //"Det finns ingen aktiv kö, välkommen att försöka senare.";
 
                 //LÄgg till ett message i vymodellen
+                //message = "Det finns ingen aktiv kö, välkommen att försöka senare.";
             }
+
+            //return viewModel;
         }
 
         public CustomerIndexVM GetPositionInQueue(string sessionId)

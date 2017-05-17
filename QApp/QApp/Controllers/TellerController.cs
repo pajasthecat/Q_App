@@ -82,6 +82,8 @@ namespace QApp.Controllers
         {
             return View();
         }
+
+
         [HttpPost]
         public IActionResult Home(AdminHomeVM viewModel)
         {

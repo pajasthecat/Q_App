@@ -74,6 +74,10 @@ namespace QApp.Models.Entities
             //Sätter queueid till null på den counter som trycker på knappen
             Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
 
+            //Kort i kassan
+            //Lagt till onsdag kväll för att sätta service-end när ett kort står i kassan när den stänger
+            Card cardServed = Card.OrderBy(c => c.Id).Where(c => c.CounterId == counter.TellerId && c.SessionId != null).LastOrDefault();
+
             ////Om sista kassan stänger hittar vi alla cards i kön som inte fått hjälp och nullar deras session-id
             //bool isLastCounter = Counter.Where(c => c.TellerId != null).Count() == 1;
 
@@ -95,6 +99,7 @@ namespace QApp.Models.Entities
             counter.QueueId = null;
             counter.TellerId = null;
             counter.CardId = null;
+            cardServed.ServiceEnd = DateTime.Now; //Lagt till onsdag kväll för att sätta service-end när ett kort står i kassan när den stänger
             SaveChanges();
 
             //viewModel.Message = message;  //Lagt till denna för att informera om personer i kön 
@@ -139,6 +144,42 @@ namespace QApp.Models.Entities
         //Vi stoppar in aspnetUserId här
         public void PopulateQueue(string aspUserId)
         {
+
+            //User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
+
+            //int activeCounters = 0;
+            //activeCounters = Counter.Count(c => c.QueueId != null);
+
+            //if (activeCounters == 0)
+            //{
+            //    Queue queue = new Queue();
+            //    queue.Name = DateTime.Now.ToString();
+            //    Queue.Add(queue);
+
+            //    Counter counterToOpen = Counter.OrderBy(c => c.Id).First(c => c.QueueId == null);
+            //    counterToOpen.QueueId = queue.Id;
+            //    counterToOpen.TellerId = user.Id;
+            //    SaveChanges();
+            //}
+            //else
+            //{
+            //    bool tellerAlreadyActive = Counter.Where(c => c.TellerId == user.Id) != null;
+
+            //    if (!tellerAlreadyActive)
+            //    {
+            //        Counter counterToOpen = Counter.OrderBy(c => c.Id).First(c => c.QueueId == null);
+            //        Queue queueToJoin = Queue.OrderBy(c => c.Id).Last();
+
+            //        counterToOpen.QueueId = queueToJoin.Id;
+            //        counterToOpen.TellerId = user.Id;
+            //        SaveChanges();
+            //    }
+
+            //}
+
+
+
+
             // Hämtar alla kassors qId till en lista 
             List<Counter> counters = Counter.Select(c => new Counter
             {
@@ -195,22 +236,23 @@ namespace QApp.Models.Entities
                 }
             }
         }
+    
 
-        //Ska visa hur många kunder som står i kö
-        public TellerQueueVM CustomersInQueue(string aspUserId)
-        {
-            int customersInQueue = 0;
-            TellerQueueVM viewModel = new TellerQueueVM();
+    //Ska visa hur många kunder som står i kö
+    public TellerQueueVM CustomersInQueue(string aspUserId)
+    {
+        //int customersInQueue = 0;
+        TellerQueueVM viewModel = new TellerQueueVM();
 
-            User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
-            Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
+        User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
+        Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
 
-            //Uppdaterat denna, var den som bråkade när någon gick ur kön
-            customersInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null && c.SessionId != null);
+        //Uppdaterat denna, var den som bråkade när någon gick ur kön
+        int customersInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null && c.SessionId != null);
 
-            viewModel.CustomersLeftInQueue = customersInQueue;
+        viewModel.CustomersLeftInQueue = customersInQueue;
 
-            return viewModel;
-        }
+        return viewModel;
     }
+}
 }
