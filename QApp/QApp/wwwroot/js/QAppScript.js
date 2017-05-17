@@ -1,24 +1,68 @@
-﻿function helpnextcustomer() {
+﻿var interval = 0;
+var queueinterval = 0;
+
+$(document).ready(function () {
+    queueinterval = setInterval(showcustomersinqueue, 3000);
+});
+
+
+function helpnextcustomer() {
     $.ajax({
         url: "helpnextcustomer",
         success: function (result) {
             $("#showCardNumberToTeller").html(result.cardNumber);
+
+            //När noll personer är kvar i kön vill jag skriva ut det
+
+            if (result.customersLeftInQueue == 0) {
+                $("#customersInQueue").html("Nu står inga fler i kö!");
+            }
+
+            //Om det är sista kortet vill jag gömma siffran för aktuellt kort
+            if (result.isLastCard == true) {
+                $("#showCardNumberToTeller").hide();
+                //$("#customersInQueue").hide(); 
+            }
         }
     });
 }
 
+
+function showcustomersinqueue() {
+    $.ajax({
+        url: "/teller/CustomersInQueue",
+        success: function (result) {
+            $("#customersInQueue").html(result.customersLeftInQueue);
+        }
+    });
+};
+
+//Lägg till kod om att det står personer kvar i kön
+//SKa den varna och direkt redirecta till home eller varna och tvinga tellern att trycka på något?
 function closecounter() {
     $.ajax({
         url: "/teller/closecounter",
         success: function (result) {
-            window.location.href = "/teller/home";
+
+            if (queueinterval > 0)
+                clearInterval(queueinterval);
+
+            if (result.customersLeftInQueue > 0)
+            {
+                if (confirm(result.message) == true) {
+                    window.location.href = "/teller/home";
+                }
+                else {
+                    $("#openCounterButton").trigger("click");
+                    queueinterval = setInterval(showcustomersinqueue, 3000);
+                }
+            }           
         }
     });
 
 }
 
 
-var interval = 0;
 
 function joinqueue() {
     $.ajax({
@@ -47,7 +91,7 @@ function showposition() {
             $("#queuealert").html(result.message);
 
             if (result.cardNumber == 0) {
-                
+
                 $("#showCardNumber").html(result.cardNumber);
                 $("#showCardNumber").hide();
                 $("#joinQueueButton").show();

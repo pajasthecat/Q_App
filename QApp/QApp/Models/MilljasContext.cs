@@ -27,6 +27,8 @@ namespace QApp.Models.Entities
         {
             TellerQueueVM tellerQueueVM = new TellerQueueVM();
 
+            bool isLastCard = true;
+
             //Hitta nästa card som inte är kopplad till en counter
             Card card = Card.OrderBy(c => c.Id).Where(i => i.CounterId == null).FirstOrDefault();
 
@@ -37,6 +39,7 @@ namespace QApp.Models.Entities
 
             if (card != null)
             {
+                isLastCard = false;
 
                 // Ta ut cardets id och nummer och tilldela variablerna
                 int nextCardID = card.Id;
@@ -61,6 +64,7 @@ namespace QApp.Models.Entities
 
             SaveChanges();
 
+            tellerQueueVM.isLastCard = isLastCard;
             return tellerQueueVM;
         }
 
@@ -114,8 +118,14 @@ namespace QApp.Models.Entities
             }
         }
 
-        public void RemoveTellerFromQueue(string aspUserId)
+        //public void RemoveTellerFromQueue(string aspUserId)
+        public TellerQueueVM RemoveTellerFromQueue(string aspUserId)
         {
+            TellerQueueVM viewModel = new TellerQueueVM();
+            string message = null;
+
+            viewModel.CustomersLeftInQueue = 0;
+
             //Hämta användarens aspuserid här i stället för att skicka med i metoden
             //string aspUserId = userManager.GetUserId(HttpContext.User);
 
@@ -131,6 +141,11 @@ namespace QApp.Models.Entities
             {
                 var lastCardsInQueue = Card.Where(c => c.CounterId == null).ToList();
 
+                //Detta borde tala om hur många kunder som är kvar i kön när jag väl vill stänga sista kassan.
+                int customersLeftInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart != null);
+                message = $"Obs! Det står {customersLeftInQueue} kunder kvar i kön. Vill du verkligen stänga den?";
+                viewModel.CustomersLeftInQueue = customersLeftInQueue;
+
                 foreach (var item in lastCardsInQueue)
                 {
                     item.SessionId = null;
@@ -141,6 +156,10 @@ namespace QApp.Models.Entities
             counter.TellerId = null;
             counter.CardId = null;
             SaveChanges();
+
+            viewModel.Message = message;  //Lagt till denna för att informera om personer i kön 
+
+            return viewModel;
         }
 
         //Vi stoppar in aspnetUserId här
@@ -255,6 +274,17 @@ namespace QApp.Models.Entities
 
             viewModel.Message = message;
             viewModel.MyTurn = myTurn;
+            return viewModel;
+        }
+
+        //Ska visa hur många kunder som står i kö
+        public TellerQueueVM CustomersInQueue()
+        {
+            TellerQueueVM viewModel = new TellerQueueVM();
+            int customersInQueue = Card.Count(c => c.ServiceStart == null); //Behöver jag lägga till kö-id?
+
+            viewModel.CustomersLeftInQueue = customersInQueue;
+
             return viewModel;
         }
 
