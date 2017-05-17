@@ -122,7 +122,7 @@ table {
         background-color: #F2A1C3;
     }
 
-#joinQueueButton, #helpNextCustomerButton, #openCounterButton, #loginButton, #createTellerButton {
+#joinQueueButton, #helpNextCustomerButton, #openCounterButton, #loginButton, #createTellerButton, #updateTellerButton {
     background-color: #EF6BA3;
     border-color: #7C0A8A;
     width: 500px;

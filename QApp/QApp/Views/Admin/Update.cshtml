@@ -1,17 +1,20 @@
 ﻿@model AdminUpdateVM
 
-<form asp-controller="Admin" asp-action="Edit">
+<form asp-controller="Admin" asp-action="Update">
     <div id="userName" class="form-group">
         <label id="label" asp-for="UserName">Användarnamn</label>
-        <input id="input" asp-for="UserName" />
+        <input value="@Model.UserName" id="input" asp-for="UserName" />
         
         <br />
         <label id="label" asp-for="Password">Lösenord</label>
         <input id="input" asp-for="Password" />
+        <span id="span" asp-validation-for="Password"></span>
         
         <br />
         <label id="label" asp-for="PasswordConfirm">Bekräfta lösenord</label>
         <input id="input" asp-for="PasswordConfirm" />
+        <span id="span" asp-validation-for="PasswordConfirm"></span>
+
         
         <br />
         <label id="label" asp-for="FirstName">Förnamn</label>
@@ -19,9 +22,10 @@
        
         <br />
         <label id="label" asp-for="LastName">Efternamn</label>
-        <input id="input" asp-for="LastName" />
+        <input value="@Model.LastName" id="input" asp-for="LastName" />
        
         <br />
-        <input id="createTellerButton" type="submit" class="btn btn-success btn-lg" value="Lägg till">
+        <input id="updateTellerButton" type="submit" class="btn btn-success btn-lg" value="Uppdatera">
     </div>
 </form>
+

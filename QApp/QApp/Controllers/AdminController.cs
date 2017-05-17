@@ -32,10 +32,23 @@ namespace QApp.Controllers
             this.context = context;
         }
 
-        public IActionResult Update(AdminHomeVM viewModel)
+        [HttpPost]
+        public async Task<IActionResult> Update(AdminUpdateVM viewModel, string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(await context.ShowTellerToUpdate(id));
+            }
+            await context.UpdateTeller(viewModel, id);
+            return RedirectToAction(nameof(Home));
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Update(string id)
         {
 
-            return View(context.ShowTellerToUpdate(viewModel));
+            return View(await context.ShowTellerToUpdate(id));
         }
 
         [HttpGet]
