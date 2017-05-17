@@ -1,9 +1,7 @@
 ﻿var interval = 0;
 var queueinterval = 0;
 
-$(document).ready(function () {
-    queueinterval = setInterval(showcustomersinqueue, 3000);
-});
+
 
 
 function helpnextcustomer() {
@@ -15,7 +13,7 @@ function helpnextcustomer() {
             //När noll personer är kvar i kön vill jag skriva ut det
 
             if (result.customersLeftInQueue == 0) {
-                $("#customersInQueue").html("Nu står inga fler i kö!");
+                $("#customersInQueue").html("Nu står inga fler i kö!"); //Meddelandet visas jättekort, sen kommer 0 tillbaka
             }
 
             //Om det är sista kortet vill jag gömma siffran för aktuellt kort
@@ -27,7 +25,6 @@ function helpnextcustomer() {
     });
 }
 
-
 function showcustomersinqueue() {
     $.ajax({
         url: "/teller/CustomersInQueue",
@@ -37,33 +34,48 @@ function showcustomersinqueue() {
     });
 };
 
-//Lägg till kod om att det står personer kvar i kön
-//SKa den varna och direkt redirecta till home eller varna och tvinga tellern att trycka på något?
+
+function checkcounter() {
+    $.ajax({
+        url: "/teller/CheckCounter",
+        success: function (result) {
+
+            if (result.isLastCounter == false) {
+                closecounter();
+            }
+            else if (result.isLastCounter == true && result.customersLeftInQueue == 0) {
+                closecounter();
+            }
+            else if (result.isLastCounter == true && result.customersLeftInQueue > 0) {
+                if (confirm(result.message) == true) {
+                    closecounter();
+                    window.location.href = "/teller/home";
+                }
+                else {
+                    
+                }
+            }
+
+        }
+    });
+};
+
+
 function closecounter() {
     $.ajax({
         url: "/teller/closecounter",
         success: function (result) {
 
-            if (queueinterval > 0)
-                clearInterval(queueinterval);
+            window.location.href = "/teller/home";
 
-            if (result.customersLeftInQueue > 0)
-            {
-                if (confirm(result.message) == true) {
-                    window.location.href = "/teller/home";
-                }
-                else {
-                    $("#openCounterButton").trigger("click");
-                    queueinterval = setInterval(showcustomersinqueue, 3000);
-                }
-            }           
         }
     });
-
 }
 
 
 
+
+//Lägg till meddelande om ingen kö finns aktiv.. nu syns 0 snabbt och sen döljs den igen
 function joinqueue() {
     $.ajax({
         url: "/customer/GetCustomerCardNumber",
@@ -95,7 +107,7 @@ function showposition() {
                 $("#showCardNumber").html(result.cardNumber);
                 $("#showCardNumber").hide();
                 $("#joinQueueButton").show();
-                clearInterval(interval);
+                //clearInterval(interval);
             }
 
 
