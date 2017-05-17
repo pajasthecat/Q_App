@@ -2,11 +2,13 @@
 
 <div class="tableContainer">
     <h3>Kassapersonal</h3>
-
+    <div id="createButtonDiv">
+        <a id="createButton" href="~/Admin/Create" class="btn btn-success" role="button">Lägg till</a>
+    </div>
     <table class="table table-striped">
         <thead id="tableHead">
             <tr>
-                <th>Användarnamn</th>
+                <th>Användarid</th>
                 <th>Förnamn</th>
                 <th>Efternamn</th>
                 <th>Uppdatera</th>
@@ -21,23 +23,42 @@
                     <td>@item.FirstName</td>
                     <td>@item.LastName</td>
                     <td><a id="updateLink" asp-controller="Admin" asp-action="Update" asp-route-id="@item.AspNetUserId">Uppdatera</a></td>
-                    <td><button id="removeButton" onclick="removeTeller('@item.AspNetUserId')" >Ta bort</button></td>
+                    <td><button id="removeButton" class="btn btn-success" onclick="confirmRemoveTeller('@item.AspNetUserId')">Ta bort</button></td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
 <script>
-    function removeTeller(id) {
-        if (confirm("Är du säker på att du vill radera användaren?")) {
-
-
+    function confirmRemoveTeller(id) {
+        var result = confirm("Är du säker på att du vill radera användaren?")
+        if (result) {
             $.ajax({
-                url: "/Admin/remove/" + id,
+                url: "/admin/remove/" + id,
+                type: "GET",
                 success: function (result) {
-                    window.location.href = "/Admin/home";
+                    window.location.href = "/admin/home";
                 }
             });
         }
+
     }
+
+    //function confirmRemoveTeller(id) {
+    //    if (confirm("Är du säker på att du vill radera användaren?") == true) {
+    //        removeTeller(id);
+    //    }
+    //}
+
+    //function removeTeller(id) {
+
+    //    $.ajax({
+    //        url: "/admin/remove/" + id,
+    //        success: function (result) {
+    //            window.location.href = "/admin/home";
+    //        }
+    //    });
+
+    //}
 </script>

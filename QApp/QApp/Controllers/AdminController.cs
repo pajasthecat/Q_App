@@ -32,6 +32,12 @@ namespace QApp.Controllers
             this.context = context;
         }
 
+        [HttpGet]
+        public async Task Remove(string id)
+        {
+            await context.RemoveTeller(id);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Update(AdminUpdateVM viewModel, string id)
         {

@@ -87,11 +87,11 @@ namespace QApp.Models.Entities
 
             if (viewModel.Password != null)
             {
-              
+
                 await userManager.RemovePasswordAsync(aspNetUser);
                 await userManager.AddPasswordAsync(aspNetUser, viewModel.Password);
                 //await userManager.ChangePasswordAsync(aspNetUser, aspNetUser.PasswordHash, viewModel.Password);
-                
+
 
             }
 
@@ -109,7 +109,15 @@ namespace QApp.Models.Entities
 
             User.Update(user);
             SaveChanges();
+        }
 
+        public async Task RemoveTeller(string aspNetUserId)
+        {
+            var user = User.Where(u => u.AspNetUserId == aspNetUserId).SingleOrDefault();
+            User.Remove(user);
+            var aspNetUser = await userManager.FindByIdAsync(aspNetUserId);
+            await userManager.DeleteAsync(aspNetUser);
+            await SaveChangesAsync();
         }
 
     }

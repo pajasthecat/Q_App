@@ -15,7 +15,9 @@ time, mark, audio, video {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    /*font-family: fenixstd;*/
+    /*font-family:'Times New Roman';*/
+    font-family: 'futura std medium condensed';
     vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -52,10 +54,29 @@ table {
 
 /*Egen css kod*/
 
-@font-face {
+/*@font-face {
     font-family: 'casloncp';
     src: url('../font/casloncp.otf') format('opentype');
+}*/
+
+/*@font-face {
+    font-family: 'fenixstd';
+    src: url('../font/fenixstd.otf') format('opentype');
+}*/
+
+@font-face {
+    font-family: 'futura medium';
+    src: url('../font/futura medium.ttf') format('truetype');
 }
+
+@font-face {
+    font-family: 'futura std medium condensed';
+    src: url('../font/futura std medium condensed.ttf') format('truetype');
+}
+
+
+
+/*Egen css kod*/
 
 #body {
     background-color: #561D62;
@@ -103,7 +124,7 @@ table {
     background-image: none;
     border: 1px solid transparent;
     border-radius: 18px;
-    outline:none;
+    outline: none;
 }
 
 .btn-success:hover {
@@ -122,7 +143,7 @@ table {
         background-color: #F2A1C3;
     }
 
-#joinQueueButton, #helpNextCustomerButton, #openCounterButton, #loginButton, #createTellerButton, #updateTellerButton {
+#joinQueueButton, #leaveQueueButton, #helpNextCustomerButton, #openCounterButton, #loginButton, #createTellerButton, #updateTellerButton {
     background-color: #EF6BA3;
     border-color: #7C0A8A;
     width: 500px;
@@ -140,12 +161,36 @@ table {
     outline: none;
 }
 
+#removeButton {
+    background-color: #561D62;
+    border-color: white;
+    width: 100px;
+    height: 60px;
+    border-radius: 18px;
+    outline: none;
+    font-size: 18px;
+}
+
+#createButton {
+    background-color: #561D62;
+    border-color: white;
+    width: 120px;
+    height: 70px;
+    border-radius: 18px;
+    outline: none;
+    font-size: 18px;
+    padding: 15px 0px 0px 0px;
+}
+
+#createButtonDiv {
+    margin: 15px 1000px 0px 0px;
+}
+
 h3 {
-        color: white;
-        font-size: 50px;
-        margin: 8px 0px 8px 0px;
-        font-family: 'Times New Roman';
-    }
+    color: white;
+    font-size: 50px;
+    margin: 8px 0px 8px 0px;
+}
 
 h4 {
     color: white;
@@ -158,7 +203,7 @@ h4 {
 }
 
 .btn-danger, btn-danger:hover, btn-danger:active:hover {
-    background-color: #DD65EC;
+    background-color: #EF6BA3;
 }
 
 #showCardNumber, #showCardNumberToTeller {
@@ -183,30 +228,39 @@ h4 {
 .container {
     text-align: center;
     width: auto;
+    margin-top: 150px;
     margin-bottom: 480px;
     height: 650px;
 }
 
 .tableContainer {
-    width: 1000px;
+    width: 800px;
     margin: auto;
 }
 
 .table-striped {
-    color: black;
-    background-color: #EF6BA3;
-    margin:auto;
-
+    color: white;
+    background-color: #561D62;
+    margin: auto;
 }
+
+    .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: white;
+        color: #561D62;
+    }
 
 th, td {
     text-align: center;
 }
 
+td {
+    font-size: 20px;
+}
+
 #tableHead {
-    color:white;
-    font-size:25px;
-    font-weight:bold;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .form-group {
@@ -256,7 +310,7 @@ th, td {
 }
 
 #updateLink {
-    color: black;
+    color: #EF6BA3;
 }
 
 .footer {

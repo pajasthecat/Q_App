@@ -6,6 +6,12 @@
 
   <ItemGroup>
     <Content Include="wwwroot\Font\CaslonCP.otf" />
+    <Content Include="wwwroot\Font\FenixStd.otf" />
+    <Content Include="wwwroot\Font\Futura Medium.ttf" />
+    <Content Include="wwwroot\Font\Futura Std Medium Condensed.ttf" />
+    <Content Include="wwwroot\Font\Futura Std Medium.ttf" />
+    <Content Include="wwwroot\Font\Futura TOT Medium Condensed.ttf" />
+    <Content Include="wwwroot\Font\Futura URW Medium.ttf" />
     <Content Include="wwwroot\js\QAppScript.js" />
     <Content Include="wwwroot\Pictures\Caslon.png" />
     <Content Include="wwwroot\Pictures\Caslon1.png" />
