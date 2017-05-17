@@ -10,12 +10,6 @@ function helpnextcustomer() {
         success: function (result) {
             $("#showCardNumberToTeller").html(result.cardNumber);
 
-            //När noll personer är kvar i kön vill jag skriva ut det
-
-            if (result.customersLeftInQueue == 0) {
-                $("#customersInQueue").html("Nu står inga fler i kö!"); //Meddelandet visas jättekort, sen kommer 0 tillbaka
-            }
-
             //Om det är sista kortet vill jag gömma siffran för aktuellt kort
             if (result.isLastCard == true) {
                 $("#showCardNumberToTeller").hide();
@@ -29,7 +23,14 @@ function showcustomersinqueue() {
     $.ajax({
         url: "/teller/CustomersInQueue",
         success: function (result) {
-            $("#customersInQueue").html(result.customersLeftInQueue);
+
+            //När noll personer är kvar i kön vill jag skriva ut det
+            if (result.customersLeftInQueue == 0) {
+                $("#customersInQueue").html("Nu står inga fler i kö!"); //Meddelandet visas jättekort, sen kommer 0 tillbaka
+            }
+            else {
+                $("#customersInQueue").html(result.customersLeftInQueue);
+            }
         }
     });
 };
@@ -52,7 +53,7 @@ function checkcounter() {
                     window.location.href = "/teller/home";
                 }
                 else {
-                    
+
                 }
             }
 
@@ -80,16 +81,18 @@ function joinqueue() {
     $.ajax({
         url: "/customer/GetCustomerCardNumber",
         success: function (result) {
-            $("#showCardNumber").html(result.cardNumber);
-            $("#showCardNumber").show();
+
+            // Flyttat till showposition else
+            //$("#showCardNumber").html(result.cardNumber);
+            //$("#showCardNumber").show();
 
             $("#joinQueueButton").addClass("button");
             $("#joinQueueButton").hide();
             $("#queuealert").show();
             //$("#leaveQueue").show();
-            console.log(result.cardNumber);
+            //console.log(result.cardNumber);
             showposition();
-            interval = setInterval(showposition, 3000) //Ändra tillbaka
+            interval = setInterval(showposition, 3000); //Ändra tillbaka
         }
     });
 }
@@ -102,12 +105,14 @@ function showposition() {
             //console.log(result.numbersLeftInQueue);
             $("#queuealert").html(result.message);
 
+            $("#showCardNumber").html(result.cardNumber);
             if (result.cardNumber == 0) {
-
-                $("#showCardNumber").html(result.cardNumber);
                 $("#showCardNumber").hide();
                 $("#joinQueueButton").show();
                 //clearInterval(interval);
+            }
+            else {
+                $("#showCardNumber").show();
             }
 
 

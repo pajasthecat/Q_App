@@ -143,17 +143,17 @@ namespace QApp.Models.Entities
 
             //if (isLastCounter)
             //{
-            //    var lastCardsInQueue = Card.Where(c => c.CounterId == null).ToList();
+            var lastCardsInQueue = Card.Where(c => c.CounterId == null && c.QueueId == counter.QueueId).ToList(); //kolla att det är min kö också
 
             //    //Detta borde tala om hur många kunder som är kvar i kön när jag väl vill stänga sista kassan.
             //    int customersLeftInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart != null);
             //    message = $"Obs! Det står {customersLeftInQueue} kunder kvar i kön. Vill du verkligen stänga den?";
             //    viewModel.CustomersLeftInQueue = customersLeftInQueue;
 
-            //    foreach (var item in lastCardsInQueue)
-            //    {
-            //        item.SessionId = null;
-            //    }
+            foreach (var item in lastCardsInQueue)
+            {
+                item.SessionId = null;
+            }
             //}
 
             counter.QueueId = null;
