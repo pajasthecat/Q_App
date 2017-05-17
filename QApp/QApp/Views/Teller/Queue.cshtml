@@ -13,11 +13,17 @@
 </div>
 
 <div id="closeCounter">
-    <button id="closeCounterButton" class="btn btn-danger btn-lg" onclick="closecounter()">Stäng kassa</button>
+    <button id="closeCounterButton" class="btn btn-danger btn-lg" onclick="checkcounter()">Stäng kassa</button> @*Ändrat till att kolla counter i stället för att stänga kassa*@
 </div>
 
 
 <div id="customersInQueue"></div>
+
+<script>
+    $(document).ready(function () {
+        queueinterval = setInterval(showcustomersinqueue, 3000);
+    });
+</script>
 
 @*<script>
     function closecounter() {

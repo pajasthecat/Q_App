@@ -1,9 +1,7 @@
 ﻿var interval = 0;
 var queueinterval = 0;
 
-$(document).ready(function () {
-    queueinterval = setInterval(showcustomersinqueue, 3000);
-});
+
 
 
 function helpnextcustomer() {
@@ -11,12 +9,6 @@ function helpnextcustomer() {
         url: "helpnextcustomer",
         success: function (result) {
             $("#showCardNumberToTeller").html(result.cardNumber);
-
-            //När noll personer är kvar i kön vill jag skriva ut det
-
-            if (result.customersLeftInQueue == 0) {
-                $("#customersInQueue").html("Nu står inga fler i kö!");
-            }
 
             //Om det är sista kortet vill jag gömma siffran för aktuellt kort
             if (result.isLastCard == true) {
@@ -27,57 +19,80 @@ function helpnextcustomer() {
     });
 }
 
-
 function showcustomersinqueue() {
     $.ajax({
         url: "/teller/CustomersInQueue",
         success: function (result) {
-            $("#customersInQueue").html(result.customersLeftInQueue);
+
+            //När noll personer är kvar i kön vill jag skriva ut det
+            if (result.customersLeftInQueue == 0) {
+                $("#customersInQueue").html("Nu står inga fler i kö!"); //Meddelandet visas jättekort, sen kommer 0 tillbaka
+            }
+            else {
+                $("#customersInQueue").html(result.customersLeftInQueue);
+            }
         }
     });
 };
 
-//Lägg till kod om att det står personer kvar i kön
-//SKa den varna och direkt redirecta till home eller varna och tvinga tellern att trycka på något?
+
+function checkcounter() {
+    $.ajax({
+        url: "/teller/CheckCounter",
+        success: function (result) {
+
+            if (result.isLastCounter == false) {
+                closecounter();
+            }
+            else if (result.isLastCounter == true && result.customersLeftInQueue == 0) {
+                closecounter();
+            }
+            else if (result.isLastCounter == true && result.customersLeftInQueue > 0) {
+                if (confirm(result.message) == true) {
+                    closecounter();
+                    window.location.href = "/teller/home";
+                }
+                else {
+
+                }
+            }
+
+        }
+    });
+};
+
+
 function closecounter() {
     $.ajax({
         url: "/teller/closecounter",
         success: function (result) {
 
-            if (queueinterval > 0)
-                clearInterval(queueinterval);
+            window.location.href = "/teller/home";
 
-            if (result.customersLeftInQueue > 0)
-            {
-                if (confirm(result.message) == true) {
-                    window.location.href = "/teller/home";
-                }
-                else {
-                    $("#openCounterButton").trigger("click");
-                    queueinterval = setInterval(showcustomersinqueue, 3000);
-                }
-            }           
         }
     });
-
 }
 
 
 
+
+//Lägg till meddelande om ingen kö finns aktiv.. nu syns 0 snabbt och sen döljs den igen
 function joinqueue() {
     $.ajax({
         url: "/customer/GetCustomerCardNumber",
         success: function (result) {
-            $("#showCardNumber").html(result.cardNumber);
-            $("#showCardNumber").show();
+
+            // Flyttat till showposition else
+            //$("#showCardNumber").html(result.cardNumber);
+            //$("#showCardNumber").show();
 
             $("#joinQueueButton").addClass("button");
             $("#joinQueueButton").hide();
             $("#queuealert").show();
             //$("#leaveQueue").show();
-            console.log(result.cardNumber);
+            //console.log(result.cardNumber);
             showposition();
-            interval = setInterval(showposition, 3000) //Ändra tillbaka
+            interval = setInterval(showposition, 3000); //Ändra tillbaka
         }
     });
 }
@@ -90,12 +105,14 @@ function showposition() {
             //console.log(result.numbersLeftInQueue);
             $("#queuealert").html(result.message);
 
+            $("#showCardNumber").html(result.cardNumber);
             if (result.cardNumber == 0) {
-
-                $("#showCardNumber").html(result.cardNumber);
                 $("#showCardNumber").hide();
                 $("#joinQueueButton").show();
-                clearInterval(interval);
+                //clearInterval(interval);
+            }
+            else {
+                $("#showCardNumber").show();
             }
 
 

@@ -12,7 +12,7 @@ using QApp.Models.Entities;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace QApp.Controllers
-{   
+{
     [Authorize]
     public class TellerController : Controller
     {
@@ -36,7 +36,8 @@ namespace QApp.Controllers
 
         public TellerQueueVM CustomersInQueue()
         {
-            return context.CustomersInQueue();
+            string aspUserId = userManager.GetUserId(HttpContext.User);
+            return context.CustomersInQueue(aspUserId);
             //return View();
         }
 
@@ -54,11 +55,18 @@ namespace QApp.Controllers
         //    return "ok";
         //}
 
-        public TellerQueueVM CloseCounter()
+        //public TellerQueueVM CloseCounter()
+        public void CloseCounter()
         {
             string aspUserId = userManager.GetUserId(HttpContext.User);
-            return context.RemoveTellerFromQueue(aspUserId);
-             
+            context.RemoveTellerFromQueue(aspUserId);
+
+        }
+
+        public TellerQueueVM CheckCounter()
+        {
+            string aspUserId = userManager.GetUserId(HttpContext.User);
+            return context.CheckCounter(aspUserId);
         }
 
         public TellerQueueVM HelpNextCustomer()
@@ -66,7 +74,7 @@ namespace QApp.Controllers
             TellerQueueVM tellerQueueVM = new TellerQueueVM();
 
             string aspUserId = userManager.GetUserId(HttpContext.User);
-            
+
             return context.HelpNextCustomer(aspUserId);
         }
 
@@ -77,7 +85,7 @@ namespace QApp.Controllers
         [HttpPost]
         public IActionResult Home(AdminHomeVM viewModel)
         {
-            string aspUserId = userManager.GetUserId(HttpContext.User); 
+            string aspUserId = userManager.GetUserId(HttpContext.User);
             context.PopulateQueue(aspUserId);
             return RedirectToAction(nameof(Queue));
         }

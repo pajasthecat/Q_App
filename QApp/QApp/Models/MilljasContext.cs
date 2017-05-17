@@ -30,13 +30,18 @@ namespace QApp.Models.Entities
 
             bool isLastCard = true;
 
-            //Hitta nästa card som inte är kopplad till en counter
-            Card card = Card.OrderBy(c => c.Id).Where(i => i.CounterId == null).FirstOrDefault();
-
             //Hämtar den teller som matchar med den som klickar på knappens id
             User user = User.Single(i => i.AspNetUserId == aspUserId);
             //Kollar vilken counter den tellern är på
-            int counterId = Counter.Where(c => c.TellerId == user.Id).Select(ci => ci.Id).First();
+            //int counterId = Counter.Where(c => c.TellerId == user.Id).Select(ci => ci.Id).First();
+
+            Counter counter = Counter.Where(c => c.TellerId == user.Id).Single();
+            Card card = Card.OrderBy(c => c.Id).Where(cntr => cntr.QueueId == counter.QueueId && cntr.CounterId == null).FirstOrDefault();
+
+            //Hitta nästa card som inte är kopplad till en counter..  OCH KOLLA KÖ-ID OCKSÅ
+            //Card card = Card.OrderBy(c => c.Id).Where(i => i.CounterId == null).FirstOrDefault();
+
+            
 
             if (card != null)
             {
@@ -46,16 +51,16 @@ namespace QApp.Models.Entities
                 int nextCardID = card.Id;
                 int nextCardNumber = card.CardNumber;
 
-                Card.Find(nextCardID).CounterId = counterId;
+                Card.Find(nextCardID).CounterId = counter.Id; //Ändrat denna från counterId
                 Card.Find(nextCardID).TellerId = user.Id;
                 Card.Find(nextCardID).ServiceStart = DateTime.Now;
-                Counter.Find(counterId).CardId = nextCardID;
+                Counter.Find(counter.Id).CardId = nextCardID; //Ändrat inparameter från counterId
 
                 tellerQueueVM.CardNumber = nextCardNumber;
             }
 
             //Hittar kortet som ska "stängas"
-            Card cardToClose = Card.OrderBy(ci => ci.Id).Where(c => c.CounterId == counterId).LastOrDefault();
+            Card cardToClose = Card.OrderBy(ci => ci.Id).Where(c => c.CounterId == counter.Id).LastOrDefault(); //Ändrat från counterId
 
             //Sätter serviceEnd på kortet som ska stängas
             if (cardToClose != null)
@@ -113,55 +118,85 @@ namespace QApp.Models.Entities
                 Card.Add(card);
                 SaveChanges();
             }
-            else
+            else //if (!queuisActive)
             {
-                //Skicka felmeddelande ---- behövs ej?? Kunden har ju redan ett könummer
+                //"Det finns ingen aktiv kö, välkommen att försöka senare.";
+
+                //LÄgg till ett message i vymodellen
             }
         }
 
         //public void RemoveTellerFromQueue(string aspUserId)
-        public TellerQueueVM RemoveTellerFromQueue(string aspUserId)
+        public void RemoveTellerFromQueue(string aspUserId)
         {
-            TellerQueueVM viewModel = new TellerQueueVM();
-            string message = null;
+            //TellerQueueVM viewModel = new TellerQueueVM();
+            //string message = null;
 
-            viewModel.CustomersLeftInQueue = 0;
-
-            //Hämta användarens aspuserid här i stället för att skicka med i metoden
-            //string aspUserId = userManager.GetUserId(HttpContext.User);
+            //viewModel.CustomersLeftInQueue = 0;
 
             User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
 
             //Sätter queueid till null på den counter som trycker på knappen
             Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
 
-            //Om sista kassan stänger hittar vi alla cards i kön som inte fått hjälp och nullar deras session-id
-            bool isLastCounter = Counter.Where(c => c.TellerId != null).Count() == 1;
+            ////Om sista kassan stänger hittar vi alla cards i kön som inte fått hjälp och nullar deras session-id
+            //bool isLastCounter = Counter.Where(c => c.TellerId != null).Count() == 1;
 
-            if (isLastCounter)
+            //if (isLastCounter)
+            //{
+            var lastCardsInQueue = Card.Where(c => c.CounterId == null && c.QueueId == counter.QueueId).ToList(); //kolla att det är min kö också
+
+            //    //Detta borde tala om hur många kunder som är kvar i kön när jag väl vill stänga sista kassan.
+            //    int customersLeftInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart != null);
+            //    message = $"Obs! Det står {customersLeftInQueue} kunder kvar i kön. Vill du verkligen stänga den?";
+            //    viewModel.CustomersLeftInQueue = customersLeftInQueue;
+
+            foreach (var item in lastCardsInQueue)
             {
-                var lastCardsInQueue = Card.Where(c => c.CounterId == null).ToList();
-
-                //Detta borde tala om hur många kunder som är kvar i kön när jag väl vill stänga sista kassan.
-                int customersLeftInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart != null);
-                message = $"Obs! Det står {customersLeftInQueue} kunder kvar i kön. Vill du verkligen stänga den?";
-                viewModel.CustomersLeftInQueue = customersLeftInQueue;
-
-                foreach (var item in lastCardsInQueue)
-                {
-                    item.SessionId = null;
-                }
+                item.SessionId = null;
             }
+            //}
 
             counter.QueueId = null;
             counter.TellerId = null;
             counter.CardId = null;
             SaveChanges();
 
-            viewModel.Message = message;  //Lagt till denna för att informera om personer i kön 
+            //viewModel.Message = message;  //Lagt till denna för att informera om personer i kön 
 
+            //return viewModel;
+        }
+
+
+        //Ska kolla om det finns personer kvar i kön när sista tellern stänger sin counter
+        public TellerQueueVM CheckCounter(string aspUserId)
+        {
+            TellerQueueVM viewModel = new TellerQueueVM();
+
+            string message = null;
+            viewModel.CustomersLeftInQueue = 0;
+            bool isLastCounter = false;
+
+            User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
+            Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
+
+            //Om det är sista countern som har teller-id sätt isLastCounter till true
+            if (Counter.Where(c => c.TellerId != null).Count() == 1)
+            {
+                isLastCounter = true;
+                int customersLeftInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null);
+                message = $"Obs! Det står {customersLeftInQueue} kunder kvar i kön. Vill du verkligen stänga den?";
+
+                viewModel.isLastCounter = isLastCounter;
+                viewModel.CustomersLeftInQueue = customersLeftInQueue;
+                viewModel.Message = message;
+
+            }
+                        
             return viewModel;
         }
+
+
 
         //Vi stoppar in aspnetUserId här
         public void PopulateQueue(string aspUserId)
@@ -234,7 +269,7 @@ namespace QApp.Models.Entities
             {
                 //Hämtar mitt card och kollar sedan hur många cards med id lägre än mitt som inte fått ngt counterId, alltså hjälp
                 card = Card.Single(c => c.SessionId == sessionId);
-                cardsBeforeYou = Card.Count(cn => cn.Id < card.Id && cn.CounterId == null);
+                cardsBeforeYou = Card.Count(cn => cn.Id < card.Id && cn.CounterId == null && cn.QueueId == card.QueueId); //Lagt till koll mot kö-id
 
             }
             catch (Exception)
@@ -279,10 +314,15 @@ namespace QApp.Models.Entities
         }
 
         //Ska visa hur många kunder som står i kö
-        public TellerQueueVM CustomersInQueue()
+        public TellerQueueVM CustomersInQueue(string aspUserId)
         {
+            int customersInQueue = 0;
             TellerQueueVM viewModel = new TellerQueueVM();
-            int customersInQueue = Card.Count(c => c.ServiceStart == null); //Behöver jag lägga till kö-id?
+
+            User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
+            Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
+
+            customersInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null);
 
             viewModel.CustomersLeftInQueue = customersInQueue;
 
