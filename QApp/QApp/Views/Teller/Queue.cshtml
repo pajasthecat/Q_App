@@ -1,11 +1,9 @@
 ﻿@model TellerQueueVM
 
-<h3>Nummer att betjäna:</h3>
-
-<div id="showCardNumberToTeller">
-    @*0*@
+<div id="displayToTeller">
+    <h3>Nummer att betjäna:</h3>
+    <div id="showCardNumberToTeller"></div>
 </div>
-
 
 
 <div id="nextCustomer">
@@ -28,18 +26,18 @@
 </script>
 
 @*<script>
-    function closecounter() {
-        $.ajax({
-            url: "/teller/closecounter",
-            success: function (result) {
-                window.location.href = "/teller/home";    
-            }
-        });
+        function closecounter() {
+            $.ajax({
+                url: "/teller/closecounter",
+                success: function (result) {
+                    window.location.href = "/teller/home";
+                }
+            });
 
-    }
+        }
 
 
-</script>*@
+    </script>*@
 
 
 
@@ -54,7 +52,7 @@
         });
     }*@
 
-    @*//Byta asp till javascript
+@*//Byta asp till javascript
     //function Queue() {
     //    $.ajax({
     //        url: "Queue",

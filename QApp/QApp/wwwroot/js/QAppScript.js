@@ -6,11 +6,11 @@ function helpnextcustomer() {
     $.ajax({
         url: "helpnextcustomer",
         success: function (result) {
-            $("#showCardNumberToTeller").html(result.cardNumber);
+            $("#displayToTeller").html(result.cardNumber);
 
             //Om det är sista kortet vill jag gömma siffran för aktuellt kort
             if (result.isLastCard == true) {
-                $("#showCardNumberToTeller").hide();
+                $("#displayToTeller").hide();
                 //$("#customersInQueue").hide(); 
             }
         }
