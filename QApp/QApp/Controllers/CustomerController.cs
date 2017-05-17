@@ -43,11 +43,11 @@ namespace QApp.Controllers
         }
 
         //Metod för att lämna kö
-        //public CustomerIndexVM LeaveCustomerQueue()
-        //{
+        public void LeaveCustomerQueue()
+        {
+            HttpContext.Session.SetString("Kalle", "Anka");
+            context.LeaveCustomerQueue(HttpContext.Session.Id);
 
-        //    return context.LeaveCustomerQueue(HttpContext.Session.Id);
-
-        //}
+        }
     }
 }

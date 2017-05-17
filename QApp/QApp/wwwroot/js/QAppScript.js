@@ -27,11 +27,11 @@ function showcustomersinqueue() {
             //När noll personer är kvar i kön vill jag skriva ut det
             if (result.customersLeftInQueue == 0) {
                 $("#customersInQueue").html("Inga personer i kö."); //Meddelandet visas jättekort, sen kommer 0 tillbaka
-               
+
             }
             else {
                 $("#customersInQueue").html(result.customersLeftInQueue + " personer står i kö.");
-                
+
             }
         }
     });
@@ -91,7 +91,7 @@ function joinqueue() {
             $("#joinQueueButton").addClass("button");
             $("#joinQueueButton").hide();
             $("#queuealert").show();
-            //$("#leaveQueue").show();
+            $("#leaveQueueButton").show();
             //console.log(result.cardNumber);
             showposition();
             interval = setInterval(showposition, 3000); //Ändra tillbaka
@@ -116,39 +116,21 @@ function showposition() {
             else {
                 $("#showCardNumber").show();
             }
-
-
-            //if (result.numbersLeftInQueue > 0) {
-            //    $("#queuealert").html("Nu är det " + result.numbersLeftInQueue + " personer före dig i kön");
-            //    $("#queuealert").show();
-            //}
-            //else if (result.numbersLeftInQueue == 0) {
-            //    $("#queuealert").html("Du är näst på tur!");
-            //    $("#queuealert").show();
-            //}
-
-
-            //Lägg till att stänga av timern
-
         }
     });
 }
 
-    //Gör en funktion som tar emot signal om när personen får hjälp via en bool
-    //Sätt då session id till null, nollställ sidan och redirecta till index
 
-    //Funktion för att lämna kö
-    //function leavequeue() {
-    //    $.ajax({
-    //        url: "LeaveCustomerQueue",
-    //        success: function () {
-    //            $("#joinQueue").show();
-    //            $("#leaveQueue").hide();
+function leaveQueue() {
+    $.ajax({
+        url: "/customer/LeaveCustomerQueue",
+        success: function () {
+            $("#joinQueueButton").show();
+            $("#leaveQueueButton").hide();
 
-    //        }
-    //    });
+        }
+    });
 
-    //}
+}
 
-    //Anrop till databas för att hålla kön uppdaterad
 

@@ -119,7 +119,11 @@ namespace QApp.Models.Entities
             if (Counter.Where(c => c.TellerId != null).Count() == 1)
             {
                 isLastCounter = true;
-                int customersLeftInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null);
+
+                //Behöver jag sessionid != null?
+                int customersLeftInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null && c.SessionId != null);
+
+
                 message = $"Obs! Det står {customersLeftInQueue} kunder kvar i kön. Vill du verkligen stänga den?";
 
                 viewModel.isLastCounter = isLastCounter;
@@ -200,7 +204,8 @@ namespace QApp.Models.Entities
             User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
             Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
 
-            customersInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null);
+            //Uppdaterat denna, var den som bråkade när någon gick ur kön
+            customersInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null && c.SessionId != null);
 
             viewModel.CustomersLeftInQueue = customersInQueue;
 

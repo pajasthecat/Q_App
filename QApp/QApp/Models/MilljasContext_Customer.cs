@@ -75,7 +75,10 @@ namespace QApp.Models.Entities
             {
                 //Hämtar mitt card och kollar sedan hur många cards med id lägre än mitt som inte fått ngt counterId, alltså hjälp
                 card = Card.Single(c => c.SessionId == sessionId);
-                cardsBeforeYou = Card.Count(cn => cn.Id < card.Id && cn.CounterId == null && cn.QueueId == card.QueueId); //Lagt till koll mot kö-id
+                //cardsBeforeYou = Card.Count(cn => cn.Id < card.Id && cn.CounterId == null && cn.QueueId == card.QueueId); //Lagt till koll mot kö-id
+                
+                //Denna funkar!!! VISA PATRIK
+                cardsBeforeYou = Card.Count(cn => cn.Id < card.Id && cn.ServiceStart == null && cn.QueueId == card.QueueId && cn.SessionId != null); //Lagt till koll mot kö-id
 
             }
             catch (Exception)
@@ -118,5 +121,23 @@ namespace QApp.Models.Entities
             viewModel.MyTurn = myTurn;
             return viewModel;
         }
+
+        public void LeaveCustomerQueue(string sessionId)
+        {
+            //User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
+            Card card = Card.SingleOrDefault(c => c.SessionId == sessionId);
+
+            if(card != null)
+            {
+                card.SessionId = null;
+
+                SaveChanges();
+            }
+
+            //Personen försvinner inte ur kö eftersom jag tittar på counter-id eller cardcreated nån annanstans
+
+        }
     }
 }
+
+    
