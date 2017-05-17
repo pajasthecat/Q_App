@@ -13,13 +13,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace QApp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdminController : Controller
     {
         UserManager<IdentityUser> userManager;
         SignInManager<IdentityUser> signInManager;
         RoleManager<IdentityRole> roleManager;
-        //Behövs när vi genrerar tabellerna
         IdentityDbContext identityContext;
         MilljasContext context;
 
@@ -29,15 +28,19 @@ namespace QApp.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
-            //Behövs när vi genrerar tabellerna
             this.identityContext = identityContext;
             this.context = context;
         }
 
-        //Flytta till Admincontroller för att regga nya tellers
+        public IActionResult Update(AdminHomeVM viewModel)
+        {
+
+            return View(context.ShowTellerToUpdate(viewModel));
+        }
+
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Edit()
+        public IActionResult Create()
         {
             #region Skapa Admin
             // Skapar tabeller för användarhantering med Identity
@@ -53,13 +56,11 @@ namespace QApp.Controllers
             //var temp1 = await userManager.AddToRoleAsync(user1, "Admin");
             #endregion
 
-
-
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AdminEditVM viewModel)
+        public async Task<IActionResult> Create(AdminCreateVM viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -74,20 +75,21 @@ namespace QApp.Controllers
                 return View(viewModel);
             }
 
-            
-           await context.AddTeller(viewModel);
+            await context.AddTeller(viewModel);
 
             return RedirectToAction(nameof(Home));
         }
 
-        public IActionResult Home()
+        public async Task<IActionResult> Home()
         {
-            return View();
+            
+            return View(await context.ShowTellers());
         }
+
         [HttpPost]
         public IActionResult Home(AdminHomeVM viewModel)
         {
-            //context.PopulateQueue();
+
             return View();
         }
     }

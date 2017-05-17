@@ -1,0 +1,27 @@
+﻿@model AdminUpdateVM
+
+<form asp-controller="Admin" asp-action="Edit">
+    <div id="userName" class="form-group">
+        <label id="label" asp-for="UserName">Användarnamn</label>
+        <input id="input" asp-for="UserName" />
+        
+        <br />
+        <label id="label" asp-for="Password">Lösenord</label>
+        <input id="input" asp-for="Password" />
+        
+        <br />
+        <label id="label" asp-for="PasswordConfirm">Bekräfta lösenord</label>
+        <input id="input" asp-for="PasswordConfirm" />
+        
+        <br />
+        <label id="label" asp-for="FirstName">Förnamn</label>
+        <input value="@Model.FirstName" id="input" asp-for="FirstName" />
+       
+        <br />
+        <label id="label" asp-for="LastName">Efternamn</label>
+        <input id="input" asp-for="LastName" />
+       
+        <br />
+        <input id="createTellerButton" type="submit" class="btn btn-success btn-lg" value="Lägg till">
+    </div>
+</form>

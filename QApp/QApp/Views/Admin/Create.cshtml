@@ -1,0 +1,27 @@
+﻿@model AdminCreateVM
+
+<form asp-controller="Admin" asp-action="Edit">
+    <div id="userName" class="form-group">
+        <label id="label" asp-for="UserName">Användarnamn</label>
+        <input id="input" asp-for="UserName" />
+        <span id="span" asp-validation-for="UserName"></span>
+        <br />
+        <label id="label" asp-for="Password">Lösenord</label>
+        <input id="input" asp-for="Password" />
+        <span id="span" asp-validation-for="Password"></span>
+        <br />
+        <label id="label" asp-for="PasswordConfirm">Bekräfta lösenord</label>
+        <input id="input" asp-for="PasswordConfirm" />
+        <span id="span" asp-validation-for="PasswordConfirm"></span>
+        <br />
+        <label id="label" asp-for="FirstName">Förnamn</label>
+        <input id="input" asp-for="FirstName" />
+        <span id="span" asp-validation-for="FirstName"></span>
+        <br />
+        <label id="label" asp-for="LastName">Efternamn</label>
+        <input id="input" asp-for="LastName" />
+        <span id="span" asp-validation-for="LastName"></span>
+        <br />
+        <input id="createTellerButton" type="submit" class="btn btn-success btn-lg" value="Lägg till">
+    </div>
+</form>

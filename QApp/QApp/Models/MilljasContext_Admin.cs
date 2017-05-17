@@ -13,11 +13,11 @@ namespace QApp.Models.Entities
     {
         
 
-        public async Task AddTeller(AdminEditVM viewModel)
+        public async Task AddTeller(AdminCreateVM viewModel)
         {
 
          var  aspNetUser = await userManager.FindByNameAsync(viewModel.UserName);
-         var teller = await userManager.AddToRoleAsync(aspNetUser, "Teller");
+         await userManager.AddToRoleAsync(aspNetUser, "Teller");
 
             User user = new User
             {
@@ -30,5 +30,45 @@ namespace QApp.Models.Entities
            await SaveChangesAsync();
 
         }
+
+        public async Task<List<AdminHomeVM>> ShowTellers()
+        {
+
+         var temp =  User.Select(s => new AdminHomeVM
+         {
+             UserName = "",
+             FirstName = s.FirstName,
+             LastName = s.LastName,
+             AspNetUserId = s.AspNetUserId
+
+
+         }).ToList();
+
+            foreach (var item in temp)
+            {
+                var user = await userManager.FindByIdAsync(item.AspNetUserId);
+                item.UserName = user.UserName;
+               
+            }
+            return temp;
+        }
+
+        public AdminUpdateVM ShowTellerToUpdate(AdminHomeVM viewModel)
+        {
+            AdminUpdateVM tellerToUpdate = new AdminUpdateVM
+            {
+                UserName = viewModel.UserName,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName
+            };
+
+            return tellerToUpdate;
+        }
+
+        //public async Task UpdateTeller(AdminEditVM viewModel)
+        //{
+
+        //}
+
     }
 }
