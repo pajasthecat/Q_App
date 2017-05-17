@@ -3,19 +3,21 @@
 <h3>Nummer att betjäna:</h3>
 
 <div id="showCardNumberToTeller">
-    0
+    @*0*@
 </div>
+
+
 
 <div id="nextCustomer">
     <button class="btn btn-success btn-lg" id="helpNextCustomerButton" onclick="helpnextcustomer()">Hjälp nästa i kö</button>
 </div>
 
 <div id="closeCounter">
-B
     <button id="closeCounterButton" class="btn btn-danger btn-lg" onclick="closecounter()">Stäng kassa</button>
 </div>
 
 
+<div id="customersInQueue"></div>
 
 @*<script>
     function closecounter() {

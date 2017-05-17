@@ -34,16 +34,31 @@ namespace QApp.Controllers
             this.context = context;
         }
 
+        public TellerQueueVM CustomersInQueue()
+        {
+            return context.CustomersInQueue();
+            //return View();
+        }
+
         public IActionResult Queue()
         {
             return View();
         }
 
-        public string CloseCounter()
+        //Hur skickar jag med en signal om att det är personer kvar i kön när jag försöker stänga sista kassan?
+        //Returnera en vymodell med inten eller ett färdigt meddelande som visas upp?
+        //public string CloseCounter()
+        //{
+        //    string aspUserId = userManager.GetUserId(HttpContext.User);
+        //    context.RemoveTellerFromQueue(aspUserId);
+        //    return "ok";
+        //}
+
+        public TellerQueueVM CloseCounter()
         {
             string aspUserId = userManager.GetUserId(HttpContext.User);
-            context.RemoveTellerFromQueue(aspUserId);
-            return "ok";
+            return context.RemoveTellerFromQueue(aspUserId);
+             
         }
 
         public TellerQueueVM HelpNextCustomer()
