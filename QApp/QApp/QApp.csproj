@@ -5,20 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\Font\CaslonCP.otf" />
-    <Content Include="wwwroot\Font\FenixStd.otf" />
-    <Content Include="wwwroot\Font\Futura Medium.ttf" />
-    <Content Include="wwwroot\Font\Futura Std Medium Condensed.ttf" />
-    <Content Include="wwwroot\Font\Futura Std Medium.ttf" />
-    <Content Include="wwwroot\Font\Futura TOT Medium Condensed.ttf" />
-    <Content Include="wwwroot\Font\Futura URW Medium.ttf" />
+    <Content Include="wwwroot\font\CaslonCP.otf" />
+    <Content Include="wwwroot\font\FenixStd.otf" />
+    <Content Include="wwwroot\font\Futura Medium.ttf" />
+    <Content Include="wwwroot\font\Futura Std Medium Condensed.ttf" />
+    <Content Include="wwwroot\font\Futura Std Medium.ttf" />
+    <Content Include="wwwroot\font\Futura TOT Medium Condensed.ttf" />
+    <Content Include="wwwroot\font\Futura URW Medium.ttf" />
     <Content Include="wwwroot\js\QAppScript.js" />
-    <Content Include="wwwroot\Pictures\Caslon.png" />
-    <Content Include="wwwroot\Pictures\Caslon1.png" />
-    <Content Include="wwwroot\Pictures\Caslon1Qapp.png" />
-    <Content Include="wwwroot\Pictures\QApp-logga.png" />
+    <Content Include="wwwroot\pictures\Caslon.png" />
+    <Content Include="wwwroot\pictures\Caslon1.png" />
+    <Content Include="wwwroot\pictures\Caslon1Qapp.png" />
+    <Content Include="wwwroot\pictures\QApp-logga.png" />
     <Content Include="wwwroot\style\MyStyleSheet.css" />
-    <Content Include="wwwroot\style\smartPhoneStyleSheet.css" />
+    <Content Include="wwwroot\style\PhoneStyleSheet.css" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="3.3.7" />
