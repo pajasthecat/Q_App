@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace QApp.Controllers
 {
+   
     [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {

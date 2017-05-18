@@ -13,7 +13,8 @@ using QApp.Models.Entities;
 
 namespace QApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Teller")]
+
     public class TellerController : Controller
     {
         UserManager<IdentityUser> userManager;
@@ -171,17 +172,16 @@ namespace QApp.Controllers
                 return View(viewModel);
             }
 
-            //Nytt
-            var test =await userManager.FindByNameAsync(viewModel.UserName);
+           
+            var aspNetUser =await userManager.FindByNameAsync(viewModel.UserName);
 
-            if (await userManager.IsInRoleAsync(test, "Admin"))
+            if (await userManager.IsInRoleAsync(aspNetUser, "Admin"))
             {
                 return RedirectToAction("Home", "Admin");
 
             }
             else
             {
-
             return RedirectToAction(nameof(Home));
             }
 
