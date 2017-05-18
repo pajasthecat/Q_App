@@ -88,6 +88,7 @@ namespace QApp.Models.Entities
             {
                 //Min tur om mitt kort fått CounterId
                 myTurn = card.CounterId != null;
+                viewModel.MyTurn = myTurn;
 
                 viewModel.CardNumber = card.CardNumber;
                 message = $"Det är {cardsInQueueBeforeMe + 1} personer före dig i kön.";
@@ -114,7 +115,7 @@ namespace QApp.Models.Entities
             }
 
             viewModel.Message = message;
-            viewModel.MyTurn = myTurn;
+            
             return viewModel;
         }
 

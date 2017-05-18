@@ -104,6 +104,10 @@ function showposition() {
             //console.log(result.numbersLeftInQueue);
             $("#queuealert").html(result.message);
 
+            if (result.myTurn == true) {
+                $("#leaveQueueButton").hide();
+            }
+
             $("#showCardNumber").html(result.cardNumber);
             if (result.cardNumber == 0) {
                 $("#showCardNumber").hide();
@@ -114,6 +118,7 @@ function showposition() {
             else {
                 $("#showCardNumber").show();
             }
+            
         }
     });
 }
