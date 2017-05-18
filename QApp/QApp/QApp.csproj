@@ -18,6 +18,7 @@
     <Content Include="wwwroot\Pictures\Caslon1Qapp.png" />
     <Content Include="wwwroot\Pictures\QApp-logga.png" />
     <Content Include="wwwroot\style\MyStyleSheet.css" />
+    <Content Include="wwwroot\style\smartPhoneStyleSheet.css" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="3.3.7" />
