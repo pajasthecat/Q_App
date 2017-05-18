@@ -57,6 +57,7 @@ namespace QApp.Models.Entities
             if (cardToClose != null)
             {
                 cardToClose.ServiceEnd = DateTime.Now;
+                cardToClose.SessionId = null;
             }
 
             SaveChanges();
@@ -82,28 +83,44 @@ namespace QApp.Models.Entities
             //Lagt till onsdag kväll för att sätta service-end när ett kort står i kassan när den stänger
             Card cardServed = Card.OrderBy(c => c.Id).Where(c => c.CounterId == counter.TellerId && c.SessionId != null).LastOrDefault();
 
+            //Om någon står i min kassa när jag stänger den så sätter vi serviceEnd. Ska alltid köras.
+            if (cardServed != null)
+            {
+                cardServed.ServiceEnd = DateTime.Now;
+                cardServed.SessionId = null;
+            }
+
             ////Om sista kassan stänger hittar vi alla cards i kön som inte fått hjälp och nullar deras session-id
-            //bool isLastCounter = Counter.Where(c => c.TellerId != null).Count() == 1;
+            bool isLastCounter = Counter.Where(c => c.TellerId != null).Count() == 1;
 
-            //if (isLastCounter)
-            //{
-            var lastCardsInQueue = Card.Where(c => c.CounterId == null && c.QueueId == counter.QueueId).ToList(); //kolla att det är min kö också
+            if (isLastCounter)
+            {
+                var lastCardsInQueue = Card.Where(c => /*c.CounterId == null &&*/ c.QueueId == counter.QueueId).ToList(); //kolla att det är min kö också
 
+                //Nollar session id och sätter servicestart/end till samma sak om sista kassan stänger
+                foreach (var item in lastCardsInQueue)
+                {
+                    item.SessionId = null;
+                    item.ServiceStart = item.ServiceEnd = DateTime.Now;
+                }
+
+            }
             //    //Detta borde tala om hur många kunder som är kvar i kön när jag väl vill stänga sista kassan.
             //    int customersLeftInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart != null);
             //    message = $"Obs! Det står {customersLeftInQueue} kunder kvar i kön. Vill du verkligen stänga den?";
             //    viewModel.CustomersLeftInQueue = customersLeftInQueue;
 
-            foreach (var item in lastCardsInQueue)
-            {
-                item.SessionId = null;
-            }
+            //nollar sessionID på alla kunder som står kvar i kön när kassan stänger
+            
             //}
 
+            
+
+            //Nollställer countern
             counter.QueueId = null;
             counter.TellerId = null;
             counter.CardId = null;
-            cardServed.ServiceEnd = DateTime.Now; //Lagt till onsdag kväll för att sätta service-end när ett kort står i kassan när den stänger
+
             SaveChanges();
 
             //viewModel.Message = message;  //Lagt till denna för att informera om personer i kön 
