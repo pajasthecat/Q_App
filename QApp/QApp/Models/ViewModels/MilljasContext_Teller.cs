@@ -23,7 +23,11 @@ namespace QApp.Models.Entities
             //int counterId = Counter.Where(c => c.TellerId == user.Id).Select(ci => ci.Id).First();
 
             Counter counter = Counter.Where(c => c.TellerId == user.Id).Single();
-            Card card = Card.OrderBy(c => c.Id).Where(cntr => cntr.QueueId == counter.QueueId && cntr.CounterId == null).FirstOrDefault();
+            //Card card = Card.OrderBy(c => c.Id).Where(cntr => cntr.QueueId == counter.QueueId && cntr.CounterId == null).FirstOrDefault();
+
+            //Lagt till så att session id inte får vara null så att man inte tar en lapp som gått ur kön
+            Card card = Card.OrderBy(c => c.Id).Where(cntr => cntr.QueueId == counter.QueueId && cntr.ServiceStart == null && cntr.SessionId != null).FirstOrDefault();
+
 
             //Hitta nästa card som inte är kopplad till en counter..  OCH KOLLA KÖ-ID OCKSÅ
             //Card card = Card.OrderBy(c => c.Id).Where(i => i.CounterId == null).FirstOrDefault();
