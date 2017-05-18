@@ -171,7 +171,20 @@ namespace QApp.Controllers
                 return View(viewModel);
             }
 
+            //Nytt
+            var test =await userManager.FindByNameAsync(viewModel.UserName);
+
+            if (await userManager.IsInRoleAsync(test, "Admin"))
+            {
+                return RedirectToAction("Home", "Admin");
+
+            }
+            else
+            {
+
             return RedirectToAction(nameof(Home));
+            }
+
         }
     }
 }
