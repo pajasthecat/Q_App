@@ -11,6 +11,7 @@ namespace QApp.Models.ViewModels
         //public int NumbersLeftInQueue { get; set; }
         public bool MyTurn { get; set; }
         public string Message { get; set; }
+        public bool OpenQueue { get; set; }
 
 
     }

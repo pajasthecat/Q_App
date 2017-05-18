@@ -26,7 +26,7 @@ function showcustomersinqueue() {
             $("#myCounter").html(result.myCounter);
             $("#tellerName").html(result.tellerName);
 
-            
+
 
             //När noll personer är kvar i kön vill jag skriva ut det
             if (result.customersLeftInQueue == 0) {
@@ -85,13 +85,17 @@ function joinqueue() {
             //$("#showCardNumber").html(result.cardNumber);
             //$("#showCardNumber").show();
 
+            //Funkar när vi försöker gå med i en kö när kassan är stängd
+            if (result.openQueue == false) {
+                window.alert("Kassan är stängd, välkommen att försöka senare.")
+            }
+
             $("#joinQueueButton").addClass("button");
             $("#joinQueueButton").hide();
             $("#queuealert").show();
             $("#leaveQueueButton").show();
-            //console.log(result.cardNumber);
             showposition();
-            interval = setInterval(showposition, 3000); //Ändra tillbaka
+            interval = setInterval(showposition, 3000);
         }
     });
 }
@@ -100,8 +104,6 @@ function showposition() {
     $.ajax({
         url: "/customer/ShowPositionInQueue",
         success: function (result) {
-            //$("#showNumbersBeforeYou").html(result.numbersLeftInQueue);
-            //console.log(result.numbersLeftInQueue);
             $("#queuealert").html(result.message);
 
             if (result.myTurn == true) {
@@ -118,7 +120,7 @@ function showposition() {
             else {
                 $("#showCardNumber").show();
             }
-            
+
         }
     });
 }
@@ -129,6 +131,7 @@ function leaveQueue() {
         success: function () {
             $("#joinQueueButton").show();
             $("#leaveQueueButton").hide();
+            $("#queuealert").hide();
         }
     });
 }

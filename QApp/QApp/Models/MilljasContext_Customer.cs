@@ -12,8 +12,6 @@ namespace QApp.Models.Entities
         //Kunden ställer sig i kö
         public void AddCustomerToQueue(string sessionId)
         {
-            CustomerIndexVM viewModel = new CustomerIndexVM();
-
             bool queueIsActive = Counter.FirstOrDefault().QueueId != null;
             int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
 
@@ -26,7 +24,7 @@ namespace QApp.Models.Entities
                 Card card = new Card();
                 //För att räkna ut könummer
                 int cardsBeforeMe = Card.Where(c => c.QueueId == activeQueue).Count();
-                             
+
                 card.CardNumber = cardsBeforeMe + 1;
                 card.CardCreated = DateTime.Now;
                 card.QueueId = activeQueue;
@@ -36,26 +34,35 @@ namespace QApp.Models.Entities
             }
             else if (!queueIsActive)
             {
-                //Skicka på något sätt tillbaka ett meddelande. Kanske i JS genom en bool då vi inte returnerar vymodell?
             }
         }
 
         //Visar kundens könummer
         public CustomerIndexVM GetCardNumber(string sessionId)
         {
-            CustomerIndexVM customerIndexVM = new CustomerIndexVM();
+            CustomerIndexVM viewModel = new CustomerIndexVM();
+
+            bool queueIsActive = Counter.Count(c => c.QueueId != null) > 0;
+
+            if (!queueIsActive) //Tillagd för att visa meddelande om kön inte är öppen
+            {
+                viewModel.OpenQueue = false; 
+                viewModel.Message = "Kassan är stängd, välkommen åter";
+            }
+
             try
             {
                 //Returnerar könumret baserat på sessionId
                 int cardNumber = Card.Where(s => s.SessionId == sessionId).Select(si => si.CardNumber).Single();
-                customerIndexVM.CardNumber = cardNumber;
+                viewModel.CardNumber = cardNumber;
+                viewModel.OpenQueue = true; //Tillagd som komepansation för rad 47
             }
             //Behöver vi denna?
             catch (Exception)
             {
 
             }
-            return customerIndexVM;
+            return viewModel;
         }
 
         //Visar kundens position i kön
@@ -65,7 +72,7 @@ namespace QApp.Models.Entities
             Card card = null;
 
             int cardsInQueueBeforeMe = 0;
-            string message = null;
+            string message = "";
             bool myTurn = false;
 
             try
@@ -115,7 +122,7 @@ namespace QApp.Models.Entities
             }
 
             viewModel.Message = message;
-            
+
             return viewModel;
         }
 
@@ -127,7 +134,7 @@ namespace QApp.Models.Entities
             Card card = Card.SingleOrDefault(c => c.SessionId == sessionId);
 
             //Om jag har ett kort sätts session-id till null
-            if(card != null)
+            if (card != null)
             {
                 card.SessionId = null;
                 SaveChanges();
@@ -136,4 +143,4 @@ namespace QApp.Models.Entities
     }
 }
 
-    
+
