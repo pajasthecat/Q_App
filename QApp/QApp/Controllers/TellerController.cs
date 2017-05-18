@@ -150,6 +150,8 @@ namespace QApp.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("Teller/Login", Order = 1)]
+        [Route("Account/AccessDenied", Order = 2)]
         public IActionResult LogIn()
         {
             return View();

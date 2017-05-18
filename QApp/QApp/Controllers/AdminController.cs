@@ -59,7 +59,6 @@ namespace QApp.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Create()
         {
             #region Skapa Admin
@@ -75,7 +74,7 @@ namespace QApp.Controllers
 
             //var temp1 = await userManager.AddToRoleAsync(user1, "Admin");
             #endregion
-
+                
             return View();
         }
 

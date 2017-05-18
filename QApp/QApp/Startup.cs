@@ -25,7 +25,7 @@ namespace QApp
             services.AddDbContext<MilljasContext>(
                 options => options.UseSqlServer(connString));
 
-            // EF från VS till SQL -- Måste denna vara aktiv??
+            // EF från VS till SQL
             services.AddDbContext<IdentityDbContext>(
                 options => options.UseSqlServer(connString));
 
@@ -70,13 +70,8 @@ namespace QApp
             app.UseStaticFiles();
 
             app.UseSession();
-      
 
             app.UseMvcWithDefaultRoute();
-
-            
-
-            
         }
     }
 }

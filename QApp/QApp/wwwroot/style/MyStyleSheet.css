@@ -67,28 +67,26 @@ table {
 }
 
 #jumbotron {
-    height: 30%;
+    height: 20%;
     width: 100%;
     background-color: #561D62;
+    margin-top: 0px;
     /*margin-top: 70px;*/
-    /*margin-bottom: 50px;*/
+    margin-bottom: 0px;
     text-align: center;
-}
-
-#img {
-    margin-top:50px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 .container {
     text-align: center;
     width: 100%;
-    /*margin-top: 100px;*/
-    margin-bottom: 400px;
-    height: 650px;
+    height: 1000px;
+    margin-top: 0px;
 }
 
 #nextCustomer, #closeCounter {
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 .btn-group-lg > .btn, .btn-lg {
@@ -142,8 +140,8 @@ table {
 #joinQueueButton, #leaveQueueButton, #helpNextCustomerButton, #openCounterButton, #loginButton, #createTellerButton, #updateTellerButton {
     background-color: #EF6BA3;
     border-color: #7C0A8A;
-    width: 500px;
-    height: 150px;
+    width: 280px;
+    height: 100px;
     border-radius: 18px;
     outline: none;
 }
@@ -151,8 +149,8 @@ table {
 #closeCounterButton {
     background-color: #F2A1C3;
     border-color: #7C0A8A;
-    width: 500px;
-    height: 150px;
+    width: 280px;
+    height: 100px;
     border-radius: 18px;
     outline: none;
 }
@@ -184,46 +182,39 @@ table {
 
 h3 {
     color: white;
-    font-size: 50px;
-    margin-top:50px;
-    margin-bottom:50px;
+    font-size: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 h4 {
     color: white;
     font-size: 30px;
-    margin-top:25px;
-    margin-bottom:25px;
-
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .btn-danger, btn-danger:hover, btn-danger:active:hover {
     background-color: #EF6BA3;
 }
 
-#showCardNumber, #showCardNumberToTeller {
+#showCardNumber, #showCardNumberToTeller, #displayToTeller {
     color: white;
     font-size: 150px;
     background-color: #F2A1C3;
     max-width: 200px;
     margin: auto;
-    margin-bottom: 120px;
+    margin-bottom: 50px;
     margin-top: 50px;
     border-radius: 25px;
     text-align: center;
     padding: 0px 0px 20px 0px;
 }
 
-#queuealert, #customersInQueue {
-    color: white;
-    font-size: xx-large;
-    margin-top: 50px;
-}
-
 .tableContainer {
     width: 800px;
     margin: auto;
-    margin-top:80px;
+    margin-top: 80px;
 }
 
 .table-striped {
@@ -265,7 +256,7 @@ th, td {
     font-size: 25px;
     max-width: 500px;
     margin: 0 auto;
-    color: black;
+    color: #561D62;
     margin-top: 1px;
     margin-bottom: 10px;
     font-size: 40px;
@@ -288,7 +279,7 @@ th, td {
 }
 
 #form {
-    margin-top:140px;
+    margin-top: 80px;
 }
 
 .footer {
