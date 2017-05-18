@@ -11,11 +11,19 @@ namespace QApp.Models.Entities
 {
     public partial class MilljasContext : DbContext
     {
+        //Displayar den som har loggat in
+        public TellerHomeVM DisplayTeller(string aspNetUserId)
+        {
+            TellerHomeVM viewModel = new TellerHomeVM();
+            User user = User.SingleOrDefault(i => i.AspNetUserId == aspNetUserId);
+            viewModel.Name = $"{user.FirstName} {user.LastName}";
+            return viewModel;
+        }
+
         //Vi stoppar in aspnetUserId här
         public void PopulateQueue(string aspUserId)
         //public TellerQueueVM PopulateQueue(string aspUserId)
         {
-
             //User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
 
             //int activeCounters = 0;

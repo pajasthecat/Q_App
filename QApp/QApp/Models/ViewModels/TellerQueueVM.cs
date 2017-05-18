@@ -14,6 +14,5 @@ namespace QApp.Models.ViewModels
         public string Message { get; set; }
         public string MyCounter { get; set; }
         public string TellerName { get; set; }
-
     }
 }

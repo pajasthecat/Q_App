@@ -7,6 +7,6 @@ namespace QApp.Models.ViewModels
 {
     public class TellerHomeVM
     {
-
+        public string Name { get; set; }
     }
 }

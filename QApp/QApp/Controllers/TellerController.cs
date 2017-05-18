@@ -86,7 +86,9 @@ namespace QApp.Controllers
 
         public IActionResult Home()
         {
-            return View();
+            string aspUserId = userManager.GetUserId(HttpContext.User);
+
+            return View(context.DisplayTeller(aspUserId));
         }
 
 

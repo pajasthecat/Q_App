@@ -23,46 +23,7 @@
 
 <script>
     $(document).ready(function () {
+        showcustomersinqueue(),
         queueinterval = setInterval(showcustomersinqueue, 3000);
     });
 </script>
-
-@*<script>
-        function closecounter() {
-            $.ajax({
-                url: "/teller/closecounter",
-                success: function (result) {
-                    window.location.href = "/teller/home";
-                }
-            });
-
-        }
-
-
-    </script>*@
-
-
-
-
-@*<script>
-    function helpnextcustomer() {
-        $.ajax({
-            url: "helpnextcustomer",
-            success: function (result) {
-                $("#showCardNumberToTeller").html(result.cardNumber);
-            }
-        });
-    }*@
-
-@*//Byta asp till javascript
-    //function Queue() {
-    //    $.ajax({
-    //        url: "Queue",
-    //        success: function (result) {
-    //            $("#showCardNumberToTeller").html(result.cardNumber);
-    //        }
-    //    });
-
-    //}*@
-
-@*</script>*@
