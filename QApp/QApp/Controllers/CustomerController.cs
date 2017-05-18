@@ -7,8 +7,6 @@ using QApp.Models.ViewModels;
 using QApp.Models.Entities;
 using Microsoft.AspNetCore.Http;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace QApp.Controllers
 {
     public class CustomerController : Controller
@@ -31,7 +29,6 @@ namespace QApp.Controllers
         {
             HttpContext.Session.SetString("Kalle", "Anka");
             context.AddCustomerToQueue(HttpContext.Session.Id);
-            //HttpContext.Session.SetString("CardNumber", viewModel.CardNumber.ToString());
             return context.GetCardNumber(HttpContext.Session.Id);
         }
 
@@ -42,12 +39,10 @@ namespace QApp.Controllers
              
         }
 
-        //Metod för att lämna kö
         public void LeaveCustomerQueue()
         {
             HttpContext.Session.SetString("Kalle", "Anka");
             context.LeaveCustomerQueue(HttpContext.Session.Id);
-
         }
     }
 }

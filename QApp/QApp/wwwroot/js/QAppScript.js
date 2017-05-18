@@ -61,7 +61,6 @@ function checkcounter() {
 
                 }
             }
-
         }
     });
 };
@@ -72,7 +71,6 @@ function closecounter() {
         success: function (result) {
 
             window.location.href = "/teller/home";
-
         }
     });
 }
@@ -120,17 +118,14 @@ function showposition() {
     });
 }
 
-
 function leaveQueue() {
     $.ajax({
         url: "/customer/LeaveCustomerQueue",
         success: function () {
             $("#joinQueueButton").show();
             $("#leaveQueueButton").hide();
-
         }
     });
-
 }
 
 
