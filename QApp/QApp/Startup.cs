@@ -63,13 +63,14 @@ namespace QApp
             //    app.UseExceptionHandler("/Home/error");
             //}
 
+            app.UseDeveloperExceptionPage();
+
+            app.UseIdentity();
+
             app.UseStaticFiles();
 
             app.UseSession();
       
-            app.UseDeveloperExceptionPage();
-
-            app.UseIdentity();
 
             app.UseMvcWithDefaultRoute();
 
