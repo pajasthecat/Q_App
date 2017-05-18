@@ -26,5 +26,10 @@
         <input id="input" asp-for="LastName" class="form-control" />
         <span id="span" asp-validation-for="LastName"></span>
     </div>
-    <input id="createTellerButton" type="submit" class="btn btn-success btn-lg" value="Lägg till">
+    <div id="addTeller">
+        <input id="createTellerButton" type="submit" class="btn btn-success btn-lg" value="Lägg till">
+    </div>
 </form>
+<div id="goBack">
+    <a id="goBackButton" href="~/Admin/Home" class="btn btn-danger btn-lg" role="button">Gå tillbaka</a>
+</div>

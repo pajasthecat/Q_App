@@ -15,8 +15,6 @@ time, mark, audio, video {
     padding: 0;
     border: 0;
     font-size: 100%;
-    /*font-family: fenixstd;*/
-    /*font-family:'Times New Roman';*/
     font-family: 'futura std medium condensed';
     vertical-align: baseline;
 }
@@ -71,7 +69,6 @@ table {
     width: 100%;
     background-color: #561D62;
     margin-top: 0px;
-    /*margin-top: 70px;*/
     margin-bottom: 0px;
     text-align: center;
     margin-bottom: 0px;
@@ -81,11 +78,11 @@ table {
 .container {
     text-align: center;
     width: 100%;
-    height: 1000px;
-    margin-top: 0px;
+    min-height:100%;
+    padding-bottom:200px;
 }
 
-#nextCustomer, #closeCounter {
+#nextCustomer, #closeCounter, #addTeller, #updateTeller, #goBack {
     margin-top: 25px;
 }
 
@@ -146,7 +143,7 @@ table {
     outline: none;
 }
 
-#closeCounterButton {
+#closeCounterButton, #goBackButton {
     background-color: #F2A1C3;
     border-color: #7C0A8A;
     width: 280px;
@@ -162,18 +159,18 @@ table {
     height: 60px;
     border-radius: 18px;
     outline: none;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 #createButton {
-    background-color: #561D62;
-    border-color: white;
-    width: 120px;
-    height: 70px;
+    padding: 15px 0px 0px 0px;
+    background-color: #EF6BA3;
+    border-color: #EF6BA3;
+    width: 100px;
+    height: 60px;
     border-radius: 18px;
     outline: none;
-    font-size: 18px;
-    padding: 15px 0px 0px 0px;
+    font-size: 22px;
 }
 
 #createButtonDiv {
@@ -211,7 +208,7 @@ h4 {
 }
 
 .tableContainer {
-    width: 800px;
+    width: 60%;
     margin: auto;
     margin-top: 80px;
 }
@@ -286,9 +283,10 @@ th, td {
     bottom: 0px;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 100px;
+    height: 150px;
     text-align: center;
     background-color: #561D62;
+    padding-top:100px;
 }
 
 html {
