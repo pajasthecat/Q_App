@@ -46,6 +46,11 @@ namespace QApp.Controllers
             return View();
         }
 
+        //public TellerQueueVM Queue()
+        //{
+        //    return View();
+        //}
+
         //Hur skickar jag med en signal om att det är personer kvar i kön när jag försöker stänga sista kassan?
         //Returnera en vymodell med inten eller ett färdigt meddelande som visas upp?
         //public string CloseCounter()

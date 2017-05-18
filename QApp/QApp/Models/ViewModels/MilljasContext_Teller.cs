@@ -143,6 +143,7 @@ namespace QApp.Models.Entities
 
         //Vi stoppar in aspnetUserId här
         public void PopulateQueue(string aspUserId)
+        //public TellerQueueVM PopulateQueue(string aspUserId)
         {
 
             //User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
@@ -177,8 +178,7 @@ namespace QApp.Models.Entities
 
             //}
 
-
-
+            //TellerQueueVM viewModel = new TellerQueueVM();
 
             // Hämtar alla kassors qId till en lista 
             List<Counter> counters = Counter.Select(c => new Counter
@@ -210,6 +210,7 @@ namespace QApp.Models.Entities
                 Counter.Find(1).TellerId = user.Id;
                 //Tar kassa 1 och sätter queueid till den nya köns id
                 Counter.Find(1).QueueId = queue.Id;
+                //viewModel.MyCounter = Counter.Find(1).CounterName;
                 SaveChanges();
             }
             else
@@ -228,31 +229,37 @@ namespace QApp.Models.Entities
                     //DENNA VERKAR FEL?? DEN SÄTTER PERSON 2 I FÖRSTA KASSAN ALLTID
                     Counter.Where(q => q.QueueId == null).First().QueueId = activeQueue;
                     Counter.Where(q => q.TellerId == null).First().TellerId = user.Id;
+                    //viewModel.MyCounter = counter.CounterName; //LAGT TILL DENNA FÖR ATT VISA UPP VILKEN KASSA JAG STÅR I
                     SaveChanges();
                 }
                 else
                 {
                     //TODO Skicka tillbaka att tellern redan bemannar en kassa
                 }
+
+
             }
+            //return viewModel;
         }
-    
 
-    //Ska visa hur många kunder som står i kö
-    public TellerQueueVM CustomersInQueue(string aspUserId)
-    {
-        //int customersInQueue = 0;
-        TellerQueueVM viewModel = new TellerQueueVM();
 
-        User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
-        Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
+        //Ska visa hur många kunder som står i kö
+        public TellerQueueVM CustomersInQueue(string aspUserId)
+        {
+            //int customersInQueue = 0;
+            TellerQueueVM viewModel = new TellerQueueVM();
 
-        //Uppdaterat denna, var den som bråkade när någon gick ur kön
-        int customersInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null && c.SessionId != null);
+            User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
+            Counter counter = Counter.SingleOrDefault(t => t.TellerId == user.Id);
 
-        viewModel.CustomersLeftInQueue = customersInQueue;
+            //Uppdaterat denna, var den som bråkade när någon gick ur kön
+            int customersInQueue = Card.Count(c => c.QueueId == counter.QueueId && c.ServiceStart == null && c.SessionId != null);
 
-        return viewModel;
+            viewModel.TellerName = $"{user.FirstName} {user.LastName}";
+            viewModel.MyCounter = counter.CounterName; //För att visa upp min counter
+            viewModel.CustomersLeftInQueue = customersInQueue;
+
+            return viewModel;
+        }
     }
-}
 }

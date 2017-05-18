@@ -12,6 +12,8 @@ namespace QApp.Models.ViewModels
         public bool isLastCard { get; set; } //lägger till för att hantera sista kortet i javascriptet
         public int CustomersLeftInQueue { get; set; }
         public string Message { get; set; }
+        public string MyCounter { get; set; }
+        public string TellerName { get; set; }
 
     }
 }

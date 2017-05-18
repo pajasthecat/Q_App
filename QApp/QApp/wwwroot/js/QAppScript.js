@@ -22,6 +22,11 @@ function showcustomersinqueue() {
         url: "/teller/CustomersInQueue",
         success: function (result) {
 
+            $("#myCounter").html(result.myCounter);
+            $("#tellerName").html(result.tellerName);
+
+            
+
             //När noll personer är kvar i kön vill jag skriva ut det
             if (result.customersLeftInQueue == 0) {
                 $("#customersInQueue").html("Inga personer i kö."); //Meddelandet visas jättekort, sen kommer 0 tillbaka
