@@ -11,7 +11,7 @@ namespace QApp.Models.ViewModels
 
         public string UserName { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z''-'\s]{6,40}$",
+        [RegularExpression(@"^[A-Z][A-Za-z0-9!@#$%^&*]*$",
         ErrorMessage = "Ogiltligt lösenord")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
