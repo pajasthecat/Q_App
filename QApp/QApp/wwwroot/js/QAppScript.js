@@ -7,6 +7,7 @@ function helpnextcustomer() {
         url: "helpnextcustomer",
         success: function (result) {
             $("#displayToTeller").html(result.cardNumber);
+            $("#displayToTeller").show();
 
             //Om det är sista kortet vill jag gömma siffran för aktuellt kort
             if (result.isLastCard == true) {

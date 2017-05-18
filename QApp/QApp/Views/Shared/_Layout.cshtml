@@ -3,28 +3,28 @@
 <head>
     <title>@ViewBag.title</title>
 
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>  
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link href="~/style/MyStyleSheet.css" rel="stylesheet" />
     <script src="~/js/QAppScript.js"></script>
 
 </head>
 <body id="body">
 
-    <div class="jumbotron">
-        <img src="~/Pictures/Caslon1.png" />
+    <div id="jumbotron" class="jumbotron">
+        <img id="img" src="~/Pictures/Caslon1.png" />
     </div>
-
+    <h3> @ViewBag.h3 </h3>
     <div class="container">
-        <h3> @ViewBag.h3 </h3>
+
 
         @RenderBody()
     </div>
 
     <footer id="footer" class="footer">
-        <h3>QAPP</h3>
+        <h4>&copy;QApp</h4>
     </footer>
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>*@

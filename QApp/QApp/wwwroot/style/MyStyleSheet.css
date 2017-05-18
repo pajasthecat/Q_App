@@ -52,23 +52,7 @@ table {
 
 
 
-/*Egen css kod*/
-
-/*@font-face {
-    font-family: 'casloncp';
-    src: url('../font/casloncp.otf') format('opentype');
-}*/
-
-/*@font-face {
-    font-family: 'fenixstd';
-    src: url('../font/fenixstd.otf') format('opentype');
-}*/
-
-@font-face {
-    font-family: 'futura medium';
-    src: url('../font/futura medium.ttf') format('truetype');
-}
-
+/*Font-family style*/
 @font-face {
     font-family: 'futura std medium condensed';
     src: url('../font/futura std medium condensed.ttf') format('truetype');
@@ -82,13 +66,25 @@ table {
     background-color: #561D62;
 }
 
-.jumbotron {
+#jumbotron {
+    height: 40%;
+    width: 100%;
     background-color: #561D62;
-    margin-top: 70px;
-    margin-bottom: 50px;
+    /*margin-top: 70px;*/
+    /*margin-bottom: 50px;*/
     text-align: center;
-    width: auto;
-    height: 500px;
+}
+
+#img {
+    margin-top:50px;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    margin-top: 150px;
+    margin-bottom: 480px;
+    height: 650px;
 }
 
 #nextCustomer, #closeCounter {
@@ -195,7 +191,7 @@ h3 {
 h4 {
     color: white;
     font-size: 30px;
-    margin: 8px 0px 8px 0px;
+    margin: 8px 0px 20px 0px;
 }
 
 #form {
@@ -223,14 +219,6 @@ h4 {
     color: white;
     font-size: xx-large;
     margin-top: 50px;
-}
-
-.container {
-    text-align: center;
-    width: auto;
-    margin-top: 150px;
-    margin-bottom: 480px;
-    height: 650px;
 }
 
 .tableContainer {
