@@ -67,7 +67,7 @@ table {
 }
 
 #jumbotron {
-    height: 35%;
+    height: 30%;
     width: 100%;
     background-color: #561D62;
     /*margin-top: 70px;*/
@@ -82,8 +82,8 @@ table {
 .container {
     text-align: center;
     width: 100%;
-    margin-top: 150px;
-    margin-bottom: 480px;
+    /*margin-top: 100px;*/
+    margin-bottom: 400px;
     height: 650px;
 }
 
@@ -185,17 +185,16 @@ table {
 h3 {
     color: white;
     font-size: 50px;
-    margin: 8px 0px 8px 0px;
+    margin-top:50px;
+    margin-bottom:50px;
 }
 
 h4 {
     color: white;
     font-size: 30px;
-    margin: 8px 0px 20px 0px;
-}
+    margin-top:25px;
+    margin-bottom:25px;
 
-#form {
-    margin-top: 50px;
 }
 
 .btn-danger, btn-danger:hover, btn-danger:active:hover {
@@ -224,6 +223,7 @@ h4 {
 .tableContainer {
     width: 800px;
     margin: auto;
+    margin-top:80px;
 }
 
 .table-striped {
@@ -239,9 +239,6 @@ h4 {
 
 th, td {
     text-align: center;
-}
-
-td {
     font-size: 20px;
 }
 
@@ -251,18 +248,8 @@ td {
     font-weight: bold;
 }
 
-.form-group {
-    max-width: 500px;
-    margin: 0 auto;
-    /*color: white;*/
-}
-
-#userName {
-    margin-top: 25px;
-}
-
-#password {
-    margin-bottom: 25px;
+#userName, #password, #passwordConfirm, #firstName, #lastName {
+    margin-top: 15px;
 }
 
 #label {
@@ -300,12 +287,16 @@ td {
     color: #EF6BA3;
 }
 
+#form {
+    margin-top:140px;
+}
+
 .footer {
     position: absolute;
     bottom: 0px;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 200px;
+    height: 100px;
     text-align: center;
     background-color: #561D62;
 }

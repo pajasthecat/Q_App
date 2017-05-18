@@ -7,20 +7,15 @@
 <h3>Välkommen till QApp!</h3><br />
 
 <form asp-controller="Teller" asp-action="LogIn">
-    <h4>Vänligen logga in</h4>
-    <br />
     <div id="userName" class="form-group">
         <label id="label" asp-for="UserName">Användarid</label>
         <input id="input" asp-for="UserName" class="form-control"/>
         <span id="span" asp-validation-for="UserName"></span>
     </div>
-    <br />
     <div id="password" class="form-group">
         <label id="label" asp-for="Password">Lösenord</label>
         <input id="input" asp-for="Password" class="form-control"/>
-
         <span id="span" asp-validation-for="Password"></span>
     </div>
-    <br />
     <input id="loginButton" type="submit" class="btn btn-success btn-lg" value="Logga in">
 </form>
