@@ -22,7 +22,6 @@ namespace QApp.Models.Entities
 
         //Vi stoppar in aspnetUserId här
         public void PopulateQueue(string aspUserId)
-        //public TellerQueueVM PopulateQueue(string aspUserId)
         {
             //User user = User.SingleOrDefault(i => i.AspNetUserId == aspUserId);
 
