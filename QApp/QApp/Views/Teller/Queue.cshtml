@@ -2,7 +2,7 @@
 
 <h3 id="myCounter"></h3>
 
-<h4 id="tellerName"></h4>
+<h3 id="tellerName"></h3>
 
 <div id="displayToTeller" style="display:none">
     <h3>Nummer att betjäna:</h3>
@@ -22,8 +22,8 @@
 <h4 id="customersInQueue"></h4>
 
 <script>
+    showcustomersinqueue();
     $(document).ready(function () {
-        showcustomersinqueue(),
         queueinterval = setInterval(showcustomersinqueue, 3000);
     });
 </script>

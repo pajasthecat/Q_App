@@ -14,7 +14,7 @@ namespace QApp.Models.Entities
         {
             CustomerIndexVM viewModel = new CustomerIndexVM();
 
-            bool queueIsActive = Counter.FirstOrDefault().QueueId != null;
+            bool queueIsActive = Counter.Where(c => c.QueueId != null).Count() > 0;
             int activeQueue = Queue.OrderBy(q => q.Id).Select(p => p.Id).LastOrDefault();
 
             //Ska kolla om personen (med samma session) redan står i kö.

@@ -253,7 +253,7 @@ namespace QApp.Models.Entities
 
             if (isLastCounter)
             {
-                var lastCardsInQueue = Card.Where(c => /*c.CounterId == null &&*/ c.QueueId == counter.QueueId).ToList(); //kolla att det är min kö också
+                var lastCardsInQueue = Card.Where(c => c.CounterId == null && c.QueueId == counter.QueueId).ToList();
 
                 //Nollar session id och sätter servicestart/end till samma sak om sista kassan stänger
                 foreach (var item in lastCardsInQueue)
