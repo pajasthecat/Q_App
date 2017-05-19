@@ -177,6 +177,13 @@ table {
     margin: 15px 1000px 0px 0px;
 }
 
+h2 {
+    color: white;
+    font-size: 60px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 h3 {
     color: white;
     font-size: 40px;

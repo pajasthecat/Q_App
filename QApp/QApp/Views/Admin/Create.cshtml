@@ -1,5 +1,9 @@
 ﻿@model AdminCreateVM
 
+@{
+    ViewBag.title = "Lägg till personal";
+}
+
 <form asp-controller="Admin" asp-action="Create">
     <div id="userName" class="form-group">
         <label id="label" asp-for="UserName">Användarid</label>

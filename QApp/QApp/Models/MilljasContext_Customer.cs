@@ -49,7 +49,7 @@ namespace QApp.Models.Entities
             if (!queueIsActive) //Tillagd för att visa meddelande om kön inte är öppen
             {
                 viewModel.OpenQueue = false; 
-                viewModel.Message = "Kassan är stängd, välkommen åter";
+                viewModel.Message = "Kassan är stängd, välkommen åter!";
             }
 
             try
@@ -100,7 +100,7 @@ namespace QApp.Models.Entities
                 viewModel.MyTurn = myTurn;
 
                 viewModel.CardNumber = card.CardNumber;
-                message = $"Det är {cardsInQueueBeforeMe + 1} personer före dig i kön.";
+                message = $"Det är {cardsInQueueBeforeMe + 1} personer före dig i kön";
 
                 if (myTurn)
                 {

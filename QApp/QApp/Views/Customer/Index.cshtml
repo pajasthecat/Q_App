@@ -4,33 +4,20 @@
     ViewBag.title = "Välkommen till QApp";
 }
 
-<h3>Välkommen till QApp!</h3><br />
+<h2>Välkommen till QApp!</h2><br />
 
-<div id="showCardNumber" style="display:none">
-    @*@Model.CardNumber*@
-</div>
+<h3 id="queuealert" style="display:none"></h3>
+
+<div id="showCardNumber" style="display:none"></div>
 
 <div>
     <button type="button" class="btn btn-success btn-lg" id="joinQueueButton" onclick="joinqueue();"> Ställ dig i kö</button>
 
 </div>
 
-
-<h4 id="queuealert" style="display:none"></h4>
-
-
 <div>
     <button id="leaveQueueButton" class="btn btn-success btn-lg" onclick="leaveQueue()" style="display:none"> Gå ur kö</button>
 </div>
-
-
-@*<form asp-controller="Customer" asp-action="Index">
-        <input type="submit" value="Ställ dig i kö" />
-    </form>*@
-
-@*<div id="showNumbersBeforeYou">
-        Personer före dig i kön: @Model.NumbersLeftInQueue
-    </div>*@
 
 
 

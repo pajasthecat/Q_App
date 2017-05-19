@@ -1,5 +1,9 @@
 ﻿@model TellerQueueVM
 
+@{
+    ViewBag.title = "Kassa";
+}
+
 <h3 id="myCounter"></h3>
 
 <h3 id="tellerName"></h3>
@@ -9,6 +13,7 @@
     <div id="showCardNumberToTeller"></div>
 </div>
 
+<h4 id="customersInQueue"></h4>
 
 <div id="nextCustomer">
     <button class="btn btn-success btn-lg" id="helpNextCustomerButton" onclick="helpnextcustomer()">Hjälp nästa i kö</button>
@@ -17,9 +22,6 @@
 <div id="closeCounter">
     <button id="closeCounterButton" class="btn btn-danger btn-lg" onclick="checkcounter()">Stäng kassa</button> @*Ändrat till att kolla counter i stället för att stänga kassa*@
 </div>
-
-
-<h4 id="customersInQueue"></h4>
 
 <script>
     showcustomersinqueue();

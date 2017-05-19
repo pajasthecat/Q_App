@@ -30,11 +30,11 @@ function showcustomersinqueue() {
 
             //När noll personer är kvar i kön vill jag skriva ut det
             if (result.customersLeftInQueue == 0) {
-                $("#customersInQueue").html("Inga personer i kö."); //Meddelandet visas jättekort, sen kommer 0 tillbaka
+                $("#customersInQueue").html("Inga personer i kö"); //Meddelandet visas jättekort, sen kommer 0 tillbaka
 
             }
             else {
-                $("#customersInQueue").html(result.customersLeftInQueue + " personer står i kö.");
+                $("#customersInQueue").html(result.customersLeftInQueue + " personer står i kö");
 
             }
         }
