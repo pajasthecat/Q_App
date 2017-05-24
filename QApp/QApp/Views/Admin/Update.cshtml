@@ -1,5 +1,9 @@
 ﻿@model AdminUpdateVM
 
+@{
+    ViewBag.title = "Uppdatera information";
+}
+
 <form asp-controller="Admin" asp-action="Update">
     <div id="userName" class="form-group">
         <label id="label" asp-for="UserName">Användarid</label>

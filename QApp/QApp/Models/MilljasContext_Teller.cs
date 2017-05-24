@@ -239,7 +239,9 @@ namespace QApp.Models.Entities
 
             //Kort i kassan
             //Lagt till onsdag kväll för att sätta service-end när ett kort står i kassan när den stänger
-            Card cardServed = Card.OrderBy(c => c.Id).Where(c => c.CounterId == counter.TellerId && c.SessionId != null).LastOrDefault();
+            //Problem med counterId = teller.ID när folk står i olika köer. Tex om teller3 står i Counter2
+            //Card cardServed = Card.OrderBy(c => c.Id).Where(c => c.CounterId == counter.TellerId && c.SessionId != null).LastOrDefault();
+            Card cardServed = Card.OrderBy(c => c.Id).Where(c => c.TellerId == counter.TellerId && c.SessionId != null).LastOrDefault();
 
             //Om någon står i min kassa när jag stänger den så sätter vi serviceEnd. Ska alltid köras.
             if (cardServed != null)
@@ -248,7 +250,7 @@ namespace QApp.Models.Entities
                 cardServed.SessionId = null;
             }
 
-            ////Om sista kassan stänger hittar vi alla cards i kön som inte fått hjälp och nullar deras session-id
+            //Om sista kassan stänger hittar vi alla cards i kön som inte fått hjälp och nullar deras session-id
             bool isLastCounter = Counter.Where(c => c.TellerId != null).Count() == 1;
 
             if (isLastCounter)
